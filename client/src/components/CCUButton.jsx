@@ -1,9 +1,23 @@
 import React from 'react'
 
-function ShipButton(props) {
+function CCUButton(props) {
     let id = 'dropdownMenu' + props.number
+    console.log(props.options)
+
+    const options = props.options.map((op, i) => {
+        return (
+            <button
+                className="dropdown-item"
+                type="button"
+                data-id={op._id}
+                key={i}
+            >
+                {op.name}
+            </button>
+        )
+    })
     return (
-        // <div className="input-group m-sm-2">
+        // <div NameName="input-group m-sm-2">
         <div className="dropdown input-group m-sm-2">
             <button
                 className="btn btn-outline alert-info dropdown-toggle"
@@ -14,13 +28,14 @@ function ShipButton(props) {
                 aria-expanded="false"
                 data-id={props.id}
             >
-                {props.name}
+                {props.base.name}
             </button>
 
             <div className="dropdown-menu" aria-labelledby={id}>
-                <button className="dropdown-item " type="button">
-                    Apply CCU
-                </button>
+                <h6 className="dropdown-header">Apply to...</h6>
+
+                {options}
+                <br />
                 <button className="dropdown-item alert-warning" type="button">
                     Melt
                 </button>
@@ -29,6 +44,9 @@ function ShipButton(props) {
                 </button>
             </div>
             <div className="input-group-append">
+                <span className="input-group-text alert-info">
+                    >&nbsp;{props.upgrade.name}
+                </span>
                 <span className="input-group-text alert-info">
                     <small className="text-muted">
                         &nbsp;id&nbsp;{props.id}
@@ -43,4 +61,4 @@ function ShipButton(props) {
     )
 }
 
-export default ShipButton
+export default CCUButton

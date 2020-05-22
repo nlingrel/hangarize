@@ -4,29 +4,29 @@ import AddShipForm from './AddShipForm'
 function AddShipModal(props) {
     return (
         <div
-            class="modal fade"
+            className="modal fade"
             id="addShipModal"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="addShipModalLabel"
             aria-hidden="true"
         >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addShipModal">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="addShipModal">
                             Add Ship
                         </h5>
                         <button
                             type="button"
-                            class="close"
+                            className="close"
                             data-dismiss="modal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <AddShipForm
                             addNewShipToHangar={props.addNewShipToHangar}
                             suggestShipNames={props.suggestShipNames}
@@ -36,10 +36,10 @@ function AddShipModal(props) {
                             shipNameField={props.shipNameField}
                         />
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-secondary"
+                            className="btn btn-secondary"
                             data-dismiss="modal"
                         >
                             Close

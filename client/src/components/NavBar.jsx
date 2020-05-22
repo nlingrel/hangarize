@@ -3,12 +3,16 @@ import HangarControlBar from './HangarControlBar'
 
 function NavBar(props) {
     return (
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand btn-link" href="#" onClick={props.navToHome}>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a
+                className="navbar-brand btn-link"
+                href="#"
+                onClick={props.navToHome}
+            >
                 HangarizeSC
             </a>
             <button
-                class="navbar-toggler"
+                className="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarNav"
@@ -16,22 +20,23 @@ function NavBar(props) {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
             >
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
                         <a
-                            class="nav-link"
+                            className="nav-link"
                             href="#"
                             onClick={props.navToActual}
                         >
-                            Actual Hangar <span class="sr-only">(current)</span>
+                            Actual Hangar{' '}
+                            <span className="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <a
-                            class="nav-link"
+                            className="nav-link"
                             href="#"
                             onClick={props.navToHangarize}
                         >

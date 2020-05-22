@@ -13,7 +13,11 @@ function ActualHangar(props) {
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
                 shipNameField={props.shipNameField}
             />
-            <HangarContainer packs={props.packs} ships={props.ships} />
+            <HangarContainer
+                packs={props.packs}
+                ships={props.ships}
+                ccus={props.ccus}
+            />
         </>
     )
 }

@@ -5,7 +5,10 @@ function AddShipForm(props) {
     return (
         <form onSubmit={props.addNewShipToHangar}>
             <div className="form-group row">
-                <label for="inputShipName" className="col-sm-2 col-form-label">
+                <label
+                    htmlFor="inputShipName"
+                    className="col-sm-2 col-form-label"
+                >
                     Name
                 </label>
                 <div className="col-sm-10">
@@ -15,12 +18,16 @@ function AddShipForm(props) {
                         id="inputShipName"
                         onChange={props.suggestShipNames}
                         value={props.shipNameField}
+                        autoComplete="off"
                     />
                     {suggestions}
                 </div>
             </div>
             <div className="form-group row">
-                <label for="inputShipPrice" className="col-sm-2 col-form-label">
+                <label
+                    htmlFor="inputShipPrice"
+                    className="col-sm-2 col-form-label"
+                >
                     Price
                 </label>
                 <div className="col-sm-10">
@@ -42,7 +49,7 @@ function AddShipForm(props) {
                             use the{' '}
                             <a
                                 role="button"
-                                class="btn-link"
+                                className="btn-link"
                                 data-dismiss="modal"
                                 data-toggle="modal"
                                 href="#addPackModal"
@@ -60,21 +67,24 @@ function AddShipForm(props) {
                                 id="LTIcheck"
                                 name="LTI"
                             />
-                            <label className="form-check-label" for="LTIcheck">
+                            <label
+                                className="form-check-label"
+                                htmlFor="LTIcheck"
+                            >
                                 LTI
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <div className="form-group row ">
                                 <label
                                     className="col-sm-3 col-form-label"
-                                    for="hangarExtraSelect"
+                                    htmlFor="hangarExtraSelect"
                                 >
                                     Hangar
                                 </label>
                                 <div className="col-sm-4">
                                     <select
-                                        class="form-control"
+                                        className="form-control"
                                         id="hangarExtraSelect"
                                     >
                                         <option>Choose...</option>
@@ -88,7 +98,7 @@ function AddShipForm(props) {
                         </div>
                         <div className="form-group row">
                             <label
-                                for="inputShipSkin"
+                                htmlFor="inputShipSkin"
                                 className="col-sm-3 col-form-label"
                             >
                                 Skin

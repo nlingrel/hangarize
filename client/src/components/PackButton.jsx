@@ -5,9 +5,9 @@ function PackButton(props) {
     const aria = 'multiCollapsePack' + props.number.toString()
 
     return (
-        <div className="input-group m-sm-2">
+        <div className="input-group m-sm-2 ">
             <button
-                className="btn btn-outline alert-info "
+                className="btn btn-outline alert-info dropdown-toggle"
                 type="button"
                 data-toggle="collapse"
                 data-target={target}
@@ -17,7 +17,12 @@ function PackButton(props) {
                 {props.name}
             </button>
             <div className="input-group-append">
-                <span class="input-group-text alert-info">
+                <span className="input-group-text alert-info">
+                    <small className="text-muted">
+                        &nbsp;id&nbsp;{props.id}
+                    </small>
+                </span>
+                <span className="input-group-text alert-info">
                     $&nbsp;{props.price}
                 </span>
             </div>

@@ -5,10 +5,11 @@ function PackBody(props) {
         return (
             <li
                 key={i}
-                class="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center"
+                data-id={ship._id}
             >
                 {ship.name}&nbsp;&nbsp;
-                <button class="btn btn-outline-info badge">CCU</button>
+                <button className="btn btn-outline-info badge">CCU</button>
             </li>
         )
     })
@@ -17,7 +18,8 @@ function PackBody(props) {
         return (
             <li
                 key={i}
-                class="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center"
+                data-id={item._id}
             >
                 {item.name}
             </li>
@@ -33,6 +35,9 @@ function PackBody(props) {
                     <li className="list-group-item">
                         <ul className="list-group">
                             {props.name}&nbsp;&nbsp;
+                            <small className="text-muted">
+                                id&nbsp;{props.id}{' '}
+                            </small>
                             <span className="text-right">
                                 $&nbsp;{props.price}
                             </span>
@@ -116,17 +121,17 @@ function PackBody(props) {
 
 export default PackBody
 
-// <ul class="list-group">
-//   <li class="list-group-item d-flex justify-content-between align-items-center">
+// <ul className="list-group">
+//   <li className="list-group-item d-flex justify-content-between align-items-center">
 //     Cras justo odio
-//     <span class="badge badge-primary badge-pill">14</span>
+//     <span className="badge badge-primary badge-pill">14</span>
 //   </li>
-//   <li class="list-group-item d-flex justify-content-between align-items-center">
+//   <li className="list-group-item d-flex justify-content-between align-items-center">
 //     Dapibus ac facilisis in
-//     <span class="badge badge-primary badge-pill">2</span>
+//     <span className="badge badge-primary badge-pill">2</span>
 //   </li>
-//   <li class="list-group-item d-flex justify-content-between align-items-center">
+//   <li className="list-group-item d-flex justify-content-between align-items-center">
 //     Morbi leo risus
-//     <span class="badge badge-primary badge-pill">1</span>
+//     <span className="badge badge-primary badge-pill">1</span>
 //   </li>
 // </ul>

@@ -16,13 +16,37 @@ class App extends Component {
             userManufacturers: [],
             packsPlaceHolder: [
                 {
+                    _id: 0,
                     name: 'Pack 1',
                     price: 0,
-                    ships: [{ name: 'Ship 1', price: 0 }],
-                    items: [{ name: 'LTI' }, { name: 'self-land hangar' }],
+                    ships: [
+                        { _id: 0, name: 'Ship 1', price: 0 },
+                        { _id: 1, name: 'Ship 2', price: 0 },
+                        { _id: 2, name: 'Ship 1', price: 0 },
+                    ],
+                    items: [
+                        { _id: 0, name: 'LTI' },
+                        { name: 'self-land hangar' },
+                    ],
                 },
             ],
-            shipsPlaceholder: [{ name: 'Ship 1', price: 0 }],
+            shipsPlaceholder: [{ _id: 0, name: 'Ship 1', price: 0 }],
+            ccusPlaceHolder: [
+                {
+                    _id: 0,
+                    name: 'CCU 1',
+                    price: 0,
+                    base: { name: 'Ship 1', price: 0 },
+                    upgrade: { name: 'Ship 2', price: 0 },
+                },
+                {
+                    _id: 1,
+                    name: 'CCU 2',
+                    price: 0,
+                    base: { name: 'Ship 2', price: 0 },
+                    upgrade: { name: 'Ship 4', price: 0 },
+                },
+            ],
             suggestedShips: [],
             actualPacks: [],
             actualShips: [],
@@ -71,7 +95,7 @@ class App extends Component {
                 <ul className="list-group-sm ">
                     {suggestedShips.map((item) => (
                         <li
-                            className="list-group-item btn-light"
+                            className="btn-light dropdown-item"
                             onClick={() => {
                                 this.selectShipName(item.name)
                             }}
@@ -134,7 +158,7 @@ class App extends Component {
         let ships = [...this.state.actualShips, ship]
 
         console.log(ships)
-        this.setState({ actualShips: ships })
+        this.setState({ actualShips: ships, shipNameField: '' })
         e.target.reset()
     }
 
@@ -162,6 +186,10 @@ class App extends Component {
             this.state.actualShips.length > 0
                 ? this.state.actualShips
                 : this.state.shipsPlaceholder
+        let ccus =
+            this.state.actualCCUs.length > 0
+                ? this.state.actualCCUs
+                : this.state.ccusPlaceHolder
         return (
             <>
                 <div>
@@ -182,6 +210,7 @@ class App extends Component {
                         <ActualHangar
                             packs={packs}
                             ships={ships}
+                            ccus={ccus}
                             addNewPackToHangar={this.addNewPackToHangar}
                             addNewShipToHangar={this.addNewShipToHangar}
                             suggestShipNames={this.suggestShipNames}

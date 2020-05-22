@@ -4,7 +4,10 @@ function AddPackForm(props) {
     return (
         <form onSubmit={props.addNewPackToHangar}>
             <div className="form-group row">
-                <label for="inputPackName" className="col-sm-2 col-form-label">
+                <label
+                    htmlFor="inputPackName"
+                    className="col-sm-2 col-form-label"
+                >
                     Name
                 </label>
                 <div className="col-sm-10">
@@ -16,7 +19,10 @@ function AddPackForm(props) {
                 </div>
             </div>
             <div className="form-group row">
-                <label for="inputPackPrice" className="col-sm-2 col-form-label">
+                <label
+                    htmlFor="inputPackPrice"
+                    className="col-sm-2 col-form-label"
+                >
                     Price
                 </label>
                 <div className="col-sm-10">
@@ -45,7 +51,10 @@ function AddPackForm(props) {
                                 id="LTIcheck"
                                 name="LTI"
                             />
-                            <label className="form-check-label" for="LTIcheck">
+                            <label
+                                className="form-check-label"
+                                htmlFor="LTIcheck"
+                            >
                                 LTI
                             </label>
                         </div>
@@ -58,7 +67,7 @@ function AddPackForm(props) {
                             />
                             <label
                                 className="form-check-label"
-                                for="scGameCheck"
+                                htmlFor="scGameCheck"
                             >
                                 SC Game
                             </label>
@@ -72,22 +81,22 @@ function AddPackForm(props) {
                             />
                             <label
                                 className="form-check-label"
-                                for="s42GameCheck"
+                                htmlFor="s42GameCheck"
                             >
                                 S42 Game
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <div className="form-group row ">
                                 <label
                                     className="col-sm-3 col-form-label"
-                                    for="hangarExtraSelect"
+                                    htmlFor="hangarExtraSelect"
                                 >
                                     Hangar
                                 </label>
                                 <div className="col-sm-4">
                                     <select
-                                        class="form-control"
+                                        className="form-control"
                                         id="hangarExtraSelect"
                                     >
                                         <option>Choose...</option>
@@ -101,7 +110,7 @@ function AddPackForm(props) {
                         </div>
                         <div className="form-group row">
                             <label
-                                for="inputPackUEC"
+                                htmlFor="inputPackUEC"
                                 className="col-sm-3 col-form-label"
                             >
                                 UEC

@@ -9,6 +9,7 @@ function ShipsContainer(props) {
                 name={ship.name}
                 number={i}
                 price={ship.price}
+                id={ship._id}
             />
         )
     })
@@ -40,7 +41,7 @@ export default ShipsContainer
                 {props.name}
             </button>
             <div className="input-group-append">
-                <span class="input-group-text alert-info">
+                <span className="input-group-text alert-info">
                     $&nbsp;{props.price}
                 </span>
             </div>
