@@ -131,7 +131,7 @@ function AddPackForm(props) {
             </div>
             <div className="form-group row">
                 <div className="col-sm-10">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-outline-info">
                         Create Pack
                     </button>
                 </div>

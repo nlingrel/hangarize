@@ -7,8 +7,8 @@ function PackBody(props) {
                 key={i}
                 class="list-group-item d-flex justify-content-between align-items-center"
             >
-                {ship.name}
-                <button class="btn btn-outline-info badge-pill">CCU</button>
+                {ship.name}&nbsp;&nbsp;
+                <button class="btn btn-outline-info badge">CCU</button>
             </li>
         )
     })
@@ -27,38 +27,85 @@ function PackBody(props) {
     const id = 'multiCollapsePack' + props.number.toString()
 
     return (
-        <div className="col">
+        <div className="col-sm">
             <div className="collapse multi-collapse" id={id}>
-                <a
-                    className="card-title h6"
-                    data-toggle="collapse"
-                    href={'#' + id}
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls={id}
-                >
-                    {props.name}
-                </a>
-
                 <ul className="list-group list-group-horizontal-sm">
                     <li className="list-group-item">
                         <ul className="list-group">
-                            Ships{ships}
+                            {props.name}&nbsp;&nbsp;
+                            <span className="text-right">
+                                $&nbsp;{props.price}
+                            </span>
+                            <div className="btn-group-vertical">
+                                <button className="btn btn-outline-info">
+                                    Add Ship
+                                </button>
+                                <button className="btn btn-outline-info">
+                                    Add Item
+                                </button>
+                                {/* <br /> */}
+                                <button className="btn btn-warning my-sm-1">
+                                    Melt Pack
+                                </button>
+                                <button className="btn btn-danger mb-sm-1">
+                                    Remove Pack
+                                </button>
+                                {/* <br /> */}
+                                <a
+                                    className="btn btn-outline-dark"
+                                    data-toggle="collapse"
+                                    href={'#' + id}
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls={id}
+                                >
+                                    Close
+                                </a>
+                            </div>
+                            {/* <li className="list-group-item">{props.name}</li> */}
+                            {/* <li className="list-group-item">
+                                <a
+                                    className="btn btn-outline-info"
+                                    data-toggle="collapse"
+                                    href={'#' + id}
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls={id}
+                                >
+                                    Close
+                                </a>
+                            </li>
                             <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <button className="btn btn-outline-info">
                                     Add Ship
                                 </button>
                             </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <button className="btn btn-outline-info">
+                                    Add Item
+                                </button>
+                            </li> */}
+                        </ul>
+                    </li>
+
+                    <li className="list-group-item">
+                        <ul className="list-group">
+                            Ships{ships}
+                            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <button className="btn btn-outline-info">
+                                    Add Ship
+                                </button>
+                            </li> */}
                         </ul>
                     </li>
                     <li className="list-group-item">
                         <ul className="list-group">
                             Items{items}
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <button className="btn btn-outline-info">
                                     Add Item
                                 </button>
-                            </li>
+                            </li> */}
                         </ul>
                     </li>
                 </ul>

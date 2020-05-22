@@ -7,7 +7,7 @@ function ActualHangar(props) {
     return (
         <>
             <HangarControlBar addNewPackToHangar={props.addNewPackToHangar} />
-            <HangarContainer packs={props.packs} />
+            <HangarContainer packs={props.packs} ships={props.ships} />
         </>
     )
 }

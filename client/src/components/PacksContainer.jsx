@@ -4,7 +4,14 @@ import PackBody from './PackBody'
 
 function PacksContainer(props) {
     const buttons = props.packs.map((pack, i) => {
-        return <PackButton key={i} name={pack.name} number={i} />
+        return (
+            <PackButton
+                key={i}
+                name={pack.name}
+                number={i}
+                price={pack.price}
+            />
+        )
     })
     const bodies = props.packs.map((pack, i) => {
         return (
@@ -14,6 +21,7 @@ function PacksContainer(props) {
                 items={pack.items}
                 name={pack.name}
                 number={i}
+                price={pack.price}
             />
         )
     })
@@ -22,10 +30,10 @@ function PacksContainer(props) {
             <div className="card-header">Packs</div>
             <div className="card-body">
                 <h5 className="card-title">
-                    <p>{buttons}</p>
+                    <div className="form-inline">{buttons}</div>
                 </h5>
 
-                <div>{bodies}</div>
+                <div className="container">{bodies}</div>
             </div>
         </div>
     )

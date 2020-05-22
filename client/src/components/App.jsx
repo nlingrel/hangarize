@@ -22,7 +22,11 @@ class App extends Component {
                 },
             ],
             actualPacks: [],
-            actualShips: [],
+            actualShips: [
+                { name: 'Ship 1', price: 0 },
+                { name: 'Ship 2', price: 0 },
+                { name: 'Ship 3', price: 0 },
+            ],
             actualCCUs: [],
             actualItems: [],
             currentView: 'home',
@@ -60,6 +64,7 @@ class App extends Component {
         let packs = [...this.state.actualPacks, pack]
 
         this.setState({ actualPacks: packs })
+        e.target.reset()
     }
 
     navToActual(e) {
@@ -101,6 +106,7 @@ class App extends Component {
                     ) : this.state.currentView === 'actual' ? (
                         <ActualHangar
                             packs={packs}
+                            ships={this.state.actualShips}
                             addNewPackToHangar={this.addNewPackToHangar}
                         />
                     ) : this.state.currentView === 'hangarize' ? (

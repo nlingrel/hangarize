@@ -1,4 +1,5 @@
 import React from 'react'
+import HangarControlBar from './HangarControlBar'
 
 function NavBar(props) {
     return (
