@@ -1,15 +1,14 @@
-import Dexie from "dexie";
+import Dexie from 'dexie'
 
-const db = new Dexie("hangarize");
+const db = new Dexie('hangarize')
 db.version(1).stores({
-  ships: "++id",
-  manufacturers: "++id",
-  items: "++id",
-  userShips: "++id",
-  userItems: "++id",
-  userManufacturers: "++id",
-  userHangars: "++id",
-  userHomeHangar: "++id",
-});
+    ships: '++id, name, manufacturer, role, price',
+    items: '++id, name, price',
+    manufacturers: '++id, name',
+    packs: '++id, name',
+    hangars: '++id, name',
+    actualHangar: '++id',
+    actualBuyback: '++id',
+})
 
-export default db;
+export default db
