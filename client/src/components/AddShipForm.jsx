@@ -1,29 +1,33 @@
 import React from 'react'
 
-function AddPackForm(props) {
+function AddShipForm(props) {
+    const suggestions = props.renderSuggestedShipNames()
     return (
-        <form onSubmit={props.addNewPackToHangar}>
+        <form onSubmit={props.addNewShipToHangar}>
             <div className="form-group row">
-                <label for="inputPackName" className="col-sm-2 col-form-label">
+                <label for="inputShipName" className="col-sm-2 col-form-label">
                     Name
                 </label>
                 <div className="col-sm-10">
                     <input
                         type="text"
                         className="form-control"
-                        id="inputPackName"
+                        id="inputShipName"
+                        onChange={props.suggestShipNames}
+                        value={props.shipNameField}
                     />
+                    {suggestions}
                 </div>
             </div>
             <div className="form-group row">
-                <label for="inputPackPrice" className="col-sm-2 col-form-label">
+                <label for="inputShipPrice" className="col-sm-2 col-form-label">
                     Price
                 </label>
                 <div className="col-sm-10">
                     <input
                         type="text"
                         className="form-control"
-                        id="inputPackPrice"
+                        id="inputShipPrice"
                     />
                 </div>
             </div>
@@ -32,9 +36,20 @@ function AddPackForm(props) {
                 <div className="card col-sm-10">
                     <div className="card-header">
                         <p>
-                            This is a template for making a new pack. Items not
-                            listed here, and all ships get added within the pack
-                            editor once the pack is created.
+                            This is a template for making a new Ship. CCUs can
+                            be added after you create the ship here. If the Ship
+                            contains another ship as one of it's extras, then
+                            use the{' '}
+                            <a
+                                role="button"
+                                class="btn-link"
+                                data-dismiss="modal"
+                                data-toggle="modal"
+                                href="#addPackModal"
+                            >
+                                New Pack&nbsp;
+                            </a>
+                            template instead of this one.
                         </p>
                     </div>
                     <div>
@@ -47,34 +62,6 @@ function AddPackForm(props) {
                             />
                             <label className="form-check-label" for="LTIcheck">
                                 LTI
-                            </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="scGameCheck"
-                                name="SC Game"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="scGameCheck"
-                            >
-                                SC Game
-                            </label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="s42GameCheck"
-                                name="S42 Game"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="s42GameCheck"
-                            >
-                                S42 Game
                             </label>
                         </div>
                         <div class="form-group">
@@ -101,16 +88,16 @@ function AddPackForm(props) {
                         </div>
                         <div className="form-group row">
                             <label
-                                for="inputPackUEC"
+                                for="inputShipSkin"
                                 className="col-sm-3 col-form-label"
                             >
-                                UEC
+                                Skin
                             </label>
                             <div className="col-sm-4">
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputPackUEC"
+                                    id="inputShipSkin"
                                 />
                             </div>
                         </div>
@@ -120,7 +107,7 @@ function AddPackForm(props) {
             <div className="form-group row">
                 <div className="col-sm-10">
                     <button type="submit" className="btn btn-outline-info">
-                        Create Pack
+                        Create Ship
                     </button>
                 </div>
             </div>
@@ -128,4 +115,4 @@ function AddPackForm(props) {
     )
 }
 
-export default AddPackForm
+export default AddShipForm

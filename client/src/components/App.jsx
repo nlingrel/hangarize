@@ -4,6 +4,7 @@ import NavBar from './NavBar'
 import Home from './Home'
 import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
+import shipSeed from '../logicControl/shipSeed'
 import db from '../logicControl/db'
 
 class App extends Component {
@@ -21,12 +22,10 @@ class App extends Component {
                     items: [{ name: 'LTI' }, { name: 'self-land hangar' }],
                 },
             ],
+            shipsPlaceholder: [{ name: 'Ship 1', price: 0 }],
+            suggestedShips: [],
             actualPacks: [],
-            actualShips: [
-                { name: 'Ship 1', price: 0 },
-                { name: 'Ship 2', price: 0 },
-                { name: 'Ship 3', price: 0 },
-            ],
+            actualShips: [],
             actualCCUs: [],
             actualItems: [],
             currentView: 'home',
@@ -36,11 +35,59 @@ class App extends Component {
         this.navToHangarize = this.navToHangarize.bind(this)
         this.navToHome = this.navToHome.bind(this)
         this.addNewPackToHangar = this.addNewPackToHangar.bind(this)
-
+        this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
+        this.suggestShipNames = this.suggestShipNames.bind(this)
+        this.renderSuggestedShipNames = this.renderSuggestedShipNames.bind(this)
+        this.selectShipName = this.selectShipName.bind(this)
         this.Factory = new Factory()
+        this.shipSeed = shipSeed
     }
 
     componentDidMount() {}
+
+    suggestShipNames(e) {
+        const value = e.target.value
+        let suggestedShips = []
+        if (value.length > 0) {
+            const regex = new RegExp(`^${value}`, 'i')
+            suggestedShips = this.shipSeed
+                .sort()
+                .filter((v) => regex.test(v.name) || regex.test(v.manufacturer))
+        }
+
+        this.setState({
+            suggestedShips: suggestedShips,
+            shipNameField: value,
+        })
+    }
+
+    renderSuggestedShipNames() {
+        const { suggestedShips } = this.state
+        if (suggestedShips.length === 0) {
+            return null
+        }
+        return (
+            <div style={{ maxHeight: '150px' }} className="overflow-auto">
+                <ul className="list-group-sm ">
+                    {suggestedShips.map((item) => (
+                        <li
+                            className="list-group-item btn-light"
+                            onClick={() => {
+                                this.selectShipName(item.name)
+                            }}
+                        >
+                            {item.name}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
+    selectShipName(name) {
+        console.log(name)
+        this.setState({ shipNameField: name, suggestedShips: [] })
+    }
 
     addNewPackToHangar(e) {
         e.preventDefault()
@@ -67,6 +114,30 @@ class App extends Component {
         e.target.reset()
     }
 
+    addNewShipToHangar(e) {
+        e.preventDefault()
+        e.persist()
+
+        let name = e.target[0].value
+        let price = parseInt(e.target[1].value)
+        let items = []
+        if (e.target[2].checked) {
+            items.push({ name: e.target[2].name })
+        }
+        if (e.target[3].value !== 'Choose...') {
+            items.push({ name: e.target[3].value + ' hangar' })
+        }
+        if (e.target[4].value !== '') {
+            items.push({ name: e.target[4].value + ' Skin' })
+        }
+        let ship = this.Factory.newShip(name, price, items)
+        let ships = [...this.state.actualShips, ship]
+
+        console.log(ships)
+        this.setState({ actualShips: ships })
+        e.target.reset()
+    }
+
     navToActual(e) {
         e.preventDefault()
         this.setState({ currentView: 'actual' })
@@ -87,6 +158,10 @@ class App extends Component {
             this.state.actualPacks.length > 0
                 ? this.state.actualPacks
                 : this.state.packsPlaceHolder
+        let ships =
+            this.state.actualShips.length > 0
+                ? this.state.actualShips
+                : this.state.shipsPlaceholder
         return (
             <>
                 <div>
@@ -106,8 +181,14 @@ class App extends Component {
                     ) : this.state.currentView === 'actual' ? (
                         <ActualHangar
                             packs={packs}
-                            ships={this.state.actualShips}
+                            ships={ships}
                             addNewPackToHangar={this.addNewPackToHangar}
+                            addNewShipToHangar={this.addNewShipToHangar}
+                            suggestShipNames={this.suggestShipNames}
+                            renderSuggestedShipNames={
+                                this.renderSuggestedShipNames
+                            }
+                            shipNameField={this.state.shipNameField}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

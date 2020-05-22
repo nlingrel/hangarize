@@ -3,7 +3,7 @@ import React from 'react'
 function PackButton(props) {
     const target = '#multiCollapsePack' + props.number.toString()
     const aria = 'multiCollapsePack' + props.number.toString()
-    console.log(props.number, typeof props.number)
+
     return (
         <div className="input-group m-sm-2">
             <button

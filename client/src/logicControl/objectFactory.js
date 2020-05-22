@@ -12,6 +12,15 @@ class Factory {
         }
         return pack
     }
+
+    newShip(name = 'ship', price = 0, items = []) {
+        let ship = {
+            name: name,
+            price: price,
+            items: items,
+        }
+        return ship
+    }
 }
 
 export default Factory

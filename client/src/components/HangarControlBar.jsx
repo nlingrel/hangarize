@@ -1,5 +1,7 @@
 import React from 'react'
-import AddPackForm from './AddPackForm'
+
+import AddPackModal from './AddPackModal'
+import AddShipModal from './AddShipModal'
 
 function HangarControlBar(props) {
     return (
@@ -24,7 +26,12 @@ function HangarControlBar(props) {
                             >
                                 New Pack
                             </button>
-                            <button type="button" class="btn btn-outline-info">
+                            <button
+                                type="button"
+                                class="btn btn-outline-info"
+                                data-toggle="modal"
+                                data-target="#addShipModal"
+                            >
                                 New Ship
                             </button>
                             <button type="button" class="btn btn-outline-info">
@@ -52,46 +59,13 @@ function HangarControlBar(props) {
                     </div>
                 </div>
             </div>
-            <div
-                class="modal fade"
-                id="addPackModal"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="addPackModalLabel"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addPackModal">
-                                Add Pack
-                            </h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <AddPackForm
-                                addNewPackToHangar={props.addNewPackToHangar}
-                            />
-                        </div>
-                        <div class="modal-footer">
-                            <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <AddPackModal addNewPackToHangar={props.addNewPackToHangar} />
+            <AddShipModal
+                addNewShipToHangar={props.addNewShipToHangar}
+                suggestShipNames={props.suggestShipNames}
+                renderSuggestedShipNames={props.renderSuggestedShipNames}
+                shipNameField={props.shipNameField}
+            />
         </>
     )
 }

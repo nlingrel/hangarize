@@ -1,13 +1,14 @@
 import React from 'react'
 
 function ShipButton(props) {
+    let id = 'dropdownMenu' + props.number
     return (
         // <div className="input-group m-sm-2">
         <div class="dropdown input-group m-sm-2">
             <button
                 class="btn btn-outline alert-info dropdown-toggle"
                 type="button"
-                id="dropdownMenu2"
+                id={id}
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -15,7 +16,7 @@ function ShipButton(props) {
                 {props.name}
             </button>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <div class="dropdown-menu" aria-labelledby={id}>
                 <button class="dropdown-item " type="button">
                     Apply CCU
                 </button>

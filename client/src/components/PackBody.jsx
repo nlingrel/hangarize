@@ -44,10 +44,10 @@ function PackBody(props) {
                                     Add Item
                                 </button>
                                 {/* <br /> */}
-                                <button className="btn btn-warning my-sm-1">
+                                <button className="btn btn-outline-warning alert-warning my-sm-1">
                                     Melt Pack
                                 </button>
-                                <button className="btn btn-danger mb-sm-1">
+                                <button className="btn btn-outline-danger alert-danger mb-sm-1">
                                     Remove Pack
                                 </button>
                                 {/* <br /> */}
