@@ -1,20 +1,23 @@
 import React from 'react'
+import ShipListInPack from './ShipListInPack'
+
+//props in : pack, key
 
 function PackBody(props) {
-    const ships = props.ships.map((ship, i) => {
-        return (
-            <li
-                key={i}
-                className="list-group-item d-flex justify-content-between align-items-center"
-                data-id={ship._id}
-            >
-                {ship.name}&nbsp;&nbsp;
-                <button className="btn btn-outline-info badge">CCU</button>
-            </li>
-        )
-    })
-
-    const items = props.items.map((item, i) => {
+    // const ships = props.ships.map((ship, i) => {
+    //     return (
+    //         <li
+    //             key={i}
+    //             className="list-group-item d-flex justify-content-between align-items-center"
+    //             data-id={ship._id}
+    //         >
+    //             {ship.name}&nbsp;&nbsp;
+    //             <button className="btn btn-outline-info badge">CCU</button>
+    //         </li>
+    //     )
+    // })
+    const pack = props.pack
+    const items = props.pack.items.map((item, i) => {
         return (
             <li
                 key={i}
@@ -26,7 +29,7 @@ function PackBody(props) {
         )
     })
 
-    const id = 'multiCollapsePack' + props.number.toString()
+    const id = 'multiCollapsePack' + pack._id.toString()
 
     return (
         <div className="col-sm">
@@ -34,12 +37,14 @@ function PackBody(props) {
                 <ul className="list-group list-group-horizontal-sm">
                     <li className="list-group-item">
                         <ul className="list-group">
-                            {props.name}&nbsp;&nbsp;
-                            <small className="text-muted">
-                                id&nbsp;{props.id}{' '}
-                            </small>
-                            <span className="text-right">
-                                $&nbsp;{props.price}
+                            <span>
+                                {pack.name}&nbsp;&nbsp;
+                                <small className="text-muted">
+                                    id&nbsp;{props.id}{' '}
+                                </small>
+                                <span className="text-right">
+                                    $&nbsp;{pack.price}
+                                </span>
                             </span>
                             <div className="btn-group-vertical">
                                 <button className="btn btn-outline-info">
@@ -67,51 +72,14 @@ function PackBody(props) {
                                     Close
                                 </a>
                             </div>
-                            {/* <li className="list-group-item">{props.name}</li> */}
-                            {/* <li className="list-group-item">
-                                <a
-                                    className="btn btn-outline-info"
-                                    data-toggle="collapse"
-                                    href={'#' + id}
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls={id}
-                                >
-                                    Close
-                                </a>
-                            </li>
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <button className="btn btn-outline-info">
-                                    Add Ship
-                                </button>
-                            </li>
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <button className="btn btn-outline-info">
-                                    Add Item
-                                </button>
-                            </li> */}
                         </ul>
+                    </li>
+                    <li className="list-group-item">
+                        <ShipListInPack ships={pack.ships} pack={pack} />
                     </li>
 
                     <li className="list-group-item">
-                        <ul className="list-group">
-                            Ships{ships}
-                            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <button className="btn btn-outline-info">
-                                    Add Ship
-                                </button>
-                            </li> */}
-                        </ul>
-                    </li>
-                    <li className="list-group-item">
-                        <ul className="list-group">
-                            Items{items}
-                            {/* <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <button className="btn btn-outline-info">
-                                    Add Item
-                                </button>
-                            </li> */}
-                        </ul>
+                        <ul className="list-group">Items{items}</ul>
                     </li>
                 </ul>
             </div>

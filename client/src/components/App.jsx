@@ -20,9 +20,30 @@ class App extends Component {
                     name: 'Pack 1',
                     price: 0,
                     ships: [
-                        { _id: 0, name: 'Ship 1', price: 0 },
-                        { _id: 1, name: 'Ship 2', price: 0 },
-                        { _id: 2, name: 'Ship 1', price: 0 },
+                        {
+                            _id: 0,
+                            name: '315p',
+                            price: 65,
+                            manu: 'Origin',
+                            role: 'Pathfinder',
+                            size: 'small',
+                        },
+                        {
+                            _id: 1,
+                            name: 'DUR',
+                            price: 135,
+                            manu: 'MISC',
+                            role: 'Exploration',
+                            size: 'medium',
+                        },
+                        {
+                            _id: 2,
+                            name: 'Aurora LN',
+                            price: 40,
+                            manu: 'RSI',
+                            role: 'Fighter',
+                            size: 'small',
+                        },
                     ],
                     items: [
                         { _id: 0, name: 'LTI' },
@@ -30,7 +51,16 @@ class App extends Component {
                     ],
                 },
             ],
-            shipsPlaceholder: [{ _id: 0, name: 'Ship 1', price: 0 }],
+            shipsPlaceholder: [
+                {
+                    _id: 0,
+                    name: 'Ship 1',
+                    price: 0,
+                    manu: 'Aegis',
+                    role: 'Role 1',
+                    size: 'small',
+                },
+            ],
             ccusPlaceHolder: [
                 {
                     _id: 0,

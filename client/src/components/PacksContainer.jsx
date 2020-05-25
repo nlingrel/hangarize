@@ -15,17 +15,7 @@ function PacksContainer(props) {
         )
     })
     const bodies = props.packs.map((pack, i) => {
-        return (
-            <PackBody
-                key={i}
-                ships={pack.ships}
-                items={pack.items}
-                name={pack.name}
-                id={pack._id}
-                number={i}
-                price={pack.price}
-            />
-        )
+        return <PackBody key={i} pack={pack} />
     })
     return (
         <div className="card">

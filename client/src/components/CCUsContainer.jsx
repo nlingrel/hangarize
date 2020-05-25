@@ -4,7 +4,7 @@ import PacksContainer from './PacksContainer'
 
 function CCUsContainer(props) {
     let packShips = []
-    props.packs.map((pack) => (packShips = [...packShips, ...pack.ships]))
+    props.packs.map((pack, i) => (packShips = [...packShips, ...pack.ships]))
     // const ships = props.ships
     const bases = [...packShips, ...props.ships]
     console.log(bases)
