@@ -1,7 +1,7 @@
 import React from 'react'
 
-import AddPackModal from './AddPackModal'
-import AddShipModal from './AddShipModal'
+import AddPackModal from '../Forms/AddPackModal'
+import AddShipModal from '../Forms/AddShipModal'
 
 function HangarControlBar(props) {
     return (

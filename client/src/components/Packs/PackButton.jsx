@@ -1,8 +1,8 @@
 import React from 'react'
 
 function PackButton(props) {
-    const target = '#multiCollapsePack' + props.number.toString()
-    const aria = 'multiCollapsePack' + props.number.toString()
+    const target = '#multiCollapsePack' + props.pack.id.toString()
+    const aria = 'multiCollapsePack' + props.pack.id.toString()
 
     return (
         <div className="input-group m-sm-2 ">
@@ -14,16 +14,16 @@ function PackButton(props) {
                 aria-expanded="false"
                 aria-controls={aria}
             >
-                {props.name}
+                {props.pack.name}
             </button>
             <div className="input-group-append">
                 <span className="input-group-text alert-info">
                     <small className="text-muted">
-                        &nbsp;id&nbsp;{props.id}
+                        &nbsp;id&nbsp;{props.pack.id}
                     </small>
                 </span>
                 <span className="input-group-text alert-info">
-                    $&nbsp;{props.price}
+                    $&nbsp;{props.pack.price}
                 </span>
             </div>
         </div>

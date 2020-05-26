@@ -29,4 +29,12 @@ const seedShips = () => {
     })
 }
 
-export { db, seedManus, seedShips }
+const dbPutPack = (pack, key) => {
+    return db.userPacks.put(pack)
+}
+
+const dbGetAllUserPacks = () => {
+    return db.userPacks.toCollection().toArray()
+}
+
+export { db, seedManus, seedShips, dbPutPack, dbGetAllUserPacks }

@@ -1,5 +1,5 @@
 import React from 'react'
-import PacksConstainer from './PacksContainer'
+// import PacksConstainer from '../Packs/PacksContainer'
 import HangarContainer from './HangarContainer'
 import HangarControlBar from './HangarControlBar'
 

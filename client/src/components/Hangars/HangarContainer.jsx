@@ -1,7 +1,7 @@
 import React from 'react'
-import PacksContainer from './PacksContainer'
-import ShipsContainer from './ShipsContainer'
-import CCUsContainer from './CCUsContainer'
+import PacksContainer from '../Packs/PacksContainer'
+import ShipsContainer from '../Ships/ShipsContainer'
+import CCUsContainer from '../CCUs/CCUsContainer'
 
 function HangarContainer(props) {
     return (

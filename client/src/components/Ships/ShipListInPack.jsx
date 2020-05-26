@@ -2,12 +2,12 @@ import React from 'react'
 import ShipInShipListInPack from './ShipInShipListInPack'
 
 function ShipListInPack(props) {
-    const packId = props.pack._id
+    const packId = props.pack.id
     const ships = props.ships.map((ship, i) => {
         return (
             <ShipInShipListInPack
                 packId={packId}
-                shipId={ship._id}
+                shipId={ship.id}
                 name={ship.name}
                 key={i}
                 manu={ship.manu}

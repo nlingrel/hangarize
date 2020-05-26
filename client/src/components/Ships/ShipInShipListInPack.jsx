@@ -1,5 +1,5 @@
 import React from 'react'
-import ManuIcon from './ManuIcon'
+import ManuIcon from '../Generic/ManuIcon'
 
 function ShipInShipListInPack(props) {
     let listid = `ship${props.shipId}InListInPack${props.packId}`

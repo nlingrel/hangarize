@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import ActualHangar from './ActualHangar'
-import NavBar from './NavBar'
+import ActualHangar from './Hangars/ActualHangar'
+import NavBar from './Generic/NavBar'
 import Home from './Home'
 import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
 import { db } from '../logicControl/db'
-import { seedManus, seedShips } from '../logicControl/db'
+import {
+    seedManus,
+    seedShips,
+    dbPutPack,
+    dbGetAllUserPacks,
+} from '../logicControl/db'
 
 class App extends Component {
     constructor(props) {
@@ -18,12 +23,12 @@ class App extends Component {
             userManufacturers: [],
             packsPlaceHolder: [
                 {
-                    _id: 0,
+                    id: 0,
                     name: 'Pack 1',
                     price: 0,
                     ships: [
                         {
-                            _id: 0,
+                            id: 0,
                             name: '315p',
                             price: 65,
                             manu: 'Origin',
@@ -31,7 +36,7 @@ class App extends Component {
                             size: 'small',
                         },
                         {
-                            _id: 1,
+                            id: 1,
                             name: 'DUR',
                             price: 135,
                             manu: 'MISC',
@@ -39,7 +44,7 @@ class App extends Component {
                             size: 'medium',
                         },
                         {
-                            _id: 2,
+                            id: 2,
                             name: 'Aurora LN',
                             price: 40,
                             manu: 'RSI',
@@ -48,14 +53,14 @@ class App extends Component {
                         },
                     ],
                     items: [
-                        { _id: 0, name: 'LTI' },
+                        { id: 0, name: 'LTI' },
                         { name: 'self-land hangar' },
                     ],
                 },
             ],
             shipsPlaceholder: [
                 {
-                    _id: 0,
+                    id: 0,
                     name: 'Ship 1',
                     price: 0,
                     manu: 'Aegis',
@@ -65,14 +70,14 @@ class App extends Component {
             ],
             ccusPlaceHolder: [
                 {
-                    _id: 0,
+                    id: 0,
                     name: 'CCU 1',
                     price: 0,
                     base: { name: 'Ship 1', price: 0 },
                     upgrade: { name: 'Ship 2', price: 0 },
                 },
                 {
-                    _id: 1,
+                    id: 1,
                     name: 'CCU 2',
                     price: 0,
                     base: { name: 'Ship 2', price: 0 },
@@ -112,6 +117,13 @@ class App extends Component {
         })
         seedManus()
         seedShips()
+        dbGetAllUserPacks()
+            .then((array) => {
+                this.setState({ actualPacks: array })
+            })
+            .catch((err) => {
+                console.log('Error getting all packs', err)
+            })
     }
 
     suggestShipNames(e) {
@@ -162,6 +174,7 @@ class App extends Component {
 
     selectShipName(name) {
         this.setState({ shipNameField: name, suggestedShips: [] })
+        //get id from db and fill in rest of fields based on db
     }
 
     addNewPackToHangar(e) {
@@ -183,9 +196,16 @@ class App extends Component {
         }
 
         let pack = this.Factory.newPack(name, price, [], items)
-        let packs = [...this.state.actualPacks, pack]
 
-        this.setState({ actualPacks: packs })
+        dbPutPack(pack)
+            .then(() => {
+                let packs = [...this.state.actualPacks, pack]
+                this.setState({ actualPacks: packs })
+            })
+            .catch((err) => {
+                console.log('Error saving pack')
+            })
+
         e.target.reset()
     }
 

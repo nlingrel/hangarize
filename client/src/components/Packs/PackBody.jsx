@@ -1,5 +1,5 @@
 import React from 'react'
-import ShipListInPack from './ShipListInPack'
+import ShipListInPack from '../Ships/ShipListInPack'
 
 //props in : pack, key
 
@@ -9,7 +9,7 @@ function PackBody(props) {
     //         <li
     //             key={i}
     //             className="list-group-item d-flex justify-content-between align-items-center"
-    //             data-id={ship._id}
+    //             data-id={ship.id}
     //         >
     //             {ship.name}&nbsp;&nbsp;
     //             <button className="btn btn-outline-info badge">CCU</button>
@@ -17,19 +17,18 @@ function PackBody(props) {
     //     )
     // })
     const pack = props.pack
+    const id = 'multiCollapsePack' + pack.id.toString()
     const items = props.pack.items.map((item, i) => {
         return (
             <li
                 key={i}
                 className="list-group-item d-flex justify-content-between align-items-center"
-                data-id={item._id}
+                data-id={item.id}
             >
                 {item.name}
             </li>
         )
     })
-
-    const id = 'multiCollapsePack' + pack._id.toString()
 
     return (
         <div className="col-sm">
@@ -40,7 +39,7 @@ function PackBody(props) {
                             <span>
                                 {pack.name}&nbsp;&nbsp;
                                 <small className="text-muted">
-                                    id&nbsp;{props.id}{' '}
+                                    id&nbsp;{pack.id}{' '}
                                 </small>
                                 <span className="text-right">
                                     $&nbsp;{pack.price}

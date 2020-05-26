@@ -39,6 +39,21 @@ function AddShipForm(props) {
                 </div>
             </div>
             <div className="form-group row">
+                <label
+                    htmlFor="inputShipManufacturer"
+                    className="col-sm-3 col-form-label"
+                >
+                    Manufacturer
+                </label>
+                <div className="col-sm-10">
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="inputShipManufacturer"
+                    />
+                </div>
+            </div>
+            <div className="form-group row">
                 <div className="col-sm-2">Extras</div>
                 <div className="card col-sm-10">
                     <div className="card-header">

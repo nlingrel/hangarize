@@ -1,6 +1,6 @@
 import React from 'react'
 import CCUButton from './CCUButton'
-import PacksContainer from './PacksContainer'
+import PacksContainer from '../Packs/PacksContainer'
 
 function CCUsContainer(props) {
     let packShips = []
@@ -20,7 +20,7 @@ function CCUsContainer(props) {
                 price={ccu.price}
                 base={ccu.base}
                 upgrade={ccu.upgrade}
-                id={ccu._id}
+                id={ccu.id}
                 options={options}
             />
         )

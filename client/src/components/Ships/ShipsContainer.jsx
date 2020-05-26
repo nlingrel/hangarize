@@ -9,7 +9,7 @@ function ShipsContainer(props) {
                 name={ship.name}
                 number={i}
                 price={ship.price}
-                id={ship._id}
+                id={ship.id}
             />
         )
     })

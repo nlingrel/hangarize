@@ -8,7 +8,7 @@ function CCUButton(props) {
             <button
                 className="dropdown-item"
                 type="button"
-                data-id={op._id}
+                data-id={op.id}
                 key={i}
             >
                 {op.name}

@@ -3,16 +3,9 @@ import PackButton from './PackButton'
 import PackBody from './PackBody'
 
 function PacksContainer(props) {
+    console.log(props.packs)
     const buttons = props.packs.map((pack, i) => {
-        return (
-            <PackButton
-                key={i}
-                name={pack.name}
-                number={i}
-                price={pack.price}
-                id={pack._id}
-            />
-        )
+        return <PackButton key={i} pack={pack} />
     })
     const bodies = props.packs.map((pack, i) => {
         return <PackBody key={i} pack={pack} />
