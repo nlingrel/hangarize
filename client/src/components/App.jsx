@@ -5,6 +5,7 @@ import Home from './Home'
 import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
+import manuSeed from '../logicControl/manuSeed'
 import { db } from '../logicControl/db'
 import { seedManus, seedShips } from '../logicControl/db'
 
@@ -96,6 +97,11 @@ class App extends Component {
         this.selectShipName = this.selectShipName.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
+        this.nickNames = {}
+        for (let manu of manuSeed) {
+            this.nickNames[manu.name] = manu.nickName
+        }
+        console.log(this.nickNames)
 
         this.db = db
     }
@@ -110,12 +116,18 @@ class App extends Component {
 
     suggestShipNames(e) {
         const value = e.target.value
+
         let suggestedShips = []
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i')
             suggestedShips = this.shipSeed
                 .sort()
-                .filter((v) => regex.test(v.name) || regex.test(v.manufacturer))
+                .filter(
+                    (v) =>
+                        regex.test(v.name) ||
+                        regex.test(v.manufacturer) ||
+                        regex.test(this.nickNames[v.manufacturer])
+                )
         }
 
         this.setState({
@@ -132,12 +144,13 @@ class App extends Component {
         return (
             <div style={{ maxHeight: '150px' }} className="overflow-auto">
                 <ul className="list-group-sm ">
-                    {suggestedShips.map((item) => (
+                    {suggestedShips.map((item, i) => (
                         <li
                             className="btn-light dropdown-item"
                             onClick={() => {
                                 this.selectShipName(item.name)
                             }}
+                            key={i}
                         >
                             {item.name}
                         </li>
@@ -148,7 +161,6 @@ class App extends Component {
     }
 
     selectShipName(name) {
-        console.log(name)
         this.setState({ shipNameField: name, suggestedShips: [] })
     }
 
@@ -196,7 +208,6 @@ class App extends Component {
         let ship = this.Factory.newShip(name, price, items)
         let ships = [...this.state.actualShips, ship]
 
-        console.log(ships)
         this.setState({ actualShips: ships, shipNameField: '' })
         e.target.reset()
     }

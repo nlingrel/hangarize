@@ -2,7 +2,6 @@ import React from 'react'
 
 function CCUButton(props) {
     let id = 'dropdownMenu' + props.number
-    console.log(props.options)
 
     const options = props.options.map((op, i) => {
         return (

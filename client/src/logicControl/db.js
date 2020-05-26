@@ -10,7 +10,7 @@ db.version(1).stores({
     userShips: '++id, name, manu, role, price',
     userItems: '++id, name, price',
     userManufacturers: '++id, name, nickName',
-    packs: '++id, name',
+    userPacks: '++id, name',
     hangars: '++id, name',
     actualHangar: '++id',
     actualBuyback: '++id',

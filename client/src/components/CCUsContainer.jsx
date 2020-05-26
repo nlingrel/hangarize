@@ -7,7 +7,7 @@ function CCUsContainer(props) {
     props.packs.map((pack, i) => (packShips = [...packShips, ...pack.ships]))
     // const ships = props.ships
     const bases = [...packShips, ...props.ships]
-    console.log(bases)
+
     const buttons = props.ccus.map((ccu, i) => {
         let regex = new RegExp(`^${ccu.base.name}`, 'i')
         let options = bases.filter((s) => regex.test(s.name))
