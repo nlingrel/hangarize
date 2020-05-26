@@ -5,7 +5,8 @@ import Home from './Home'
 import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
-import db from '../logicControl/db'
+import { db } from '../logicControl/db'
+import { seedManus, seedShips } from '../logicControl/db'
 
 class App extends Component {
     constructor(props) {
@@ -95,9 +96,17 @@ class App extends Component {
         this.selectShipName = this.selectShipName.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
+
+        this.db = db
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        this.db.open().catch((err) => {
+            console.log('Error opening database')
+        })
+        seedManus()
+        seedShips()
+    }
 
     suggestShipNames(e) {
         const value = e.target.value
