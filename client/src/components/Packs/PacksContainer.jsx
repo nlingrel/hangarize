@@ -1,27 +1,18 @@
 import React from 'react'
 import PackButton from './PackButton'
 import PackBody from './PackBody'
+import CategoryContainer from '../Generic/CategoryContainer'
 
 function PacksContainer(props) {
-    console.log(props.packs)
     const buttons = props.packs.map((pack, i) => {
         return <PackButton key={i} pack={pack} />
     })
     const bodies = props.packs.map((pack, i) => {
         return <PackBody key={i} pack={pack} />
     })
-    return (
-        <div className="card">
-            <div className="card-header">Packs</div>
-            <div className="card-body">
-                <h5 className="card-title">
-                    <div className="form-inline">{buttons}</div>
-                </h5>
 
-                <div className="container">{bodies}</div>
-            </div>
-        </div>
-    )
+    const items = [...buttons, ...bodies]
+    return <CategoryContainer items={items} name={'Packs'} />
 }
 
 export default PacksContainer

@@ -1,20 +1,19 @@
 import React from 'react'
-import AddShipForm from './AddShipForm'
 
-function AddShipModal(props) {
+function AddShipToPackModal(props) {
     return (
         <div
             className="modal fade"
-            id="addShipModal"
+            id="addShipToPackModal"
             tabIndex="-1"
             role="dialog"
-            aria-labelledby="addShipModalLabel"
+            aria-labelledby="addShipToPackModalLabel"
             aria-hidden="true"
         >
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="addShipModal">
+                        <h5 className="modal-title" id="addShipToPackModal">
                             Add Ship
                         </h5>
                         <button
@@ -27,7 +26,7 @@ function AddShipModal(props) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <AddShipForm
+                        <AddShipToPackForm
                             addNewShipToHangar={props.addNewShipToHangar}
                             suggestShipNames={props.suggestShipNames}
                             renderSuggestedShipNames={
@@ -51,4 +50,4 @@ function AddShipModal(props) {
     )
 }
 
-export default AddShipModal
+export default AddShipToPackModal

@@ -29,6 +29,15 @@ function AddPackModal(props) {
                     <div className="modal-body">
                         <AddPackForm
                             addNewPackToHangar={props.addNewPackToHangar}
+                            suggestShipNames={props.suggestShipNames}
+                            renderSuggestedShipNames={
+                                props.renderSuggestedShipNames
+                            }
+                            shipNameField={props.shipNameField}
+                            acceptShipInputForPack={
+                                props.acceptShipInputForPack
+                            }
+                            selectedShip={props.selectedShip}
                         />
                     </div>
                     <div className="modal-footer">

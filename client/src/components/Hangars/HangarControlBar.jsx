@@ -1,7 +1,6 @@
 import React from 'react'
 
 import AddPackModal from '../Forms/AddPackModal'
-import AddShipModal from '../Forms/AddShipModal'
 
 function HangarControlBar(props) {
     return (
@@ -59,12 +58,13 @@ function HangarControlBar(props) {
                 {/* </div>
                 </div> */}
             </div>
-            <AddPackModal addNewPackToHangar={props.addNewPackToHangar} />
-            <AddShipModal
-                addNewShipToHangar={props.addNewShipToHangar}
+            <AddPackModal
+                addNewPackToHangar={props.addNewPackToHangar}
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
                 shipNameField={props.shipNameField}
+                acceptShipInputForPack={props.acceptShipInputForPack}
+                selectedShip={props.selectedShip}
             />
         </>
     )

@@ -85,6 +85,7 @@ class App extends Component {
                 },
             ],
             suggestedShips: [],
+            selectedShip: {},
             actualPacks: [],
             actualShips: [],
             actualCCUs: [],
@@ -99,7 +100,8 @@ class App extends Component {
         this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
         this.suggestShipNames = this.suggestShipNames.bind(this)
         this.renderSuggestedShipNames = this.renderSuggestedShipNames.bind(this)
-        this.selectShipName = this.selectShipName.bind(this)
+        this.selectSuggestedShip = this.selectSuggestedShip.bind(this)
+        this.acceptShipInputForPack = this.acceptShipInputForPack.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -127,7 +129,7 @@ class App extends Component {
     }
 
     suggestShipNames(e) {
-        const value = e.target.value
+        const value = e.target.value.toLowerCase()
 
         let suggestedShips = []
         if (value.length > 0) {
@@ -160,7 +162,7 @@ class App extends Component {
                         <li
                             className="btn-light dropdown-item"
                             onClick={() => {
-                                this.selectShipName(item.name)
+                                this.selectSuggestedShip(item)
                             }}
                             key={i}
                         >
@@ -172,14 +174,30 @@ class App extends Component {
         )
     }
 
-    selectShipName(name) {
-        this.setState({ shipNameField: name, suggestedShips: [] })
+    selectSuggestedShip(ship) {
+        this.setState({
+            shipNameField: ship.name,
+            selectedShip: ship,
+            suggestedShips: [],
+        })
         //get id from db and fill in rest of fields based on db
+    }
+
+    acceptShipInputForPack(e) {
+        e.preventDefault()
+        console.log(
+            'Ship would have been added to list',
+            this.state.selectedShip
+        )
+        this.setState({ selectedShip: {} })
     }
 
     addNewPackToHangar(e) {
         e.preventDefault()
         e.persist()
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
+        }
         let name = e.target[0].value
         let price = parseInt(e.target[1].value)
         let items = []
@@ -288,6 +306,8 @@ class App extends Component {
                                 this.renderSuggestedShipNames
                             }
                             shipNameField={this.state.shipNameField}
+                            acceptShipInputForPack={this.acceptShipInputForPack}
+                            selectedShip={this.state.selectedShip}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

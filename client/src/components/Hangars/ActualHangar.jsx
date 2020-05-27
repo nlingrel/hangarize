@@ -12,11 +12,17 @@ function ActualHangar(props) {
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
                 shipNameField={props.shipNameField}
+                acceptShipInputForPack={props.acceptShipInputForPack}
+                selectedShip={props.selectedShip}
             />
             <HangarContainer
                 packs={props.packs}
                 ships={props.ships}
                 ccus={props.ccus}
+                addNewShipToHangar={props.addNewShipToHangar}
+                suggestShipNames={props.suggestShipNames}
+                renderSuggestedShipNames={props.renderSuggestedShipNames}
+                shipNameField={props.shipNameField}
             />
         </>
     )

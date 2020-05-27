@@ -1,6 +1,6 @@
 import React from 'react'
 import CCUButton from './CCUButton'
-import PacksContainer from '../Packs/PacksContainer'
+import CategoryContainer from '../Generic/CategoryContainer'
 
 function CCUsContainer(props) {
     let packShips = []
@@ -26,16 +26,7 @@ function CCUsContainer(props) {
         )
     })
 
-    return (
-        <div className="card">
-            <div className="card-header">CCUs</div>
-            <div className="card-body">
-                <h5 className="card-title">
-                    <div className="form-inline">{buttons}</div>
-                </h5>
-            </div>
-        </div>
-    )
+    return <CategoryContainer items={buttons} name={'CCUs'} />
 }
 
 export default CCUsContainer

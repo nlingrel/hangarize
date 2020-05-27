@@ -1,5 +1,7 @@
 import React from 'react'
 import ShipButton from './ShipButton'
+import CategoryContainer from '../Generic/CategoryContainer'
+import AddShipForm from '../Forms/AddShipForm'
 
 function ShipsContainer(props) {
     const buttons = props.ships.map((ship, i) => {
@@ -15,14 +17,19 @@ function ShipsContainer(props) {
     })
 
     return (
-        <div className="card">
-            <div className="card-header">Ships</div>
-            <div className="card-body">
-                <h5 className="card-title">
-                    <div className="form-inline">{buttons}</div>
-                </h5>
-            </div>
-        </div>
+        <CategoryContainer
+            items={buttons}
+            name={'Ships'}
+            form={
+                <AddShipForm
+                    addNewShipToHangar={props.addNewShipToHangar}
+                    suggestShipNames={props.suggestShipNames}
+                    renderSuggestedShipNames={props.renderSuggestedShipNames}
+                    shipNameField={props.shipNameField}
+                    name={'Ships'}
+                />
+            }
+        />
     )
 }
 
