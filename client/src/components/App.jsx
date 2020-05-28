@@ -300,7 +300,7 @@ class App extends Component {
                 : this.state.ccusPlaceHolder
         return (
             <>
-                <div>
+                <div className="bg-dark text-light">
                     {' '}
                     <NavBar
                         navToHome={this.navToHome}

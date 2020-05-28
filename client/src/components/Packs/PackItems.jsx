@@ -1,14 +1,14 @@
 import React from 'react'
 import MinusButton from '../Generic/MinusButton'
-//pack ships
-function PackShips(props) {
-    const ships = props.ships.map((ship, i) => {
+//pack items
+function PackItems(props) {
+    const items = props.items.map((item, i) => {
         return (
             <li
                 className="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white"
                 key={i}
             >
-                {ship.name}
+                {item.name}
                 <span className="badge">
                     <MinusButton />
                 </span>
@@ -16,8 +16,7 @@ function PackShips(props) {
         )
     })
 
-    // return <ul className="list-group">Ships{ships}</ul>
-    return <>{ships}</>
+    return <>{items}</>
 }
 
-export default PackShips
+export default PackItems

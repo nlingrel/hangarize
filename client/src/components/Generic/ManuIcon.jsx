@@ -19,7 +19,7 @@ import Tumbril from '../../icons/Tumbril.png'
 // import UEE from '.../icons/UEE.png'
 
 function ManuIcon(props) {
-    let className = props.classes.join('') + ' bg-dark'
+    let className = props.classes.join('')
     const manu = props.manu
     const manus = {
         Aegis: Aegis,

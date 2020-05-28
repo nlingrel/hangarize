@@ -5,7 +5,7 @@ function PlusButton(props) {
     return (
         <button
             type="button"
-            className="btn btn-outline-info btn-sm"
+            className="btn btn-outline-success btn-sm"
             onClick={props.onClick}
             data-toggle="collapse"
             data-target={collapseTarget}

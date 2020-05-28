@@ -2,14 +2,14 @@ import React from 'react'
 
 function Home(props) {
     return (
-        <div className="container text-center">
+        <div className="container-fluid text-center bg-dark text-light">
             <h3>Welcome to HangarizeSC</h3>
             <div className="accordion" id="accordionExample">
-                <div className="card text-center">
+                <div className="card text-center bg-secondary text-light">
                     <div className="card-header text-center" id="headingOne">
                         <h2 className="mb-0">
                             <button
-                                className="btn btn-link btn-block text-center"
+                                className="btn btn-outline-light btn-block text-center"
                                 type="button"
                                 data-toggle="collapse"
                                 data-target="#collapseOne"
@@ -33,7 +33,7 @@ function Home(props) {
                             evaluating potential changes to your fleet.
                         </div>
                         <button
-                            className="btn btn-outline-info mb-2"
+                            className="btn btn-outline-light mb-2"
                             onClick={props.navToActual}
                         >
                             {' '}
@@ -42,11 +42,11 @@ function Home(props) {
                     </div>
                 </div>
 
-                <div className="card text-center">
+                <div className="card text-center bg-secondary text-light">
                     <div className="card-header text-center" id="headingTwo">
                         <h2 className="mb-0">
                             <button
-                                className="btn btn-link btn-block text-center collapsed"
+                                className="btn btn-outline-light btn-block text-center collapsed"
                                 type="button"
                                 data-toggle="collapse"
                                 data-target="#collapseTwo"
@@ -69,7 +69,7 @@ function Home(props) {
                             available when evaluating potential fleet changes.
                         </div>
                         <button
-                            className="btn btn-outline-info mb-2"
+                            className="btn btn-outline-light mb-2"
                             onClick={props.navToActual}
                         >
                             {' '}
@@ -77,14 +77,14 @@ function Home(props) {
                         </button>
                     </div>
 
-                    <div className="card text-center">
+                    <div className="card text-center bg-secondary text-light">
                         <div
                             className="card-header text-center"
                             id="headingThree"
                         >
                             <h2 className="mb-0">
                                 <button
-                                    className="btn btn-link btn-block text-center collapsed"
+                                    className="btn btn-outline-light btn-block text-center collapsed"
                                     type="button"
                                     data-toggle="collapse"
                                     data-target="#collapseThree"
@@ -106,7 +106,7 @@ function Home(props) {
                                 calculate possible changes using store credit.
                             </div>
                             <button
-                                className="btn btn-outline-info mb-2"
+                                className="btn btn-outline-light mb-2"
                                 onClick={props.navToActual}
                             >
                                 {' '}
@@ -115,11 +115,11 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-                <div className="card text-center">
+                <div className="card text-center bg-secondary text-light">
                     <div className="card-header text-center" id="headingFour">
                         <h2 className="mb-0">
                             <button
-                                className="btn btn-link btn-block text-center"
+                                className="btn btn-outline-light btn-block text-center"
                                 type="button"
                                 data-toggle="collapse"
                                 data-target="#collapseFour"
@@ -141,7 +141,7 @@ function Home(props) {
                             Explore potential optimization of your hangar
                         </div>
                         <button
-                            className="btn btn-outline-info mb-2"
+                            className="btn btn-outline-light mb-2"
                             onClick={props.navToHangarize}
                         >
                             {' '}

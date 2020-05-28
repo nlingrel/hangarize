@@ -5,7 +5,7 @@ import CCUsContainer from '../CCUs/CCUsContainer'
 
 function HangarContainer(props) {
     return (
-        <div className="container">
+        <div className="container-fluid bg-dark">
             <PacksContainer
                 packs={props.packs}
                 addNewPackToHangar={props.addNewPackToHangar}

@@ -6,14 +6,17 @@ function AddPackForm(props) {
     const formId = `${props.name}AddForm`
 
     return (
-        <div className="card border border-info collapse" id={collapseId}>
+        <div
+            className="card border border-info collapse bg-dark text-light"
+            id={collapseId}
+        >
             <div className="card-body">
                 <form onSubmit={props.addNewPackToHangar} id={formId}>
                     <div className="form-group row">
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control bg-secondary"
                                 id="inputPackName"
                                 autoComplete="off"
                                 placeholder="Name"
@@ -22,19 +25,19 @@ function AddPackForm(props) {
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control bg-secondary"
                                 id="inputPackPrice"
                                 placeholder="Price"
                             />
                         </div>
                     </div>
 
-                    <div className="card col-auto">
-                        <div className="card-title text-muted">Extras</div>
+                    <div className="card bg-dark text-white-50 col-auto border-secondary">
+                        <div className="card-title ">Extras</div>
                         <div className="form-group row">
                             <div className="col-auto">
                                 <select
-                                    className="form-control"
+                                    className="form-control bg-secondary text-white-50"
                                     id="hangarExtraSelect"
                                 >
                                     <option>Hangar...</option>
@@ -48,52 +51,54 @@ function AddPackForm(props) {
                             <div className="col-auto">
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control bg-secondary"
                                     id="inputUEC"
                                     placeholder="UEC"
                                 />
                             </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id="LTIcheck"
-                                    name="LTI"
-                                />
-                                <label
-                                    className="form-check-label text-muted"
-                                    htmlFor="LTIcheck"
-                                >
-                                    LTI
-                                </label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id="SCGameCheck"
-                                    name="SCGame"
-                                />
-                                <label
-                                    className="form-check-label text-muted"
-                                    htmlFor="SCGameCheck"
-                                >
-                                    SC Game
-                                </label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id="Sq42GameCheck"
-                                    name="Sq42"
-                                />
-                                <label
-                                    className="form-check-label text-muted"
-                                    htmlFor="Sq42GameCheck"
-                                >
-                                    Sq42 Game
-                                </label>
+                            <div className="form-group col-auto">
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="LTIcheck"
+                                        name="LTI"
+                                    />
+                                    <label
+                                        className="form-check-label text-muted"
+                                        htmlFor="LTIcheck"
+                                    >
+                                        LTI
+                                    </label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="SCGameCheck"
+                                        name="SCGame"
+                                    />
+                                    <label
+                                        className="form-check-label text-muted"
+                                        htmlFor="SCGameCheck"
+                                    >
+                                        SC Game
+                                    </label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="Sq42GameCheck"
+                                        name="Sq42"
+                                    />
+                                    <label
+                                        className="form-check-label text-muted"
+                                        htmlFor="Sq42GameCheck"
+                                    >
+                                        Sq42 Game
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +121,7 @@ function AddPackForm(props) {
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-outline-secondary"
+                                className="btn btn-outline-info"
                                 data-toggle="collapse"
                                 data-target={collapseTarget}
                             >

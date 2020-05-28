@@ -5,7 +5,7 @@ import CategoryToolBar from './CategoryToolBar'
 
 function CategoryContainer(props) {
     return (
-        <div className="card">
+        <div className="card bg-dark text-light border-info">
             <div className="card-header">
                 <div className="d-flex justify-content-between">
                     <div className="d-flex text-justify">{props.name}</div>
@@ -16,8 +16,8 @@ function CategoryContainer(props) {
                 </div>
             </div>
             <div>{props.form} </div>
-            <div className="card-body">
-                <div className="row">{props.items}</div>
+            <div className="card-body bg-secondary">
+                <div className="card-deck">{props.items}</div>
             </div>
         </div>
     )
