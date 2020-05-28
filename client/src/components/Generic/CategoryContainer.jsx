@@ -16,7 +16,9 @@ function CategoryContainer(props) {
                 </div>
             </div>
             <div>{props.form} </div>
-            <div className="card-body">{props.items}</div>
+            <div className="card-body">
+                <div className="row">{props.items}</div>
+            </div>
         </div>
     )
 }

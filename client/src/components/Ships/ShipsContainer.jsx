@@ -2,23 +2,38 @@ import React from 'react'
 import ShipButton from './ShipButton'
 import CategoryContainer from '../Generic/CategoryContainer'
 import AddShipForm from '../Forms/AddShipForm'
+import ShipContainer from './ShipContainer'
 
 function ShipsContainer(props) {
-    const buttons = props.ships.map((ship, i) => {
+    // const buttons = props.ships.map((ship, i) => {
+    //     return (
+    //         <ShipButton
+    //             key={i}
+    //             name={ship.name}
+    //             number={i}
+    //             price={ship.price}
+    //             id={ship.id}
+    //         />
+    //     )
+    // })
+    //name, manu, role, size, shipId, key
+    const ships = props.ships.map((ship, i) => {
         return (
-            <ShipButton
-                key={i}
+            <ShipContainer
                 name={ship.name}
+                manu={ship.manufacturer}
+                role={ship.role}
+                size={ship.size}
+                shipId={ship.id}
+                key={i}
                 number={i}
-                price={ship.price}
-                id={ship.id}
             />
         )
     })
 
     return (
         <CategoryContainer
-            items={buttons}
+            items={ships}
             name={'Ships'}
             form={
                 <AddShipForm

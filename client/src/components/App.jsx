@@ -10,8 +10,10 @@ import { db } from '../logicControl/db'
 import {
     seedManus,
     seedShips,
+    dbPutShip,
     dbPutPack,
     dbGetAllUserPacks,
+    dbGetAllUserShips,
 } from '../logicControl/db'
 
 class App extends Component {
@@ -202,7 +204,7 @@ class App extends Component {
         let name = e.target[0].value
         let price = parseInt(e.target[1].value)
         let items = []
-        if (e.target[2].value !== 'Choose...') {
+        if (e.target[2].value !== 'Hangar...') {
             items.push({ name: e.target[2].value + ' hangar' })
         }
         if (parseInt(e.target[3].value) > 0) {
@@ -222,7 +224,7 @@ class App extends Component {
                 this.setState({ actualPacks: packs })
             })
             .catch((err) => {
-                console.log('Error saving pack')
+                console.log('Error saving pack', err)
             })
 
         e.target.reset()
@@ -232,22 +234,33 @@ class App extends Component {
         e.preventDefault()
         e.persist()
 
-        let name = e.target[0].value
-        let price = parseInt(e.target[1].value)
-        let items = []
-        if (e.target[2].checked) {
-            items.push({ name: e.target[2].name })
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
         }
-        if (e.target[3].value !== 'Choose...') {
+
+        let name = e.target[0].value
+        let price = parseInt(e.target[1].value) || 0
+        let manufacturer = e.target[2].value || 'Unknown Manufacturer'
+        let items = []
+        if (e.target[3].value !== 'Hangar...') {
             items.push({ name: e.target[3].value + ' hangar' })
         }
         if (e.target[4].value !== '') {
             items.push({ name: e.target[4].value + ' Skin' })
         }
-        let ship = this.Factory.newShip(name, price, items)
-        let ships = [...this.state.actualShips, ship]
+        if (e.target[5].checked) {
+            items.push({ name: e.target[5].name })
+        }
+        let ship = this.Factory.newShip(name, price, items, manufacturer)
 
-        this.setState({ actualShips: ships, shipNameField: '' })
+        dbPutShip(ship)
+            .then(() => {
+                let ships = [...this.state.actualShips, ship]
+                this.setState({ actualShips: ships })
+            })
+            .catch((err) => {
+                console.log('Error saving ship', err)
+            })
         e.target.reset()
     }
 

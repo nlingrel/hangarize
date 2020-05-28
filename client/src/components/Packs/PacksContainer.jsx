@@ -1,18 +1,26 @@
 import React from 'react'
-import PackButton from './PackButton'
-import PackBody from './PackBody'
 import CategoryContainer from '../Generic/CategoryContainer'
 import AddPackForm from '../Forms/AddPackForm'
-
+import PackContainer from '../Packs/PackContainer'
+//PacksContainer -> [PackContainer] -> [PackShips, PackItems, PackExtras]
 function PacksContainer(props) {
-    const buttons = props.packs.map((pack, i) => {
-        return <PackButton key={i} pack={pack} />
-    })
-    const bodies = props.packs.map((pack, i) => {
-        return <PackBody key={i} pack={pack} />
-    })
+    // const buttons = props.packs.map((pack, i) => {
+    //     return <PackButton key={i} pack={pack} />
+    // })
+    // const bodies = props.packs.map((pack, i) => {
+    //     return <PackBody key={i} pack={pack} />
+    // })
 
-    const items = [...buttons, ...bodies]
+    const items = props.packs.map((pack, i) => {
+        return (
+            <PackContainer
+                key={i}
+                packId={pack.id}
+                name={pack.name}
+                ships={pack.ships}
+            />
+        )
+    })
     return (
         <CategoryContainer
             items={items}

@@ -13,12 +13,22 @@ class Factory {
         return pack
     }
 
-    newShip(name = 'ship', price = 0, items = []) {
+    newShip(
+        name = 'Name',
+        price = 0,
+        items = [],
+        manufacturer = 'Unknown manufacturer',
+        role = 'Role',
+        size = 'Size'
+    ) {
         let ship = {
             name: name,
             price: price,
             items: items,
+            role: role,
+            manufacturer: manufacturer,
         }
+
         return ship
     }
 }
