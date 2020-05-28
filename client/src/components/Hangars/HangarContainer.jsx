@@ -8,10 +8,7 @@ function HangarContainer(props) {
         <div className="container">
             <PacksContainer
                 packs={props.packs}
-                addNewShipToHangar={props.addNewShipToHangar}
-                suggestShipNames={props.suggestShipNames}
-                renderSuggestedShipNames={props.renderSuggestedShipNames}
-                shipNameField={props.shipNameField}
+                addNewPackToHangar={props.addNewPackToHangar}
             />
             <ShipsContainer
                 ships={props.ships}
@@ -19,6 +16,7 @@ function HangarContainer(props) {
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
                 shipNameField={props.shipNameField}
+                resetShipAddForm={props.resetShipAddForm}
             />
             <CCUsContainer
                 ccus={props.ccus}

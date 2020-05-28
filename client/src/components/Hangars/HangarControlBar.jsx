@@ -1,7 +1,5 @@
 import React from 'react'
 
-import AddPackModal from '../Forms/AddPackModal'
-
 function HangarControlBar(props) {
     return (
         <>
@@ -12,34 +10,7 @@ function HangarControlBar(props) {
             >
                 {/* <div className="card">
                     <div className="card-body"> */}
-                <div
-                    className="btn-group mr-2"
-                    role="group"
-                    aria-label="First group"
-                >
-                    <button
-                        type="button"
-                        className="btn btn-outline-info"
-                        data-toggle="modal"
-                        data-target="#addPackModal"
-                    >
-                        New Pack
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-outline-info"
-                        data-toggle="modal"
-                        data-target="#addShipModal"
-                    >
-                        New Ship
-                    </button>
-                    <button type="button" className="btn btn-outline-info">
-                        New CCU
-                    </button>
-                    <button type="button" className="btn btn-outline-info">
-                        New Item
-                    </button>
-                </div>
+
                 <div
                     className="btn-group mr-2"
                     role="group"
@@ -58,14 +29,6 @@ function HangarControlBar(props) {
                 {/* </div>
                 </div> */}
             </div>
-            <AddPackModal
-                addNewPackToHangar={props.addNewPackToHangar}
-                suggestShipNames={props.suggestShipNames}
-                renderSuggestedShipNames={props.renderSuggestedShipNames}
-                shipNameField={props.shipNameField}
-                acceptShipInputForPack={props.acceptShipInputForPack}
-                selectedShip={props.selectedShip}
-            />
         </>
     )
 }

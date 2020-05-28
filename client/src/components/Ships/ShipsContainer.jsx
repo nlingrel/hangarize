@@ -27,6 +27,7 @@ function ShipsContainer(props) {
                     renderSuggestedShipNames={props.renderSuggestedShipNames}
                     shipNameField={props.shipNameField}
                     name={'Ships'}
+                    resetShipAddForm={props.resetShipAddForm}
                 />
             }
         />

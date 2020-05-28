@@ -2,12 +2,13 @@ import React from 'react'
 
 function AddShipForm(props) {
     const suggestions = props.renderSuggestedShipNames()
-    const formId = `${props.name}FormCollapse`
+    const formId = `${props.name}AddForm`
+    const collapseId = `${props.name}FormCollapse`
     const collapseTarget = `#${props.name}FormCollapse`
     return (
-        <div className="card border border-info collapse" id={formId}>
+        <div className="card border border-info collapse" id={collapseId}>
             <div className="card-body">
-                <form onSubmit={props.addNewShipToHangar}>
+                <form onSubmit={props.addNewShipToHangar} id={formId}>
                     <div className="form-group row">
                         <div className="col-auto">
                             <input
@@ -89,11 +90,21 @@ function AddShipForm(props) {
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-secondary"
+                                className="btn btn-outline-info"
+                                onClick={() => {
+                                    document.getElementById(formId).reset()
+                                    props.resetShipAddForm()
+                                }}
+                            >
+                                Reset
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
                                 data-toggle="collapse"
                                 data-target={collapseTarget}
                             >
-                                Close
+                                Hide
                             </button>
                         </div>
                     </div>

@@ -6,15 +6,7 @@ import HangarControlBar from './HangarControlBar'
 function ActualHangar(props) {
     return (
         <>
-            <HangarControlBar
-                addNewPackToHangar={props.addNewPackToHangar}
-                addNewShipToHangar={props.addNewShipToHangar}
-                suggestShipNames={props.suggestShipNames}
-                renderSuggestedShipNames={props.renderSuggestedShipNames}
-                shipNameField={props.shipNameField}
-                acceptShipInputForPack={props.acceptShipInputForPack}
-                selectedShip={props.selectedShip}
-            />
+            <HangarControlBar />
             <HangarContainer
                 packs={props.packs}
                 ships={props.ships}
@@ -23,6 +15,8 @@ function ActualHangar(props) {
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
                 shipNameField={props.shipNameField}
+                addNewPackToHangar={props.addNewPackToHangar}
+                resetShipAddForm={props.resetShipAddForm}
             />
         </>
     )

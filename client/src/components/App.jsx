@@ -102,6 +102,7 @@ class App extends Component {
         this.renderSuggestedShipNames = this.renderSuggestedShipNames.bind(this)
         this.selectSuggestedShip = this.selectSuggestedShip.bind(this)
         this.acceptShipInputForPack = this.acceptShipInputForPack.bind(this)
+        this.resetShipAddForm = this.resetShipAddForm.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -195,22 +196,22 @@ class App extends Component {
     addNewPackToHangar(e) {
         e.preventDefault()
         e.persist()
-        for (var i = 0; i < e.target.length; i++) {
-            console.log(`target number ${i}: ${e.target[i].value}`)
-        }
+        // for (var i = 0; i < e.target.length; i++) {
+        //     console.log(`target number ${i}: ${e.target[i].value}`)
+        // }
         let name = e.target[0].value
         let price = parseInt(e.target[1].value)
         let items = []
-        for (var i = 2; i < 5; i++) {
+        if (e.target[2].value !== 'Choose...') {
+            items.push({ name: e.target[2].value + ' hangar' })
+        }
+        if (parseInt(e.target[3].value) > 0) {
+            items.push({ name: e.target[3].value + ' UEC' })
+        }
+        for (var i = 4; i < 7; i++) {
             if (e.target[i].checked) {
                 items.push({ name: e.target[i].name })
             }
-        }
-        if (e.target[5].value !== 'Choose...') {
-            items.push({ name: e.target[5].value + ' hangar' })
-        }
-        if (parseInt(e.target[6].value) > 0) {
-            items.push({ name: e.target[6].value + ' UEC' })
         }
 
         let pack = this.Factory.newPack(name, price, [], items)
@@ -248,6 +249,12 @@ class App extends Component {
 
         this.setState({ actualShips: ships, shipNameField: '' })
         e.target.reset()
+    }
+
+    resetShipAddForm() {
+        this.setState({
+            shipNameField: '',
+        })
     }
 
     navToActual(e) {
@@ -308,6 +315,7 @@ class App extends Component {
                             shipNameField={this.state.shipNameField}
                             acceptShipInputForPack={this.acceptShipInputForPack}
                             selectedShip={this.state.selectedShip}
+                            resetShipAddForm={this.resetShipAddForm}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

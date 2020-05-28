@@ -2,6 +2,7 @@ import React from 'react'
 import PackButton from './PackButton'
 import PackBody from './PackBody'
 import CategoryContainer from '../Generic/CategoryContainer'
+import AddPackForm from '../Forms/AddPackForm'
 
 function PacksContainer(props) {
     const buttons = props.packs.map((pack, i) => {
@@ -12,7 +13,18 @@ function PacksContainer(props) {
     })
 
     const items = [...buttons, ...bodies]
-    return <CategoryContainer items={items} name={'Packs'} />
+    return (
+        <CategoryContainer
+            items={items}
+            name={'Packs'}
+            form={
+                <AddPackForm
+                    name={'Packs'}
+                    addNewPackToHangar={props.addNewPackToHangar}
+                />
+            }
+        />
+    )
 }
 
 export default PacksContainer
