@@ -38,6 +38,7 @@ function PackContainer(props) {
                     <div
                         className="collapse btn"
                         id={`collapse${props.packId}${props.number}`}
+                        data-parent={`#collapse${props.packId}${props.number}`}
                     >
                         <PackToolBar
                             removePack={() => {
@@ -46,6 +47,7 @@ function PackContainer(props) {
                             meltPack={() => {
                                 console.log('Melt Pack onclick')
                             }}
+                            dataTarget={`#collapse${props.packId}${props.number}`}
                         />
                     </div>
                 </div>

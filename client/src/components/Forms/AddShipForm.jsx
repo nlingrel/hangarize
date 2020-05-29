@@ -7,7 +7,7 @@ function AddShipForm(props) {
     const collapseTarget = `#${props.name}FormCollapse`
     return (
         <div
-            className="card border border-info collapse bg-dark text-light"
+            className="card border border-secondary collapse bg-dark text-light"
             id={collapseId}
         >
             <div className="card-body">
@@ -90,13 +90,13 @@ function AddShipForm(props) {
                         <div className="d-flex">
                             <button
                                 type="submit"
-                                className="btn btn-outline-info ml-1"
+                                className="btn btn-outline-light ml-1"
                             >
                                 Create Ship
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-outline-info ml-1"
+                                className="btn btn-outline-light ml-1"
                                 onClick={() => {
                                     document.getElementById(formId).reset()
                                     props.resetShipAddForm()

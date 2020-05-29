@@ -1,15 +1,20 @@
 import React from 'react'
-import UpgradeButton from './UpgradeButton'
+import HideButton from './HideButton'
 import MinusButton from './MinusButton'
 import MeltButton from './MeltButton'
 
 //send name
 function PackToolBar(props) {
     return (
-        <div>
-            <MeltButton />
-            <MinusButton onClick={props.removePack} />
-        </div>
+        <>
+            <div className="btn">
+                <MeltButton />
+                <MinusButton onClick={props.removePack} />
+            </div>
+            <div className="btn">
+                <HideButton dataTarget={props.dataTarget} />
+            </div>
+        </>
     )
 }
 

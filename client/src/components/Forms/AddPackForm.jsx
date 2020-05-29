@@ -1,4 +1,5 @@
 import React from 'react'
+import HideButton from '../Generic/HideButton'
 
 function AddPackForm(props) {
     const collapseId = `${props.name}FormCollapse`
@@ -7,7 +8,7 @@ function AddPackForm(props) {
 
     return (
         <div
-            className="card border border-info collapse bg-dark text-light"
+            className="card border border-secondary collapse bg-dark text-light"
             id={collapseId}
         >
             <div className="card-body">
@@ -106,13 +107,13 @@ function AddPackForm(props) {
                         <div className="d-flex">
                             <button
                                 type="submit"
-                                className="btn btn-outline-info ml-1"
+                                className="btn btn-outline-light ml-1"
                             >
                                 Create Pack
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-outline-info ml-1"
+                                className="btn btn-outline-light ml-1"
                                 onClick={() => {
                                     document.getElementById(formId).reset()
                                 }}
@@ -121,14 +122,15 @@ function AddPackForm(props) {
                             </button>
                         </div>
                         <div className="d-flex">
-                            <button
+                            <HideButton dataTarget={collapseTarget} />
+                            {/* <button
                                 type="button"
                                 className="btn btn-secondary"
                                 data-toggle="collapse"
                                 data-target={collapseTarget}
                             >
                                 &#8966;
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </form>
