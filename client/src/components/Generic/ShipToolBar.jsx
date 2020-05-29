@@ -2,15 +2,18 @@ import React from 'react'
 import UpgradeButton from './UpgradeButton'
 import MinusButton from './MinusButton'
 import MeltButton from './MeltButton'
+import HideButton from './HideButton'
 
 //send name
 function ShipToolBar(props) {
     return (
-        <div>
-            <UpgradeButton onClick={props.upgradeShip} />
-            <MeltButton />
-            <MinusButton onClick={props.removeShip} />
-        </div>
+        <>
+            <div className="btn">
+                <UpgradeButton onClick={props.upgradeShip} />
+                <MeltButton />
+                <MinusButton onClick={props.removeShip} />
+            </div>
+        </>
     )
 }
 

@@ -3,6 +3,7 @@ import ManuIcon from '../Generic/ManuIcon'
 import ShipToolBar from '../Generic/ShipToolBar'
 import PlusButton from '../Generic/PlusButton'
 import ShipItems from './ShipItems'
+import HideButton from '../Generic/HideButton'
 
 //in: name, manu, role, size, shipId, key
 function ShipContainer(props) {
@@ -24,7 +25,11 @@ function ShipContainer(props) {
                     >
                         {props.name}
                     </button>
-                    <div className="btn">
+                    <div
+                        className="btn "
+                        data-toggle="collapse"
+                        data-target={`#collapse${props.shipId}${props.number}`}
+                    >
                         <div className="bg-dark text-light btn btn-ouline-info">
                             <small>${props.price}</small>
                         </div>
@@ -68,24 +73,24 @@ function ShipContainer(props) {
                         </div>
                     </div>
 
-                    <div className="card-footer text-center border-none">
-                        <div className="list-group list-group-horizontal">
+                    <div className="card-footer text-center">
+                        <div className="btn-group">
                             <ManuIcon
                                 manufacturer={props.manufacturer}
-                                classes={[
-                                    'list-group-item',
-                                    'bg-dark',
-                                    'text-white',
-                                ]}
+                                classes={['btn', 'bg-dark', 'text-white']}
                             />
 
-                            <small className="list-group-item bg-dark text-light pt-3">
+                            <small className="btn bg-dark text-light">
                                 {props.role}
                             </small>
-                            <small className="list-group-item bg-dark text-light pt-3">
+                            <small className="btn bg-dark text-light">
                                 {props.size}
                             </small>
                         </div>
+                        <HideButton
+                            dataTarget={`#collapse${props.shipId}${props.number}`}
+                            classes={['btn-block']}
+                        />
                     </div>
                 </div>
             </div>

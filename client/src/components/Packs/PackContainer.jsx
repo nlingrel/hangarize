@@ -3,6 +3,7 @@ import PlusButton from '../Generic/PlusButton'
 import PackShips from './PackShips'
 import PackItems from './PackItems'
 import PackToolBar from '../Generic/PackToolBar'
+import HideButton from '../Generic/HideButton'
 //in name, packId, number, ships
 function PackContainer(props) {
     return (
@@ -103,6 +104,12 @@ function PackContainer(props) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="card-footer text center">
+                        <HideButton
+                            dataTarget={`#collapse${props.packId}${props.number}`}
+                            classes={['btn-block']}
+                        />
                     </div>
                 </div>
             </div>
