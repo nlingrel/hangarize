@@ -68,6 +68,7 @@ class App extends Component {
                     manu: 'Aegis',
                     role: 'Role 1',
                     size: 'small',
+                    items: [],
                 },
             ],
             ccusPlaceHolder: [
@@ -129,6 +130,13 @@ class App extends Component {
             .catch((err) => {
                 console.log('Error getting all packs', err)
             })
+        dbGetAllUserShips()
+            .then((array) => {
+                this.setState({ actualShips: array })
+            })
+            .catch((err) => {
+                console.log('Error getting all ships', err)
+            })
     }
 
     suggestShipNames(e) {
@@ -163,7 +171,7 @@ class App extends Component {
                 <ul className="list-group-sm ">
                     {suggestedShips.map((item, i) => (
                         <li
-                            className="btn-light dropdown-item"
+                            className="btn-secondary dropdown-item bg-secondary text-light"
                             onClick={() => {
                                 this.selectSuggestedShip(item)
                             }}

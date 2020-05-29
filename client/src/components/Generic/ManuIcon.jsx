@@ -19,8 +19,8 @@ import Tumbril from '../../icons/Tumbril.png'
 // import UEE from '.../icons/UEE.png'
 
 function ManuIcon(props) {
-    let className = props.classes.join('')
-    const manu = props.manu
+    let className = props.classes.join(' ')
+    const manufacturer = props.manufacturer
     const manus = {
         Aegis: Aegis,
         Anvil: Anvil,
@@ -40,8 +40,9 @@ function ManuIcon(props) {
         // UEE: UEE,
         // 'Xi’an': Xian,
         Tumbril: Tumbril,
+        'Tumbril Land Systems': Tumbril,
     }
-    return <img className={className} src={manus[manu]}></img>
+    return <img className={className} src={manus[manufacturer]}></img>
 }
 
 export default ManuIcon

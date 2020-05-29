@@ -16,7 +16,7 @@ function AddPackForm(props) {
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control bg-secondary"
+                                className="form-control alert-info"
                                 id="inputPackName"
                                 autoComplete="off"
                                 placeholder="Name"
@@ -25,19 +25,19 @@ function AddPackForm(props) {
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control bg-secondary"
+                                className="form-control alert-info"
                                 id="inputPackPrice"
                                 placeholder="Price"
                             />
                         </div>
                     </div>
 
-                    <div className="card bg-dark text-white-50 col-auto border-secondary">
+                    <div className="card bg-dark text-white-50 col-auto border-secondary mb-1">
                         <div className="card-title ">Extras</div>
                         <div className="form-group row">
                             <div className="col-auto">
                                 <select
-                                    className="form-control bg-secondary text-white-50"
+                                    className="form-control alert-info text-muted"
                                     id="hangarExtraSelect"
                                 >
                                     <option>Hangar...</option>
@@ -51,7 +51,7 @@ function AddPackForm(props) {
                             <div className="col-auto">
                                 <input
                                     type="text"
-                                    className="form-control bg-secondary"
+                                    className="form-control alert-info"
                                     id="inputUEC"
                                     placeholder="UEC"
                                 />
@@ -65,7 +65,7 @@ function AddPackForm(props) {
                                         name="LTI"
                                     />
                                     <label
-                                        className="form-check-label text-muted"
+                                        className="form-check-label text-white-50"
                                         htmlFor="LTIcheck"
                                     >
                                         LTI
@@ -79,7 +79,7 @@ function AddPackForm(props) {
                                         name="SCGame"
                                     />
                                     <label
-                                        className="form-check-label text-muted"
+                                        className="form-check-label text-white-50"
                                         htmlFor="SCGameCheck"
                                     >
                                         SC Game
@@ -93,7 +93,7 @@ function AddPackForm(props) {
                                         name="Sq42"
                                     />
                                     <label
-                                        className="form-check-label text-muted"
+                                        className="form-check-label text-white-50"
                                         htmlFor="Sq42GameCheck"
                                     >
                                         Sq42 Game
@@ -102,30 +102,32 @@ function AddPackForm(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <div className="col-sm-10">
+                    <div className="d-flex justify-content-between">
+                        <div className="d-flex">
                             <button
                                 type="submit"
-                                className="btn btn-outline-info"
+                                className="btn btn-outline-info ml-1"
                             >
                                 Create Pack
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-outline-info"
+                                className="btn btn-outline-info ml-1"
                                 onClick={() => {
                                     document.getElementById(formId).reset()
                                 }}
                             >
                                 Reset
                             </button>
+                        </div>
+                        <div className="d-flex">
                             <button
                                 type="button"
-                                className="btn btn-outline-info"
+                                className="btn btn-secondary"
                                 data-toggle="collapse"
                                 data-target={collapseTarget}
                             >
-                                Hide
+                                &#8966;
                             </button>
                         </div>
                     </div>

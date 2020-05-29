@@ -6,14 +6,17 @@ function AddShipForm(props) {
     const collapseId = `${props.name}FormCollapse`
     const collapseTarget = `#${props.name}FormCollapse`
     return (
-        <div className="card border border-info collapse" id={collapseId}>
+        <div
+            className="card border border-info collapse bg-dark text-light"
+            id={collapseId}
+        >
             <div className="card-body">
                 <form onSubmit={props.addNewShipToHangar} id={formId}>
                     <div className="form-group row">
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control alert-info"
                                 id="inputShipName"
                                 onChange={props.suggestShipNames}
                                 value={props.shipNameField}
@@ -25,7 +28,7 @@ function AddShipForm(props) {
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control alert-info"
                                 id="inputShipPrice"
                                 placeholder="Price"
                             />
@@ -33,19 +36,19 @@ function AddShipForm(props) {
                         <div className="col-auto">
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control alert-info"
                                 id="inputShipManufacturer"
                                 placeholder="Manufacturer"
                             />
                         </div>
                     </div>
 
-                    <div className="card col-auto">
-                        <div className="card-title text-muted">Extras</div>
+                    <div className="card bg-dark text-white-50 border-secondary col-auto mb-1">
+                        <div className="card-title text-white-50">Extras</div>
                         <div className="form-group row">
                             <div className="col-auto">
                                 <select
-                                    className="form-control"
+                                    className="form-control alert-info"
                                     id="hangarExtraSelect"
                                 >
                                     <option>Hangar...</option>
@@ -59,38 +62,41 @@ function AddShipForm(props) {
                             <div className="col-auto">
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control alert-info"
                                     id="inputShipSkin"
                                     placeholder="Skin"
                                 />
                             </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id="LTIcheck"
-                                    name="LTI"
-                                />
-                                <label
-                                    className="form-check-label text-muted"
-                                    htmlFor="LTIcheck"
-                                >
-                                    LTI
-                                </label>
+                            <div className="form-group col-atuo">
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="LTIcheck"
+                                        name="LTI"
+                                    />
+                                    <label
+                                        className="form-check-label text-white-50"
+                                        htmlFor="LTIcheck"
+                                    >
+                                        LTI
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <div className="col-sm-10">
+
+                    <div className="d-flex justify-content-between">
+                        <div className="d-flex">
                             <button
                                 type="submit"
-                                className="btn btn-outline-info"
+                                className="btn btn-outline-info ml-1"
                             >
                                 Create Ship
                             </button>
                             <button
                                 type="button"
-                                className="btn btn-outline-info"
+                                className="btn btn-outline-info ml-1"
                                 onClick={() => {
                                     document.getElementById(formId).reset()
                                     props.resetShipAddForm()
@@ -98,13 +104,15 @@ function AddShipForm(props) {
                             >
                                 Reset
                             </button>
+                        </div>
+                        <div className="d-flex">
                             <button
                                 type="button"
-                                className="btn btn-outline-secondary"
+                                className="btn btn-secondary"
                                 data-toggle="collapse"
                                 data-target={collapseTarget}
                             >
-                                Hide
+                                &#8966;
                             </button>
                         </div>
                     </div>

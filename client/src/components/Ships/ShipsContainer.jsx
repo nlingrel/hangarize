@@ -21,12 +21,14 @@ function ShipsContainer(props) {
         return (
             <ShipContainer
                 name={ship.name}
-                manu={ship.manufacturer}
+                manufacturer={ship.manufacturer}
                 role={ship.role}
                 size={ship.size}
                 shipId={ship.id}
                 key={i}
                 number={i}
+                items={ship.items}
+                price={ship.price}
             />
         )
     })

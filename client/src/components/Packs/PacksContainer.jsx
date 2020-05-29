@@ -19,6 +19,7 @@ function PacksContainer(props) {
                 name={pack.name}
                 ships={pack.ships}
                 items={pack.items}
+                price={pack.price}
             />
         )
     })

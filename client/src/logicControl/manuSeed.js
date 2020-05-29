@@ -21,6 +21,7 @@ const manuSeed = [
     { id: 16, nickName: 'Kruger', name: 'Kruger Intergalactic' },
     { id: 17, nickName: 'UEE', name: 'UEE Navy' },
     { id: 18, nickName: 'Xi’an', name: 'Xi’an' },
+    { id: 19, nickName: 'Tumbril', name: 'Tumbril Land Systems' },
 ]
 
 export default manuSeed

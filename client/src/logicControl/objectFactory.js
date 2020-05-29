@@ -27,6 +27,7 @@ class Factory {
             items: items,
             role: role,
             manufacturer: manufacturer,
+            size: size,
         }
 
         return ship
