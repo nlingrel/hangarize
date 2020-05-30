@@ -33,6 +33,7 @@ function PacksContainer(props) {
                 <AddPackForm
                     name={'Packs'}
                     addNewPackToHangar={props.addNewPackToHangar}
+                    trayPacks={props.packs}
                 />
             }
         />
