@@ -34,11 +34,21 @@ const dbPutShip = (ship, key) => {
 const dbPutPack = (pack, key) => {
     return db.userPacks.put(pack)
 }
+const dbGetPack = (key) => {
+    return db.userPacks.get(key)
+}
+
+const dbUpdatePack = (id, obj) => {
+    return db.userPacks.update(id, obj)
+}
 
 const dbGetAllUserPacks = () => {
     return db.userPacks.toCollection().toArray()
 }
 
+const dbGetUserShip = (key) => {
+    return db.userShips.get(key)
+}
 const dbGetAllUserShips = () => {
     return db.userShips.toCollection().toArray()
 }
@@ -47,8 +57,11 @@ export {
     db,
     seedManus,
     seedShips,
+    dbGetPack,
     dbPutPack,
     dbGetAllUserPacks,
     dbPutShip,
+    dbGetUserShip,
     dbGetAllUserShips,
+    dbUpdatePack,
 }

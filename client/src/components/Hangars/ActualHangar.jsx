@@ -17,6 +17,7 @@ function ActualHangar(props) {
                 shipNameField={props.shipNameField}
                 addNewPackToHangar={props.addNewPackToHangar}
                 resetShipAddForm={props.resetShipAddForm}
+                addShipToPack={props.addShipToPack}
             />
         </>
     )

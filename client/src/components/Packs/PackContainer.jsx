@@ -1,11 +1,25 @@
 import React from 'react'
 import PlusButton from '../Generic/PlusButton'
 import PackShips from './PackShips'
+import ShipContainer from '../Ships/ShipContainer'
 import PackItems from './PackItems'
 import PackToolBar from '../Generic/PackToolBar'
 import HideButton from '../Generic/HideButton'
 //in name, packId, number, ships
 function PackContainer(props) {
+    const ships = props.ships.map((ship, i) => {
+        return (
+            <ShipContainer
+                name={ship.name}
+                manufacturer={ship.manufacturer}
+                role={ship.role}
+                size={ship.size}
+                shipId={ship.id}
+                key={i}
+                items={ship.items}
+            />
+        )
+    })
     return (
         <div className="accordion">
             <div className="card bg-dark border-light">
@@ -18,7 +32,7 @@ function PackContainer(props) {
                         id={`heading${props.packId}${props.number}`}
                         type="button"
                         data-toggle="collapse"
-                        data-target={`#collapse${props.packId}${props.number}`}
+                        data-target={`#collapsePack${props.packId}${props.number}`}
                         aria-expanded="false"
                         aria-controls={`heading${props.packId}${props.number}`}
                     >
@@ -27,7 +41,7 @@ function PackContainer(props) {
                     <div
                         className="btn"
                         data-toggle="collapse"
-                        data-target={`#collapse${props.packId}${props.number}`}
+                        data-target={`#collapsePack${props.packId}${props.number}`}
                     >
                         <div className="bg-dark text-light">
                             <small>
@@ -38,8 +52,8 @@ function PackContainer(props) {
                     </div>
                     <div
                         className="collapse btn"
-                        id={`collapse${props.packId}${props.number}`}
-                        data-parent={`#collapse${props.packId}${props.number}`}
+                        id={`collapsePack${props.packId}${props.number}`}
+                        data-parent={`#collapsePack${props.packId}${props.number}`}
                     >
                         <PackToolBar
                             removePack={() => {
@@ -48,44 +62,40 @@ function PackContainer(props) {
                             meltPack={() => {
                                 console.log('Melt Pack onclick')
                             }}
-                            dataTarget={`#collapse${props.packId}${props.number}`}
+                            dataTarget={`#collapsePack${props.packId}${props.number}`}
                         />
                     </div>
                 </div>
 
                 <div
-                    id={`collapse${props.packId}${props.number}`}
+                    id={`collapsePack${props.packId}${props.number}`}
                     className="collapse"
-                    aria-labelledby={`collapse${props.packId}${props.number}`}
-                    data-parent={`#collapse${props.packId}${props.number}`}
+                    aria-labelledby={`collapsePack${props.packId}${props.number}`}
+                    data-parent={`#collapsePack${props.packId}${props.number}`}
                 >
-                    {/* <div className="d-flex justify-content-between">
-                        <div className="d-flex text-justify">{props.name}</div>
-
-                        <div className="d-flex">
-                            <CategoryToolBar name={props.name} />
-                        </div>
-                    </div> */}
                     <div className="card-body">
                         <div className="card-deck">
                             <div className="card bg-secondary text-white">
-                                <div className="card-header bg-transparent border-bottom border-dark">
-                                    <div className="d-flex justify-content-between">
-                                        <div className="d-flex text-justify">
-                                            Ships&nbsp;&nbsp;
-                                        </div>
-                                        <div className="d-flex">
-                                            <PlusButton
-                                                name={props.name + 'Ships'}
-                                            />
+                                <PackShips
+                                    id={`ships${props.packId}`}
+                                    packId={props.packId}
+                                    addShipToPack={props.addShipToPack}
+                                >
+                                    <div className="card-header bg-transparent border-bottom border-dark">
+                                        <div className="d-flex justify-content-between">
+                                            <div className="d-flex text-justify">
+                                                Ships&nbsp;&nbsp;
+                                            </div>
+                                            <div className="d-flex">
+                                                <PlusButton
+                                                    name={props.name + 'Ships'}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="card-body p-0">
-                                    <ul className="list-group ">
-                                        <PackShips ships={props.ships} />
-                                    </ul>
-                                </div>
+
+                                    {ships}
+                                </PackShips>
                             </div>
                             <div className="card bg-secondary text-white">
                                 <div className="card-header bg-transparent border-bottom border-dark">
@@ -98,7 +108,6 @@ function PackContainer(props) {
                                 </div>
                                 <div className="card-body p-0">
                                     <ul className="list-group">
-                                        {/* change to packItems */}
                                         <PackItems items={props.items} />
                                     </ul>
                                 </div>
@@ -107,7 +116,7 @@ function PackContainer(props) {
                     </div>
                     <div className="card-footer text center">
                         <HideButton
-                            dataTarget={`#collapse${props.packId}${props.number}`}
+                            dataTarget={`#collapsePack${props.packId}${props.number}`}
                             classes={['btn-block']}
                         />
                     </div>

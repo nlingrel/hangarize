@@ -9,6 +9,7 @@ function HangarContainer(props) {
             <PacksContainer
                 packs={props.packs}
                 addNewPackToHangar={props.addNewPackToHangar}
+                addShipToPack={props.addShipToPack}
             />
             <ShipsContainer
                 ships={props.ships}

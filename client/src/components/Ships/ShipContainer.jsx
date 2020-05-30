@@ -7,8 +7,30 @@ import HideButton from '../Generic/HideButton'
 
 //in: name, manu, role, size, shipId, key
 function ShipContainer(props) {
+    const dragStart = (e) => {
+        const target = e.target
+
+        e.dataTransfer.setData('cardId', target.id)
+        e.dataTransfer.setData('type', 'ship')
+        e.dataTransfer.setData('shipId', props.shipId)
+
+        // setTimeout(() => {
+        //     target.style.display = 'none'
+        // }, 0)
+    }
+
+    const dragOver = (e) => {
+        e.stopPropagation()
+    }
+
     return (
-        <div className="accordion">
+        <div
+            className="accordion"
+            id={props.shipId}
+            draggable={props.draggable}
+            onDragStart={dragStart}
+            onDragOver={dragOver}
+        >
             <div className="card bg-dark border-light">
                 <div
                     className="button-group border-bottom border-secondary"
@@ -19,7 +41,7 @@ function ShipContainer(props) {
                         id={`heading${props.shipId}${props.number}`}
                         type="button"
                         data-toggle="collapse"
-                        data-target={`#collapse${props.shipId}${props.number}`}
+                        data-target={`#collapseShip${props.shipId}${props.number}`}
                         aria-expanded="false"
                         aria-controls={`heading${props.shipId}${props.number}`}
                     >
@@ -28,7 +50,7 @@ function ShipContainer(props) {
                     <div
                         className="btn "
                         data-toggle="collapse"
-                        data-target={`#collapse${props.shipId}${props.number}`}
+                        data-target={`#collapseShip${props.shipId}${props.number}`}
                     >
                         <div className="bg-dark text-light btn btn-ouline-info">
                             <small>${props.price}</small>
@@ -36,7 +58,7 @@ function ShipContainer(props) {
                     </div>
                     <div
                         className="btn collapse"
-                        id={`collapse${props.shipId}${props.number}`}
+                        id={`collapseShip${props.shipId}${props.number}`}
                     >
                         <ShipToolBar
                             name={props.name}
@@ -51,10 +73,10 @@ function ShipContainer(props) {
                 </div>
 
                 <div
-                    id={`collapse${props.shipId}${props.number}`}
+                    id={`collapseShip${props.shipId}${props.number}`}
                     className="collapse"
-                    aria-labelledby={`collapse${props.shipId}${props.number}`}
-                    data-parent={`#collapse${props.shipId}${props.number}`}
+                    aria-labelledby={`collapseShip${props.shipId}${props.number}`}
+                    data-parent={`#collapseShip${props.shipId}${props.number}`}
                 >
                     <div className="card-body bg-dark">
                         <div className="card bg-secondary text-white">
@@ -66,7 +88,6 @@ function ShipContainer(props) {
                             </div>
                             <div className="card-body p-0">
                                 <ul className="list-group">
-                                    {/* change to packItems */}
                                     <ShipItems items={props.items} />
                                 </ul>
                             </div>
@@ -88,7 +109,7 @@ function ShipContainer(props) {
                             </small>
                         </div>
                         <HideButton
-                            dataTarget={`#collapse${props.shipId}${props.number}`}
+                            dataTarget={`#collapseShip${props.shipId}${props.number}`}
                             classes={['btn-block']}
                         />
                     </div>

@@ -11,7 +11,10 @@ import {
     seedManus,
     seedShips,
     dbPutShip,
+    dbGetUserShip,
+    dbGetPack,
     dbPutPack,
+    dbUpdatePack,
     dbGetAllUserPacks,
     dbGetAllUserShips,
 } from '../logicControl/db'
@@ -36,6 +39,7 @@ class App extends Component {
                             manu: 'Origin',
                             role: 'Pathfinder',
                             size: 'small',
+                            items: [],
                         },
                         {
                             id: 1,
@@ -44,6 +48,7 @@ class App extends Component {
                             manu: 'MISC',
                             role: 'Exploration',
                             size: 'medium',
+                            items: [],
                         },
                         {
                             id: 2,
@@ -52,6 +57,7 @@ class App extends Component {
                             manu: 'RSI',
                             role: 'Fighter',
                             size: 'small',
+                            items: [],
                         },
                     ],
                     items: [
@@ -106,6 +112,7 @@ class App extends Component {
         this.selectSuggestedShip = this.selectSuggestedShip.bind(this)
         this.acceptShipInputForPack = this.acceptShipInputForPack.bind(this)
         this.resetShipAddForm = this.resetShipAddForm.bind(this)
+        this.addShipToPack = this.addShipToPack.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -238,6 +245,62 @@ class App extends Component {
         e.target.reset()
     }
 
+    addShipToPack(packId, shipId) {
+        // const shipId = shipId
+        // const packId = packId
+        let packShips = []
+        let movedShip = {}
+        let isError = false
+        console.log(shipId)
+
+        // get pack so you can get pack's ships
+        Promise.all([
+            dbGetPack(packId).then((pack) => {
+                packShips = pack.ships
+                console.log('packShips===>', packShips)
+            }),
+            dbGetUserShip(shipId).then((ship) => {
+                movedShip = ship
+                console.log('ship===>', movedShip)
+            }),
+        ])
+            .then(() => {
+                packShips.push(movedShip)
+                Promise.all([
+                    dbUpdatePack(packId, { ships: packShips }).then(() => {
+                        console.log('Pack ships updated')
+                    }),
+                ]).then(() => {
+                    dbGetAllUserPacks().then((array) => {
+                        this.setState({ actualPacks: array })
+                    })
+                })
+            })
+            .catch((err) => {
+                console.log('Error on getting pack & ship', err)
+                isError = true
+            })
+
+        // .catch((err) => {
+        //     console.log('Error on updating pack', err)
+        //     isError = true
+        // })
+        // .then((ship) => {
+        //     movedShip = ship
+        // })
+        // .then(packShips.push(movedShip))
+        //     .catch((err) => {
+        //         console.log('Error on getting ship', err)
+        //         isError = true
+        //     })
+
+        // get ship
+        // push ship into pack's ships
+        // update pack's ships with new ships array
+        // remove ship from userShips
+        // setState
+    }
+
     addNewShipToHangar(e) {
         e.preventDefault()
         e.persist()
@@ -337,6 +400,7 @@ class App extends Component {
                             acceptShipInputForPack={this.acceptShipInputForPack}
                             selectedShip={this.state.selectedShip}
                             resetShipAddForm={this.resetShipAddForm}
+                            addShipToPack={this.addShipToPack}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

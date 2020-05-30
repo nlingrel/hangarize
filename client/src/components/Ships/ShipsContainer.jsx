@@ -29,6 +29,7 @@ function ShipsContainer(props) {
                 number={i}
                 items={ship.items}
                 price={ship.price}
+                draggable="true"
             />
         )
     })
