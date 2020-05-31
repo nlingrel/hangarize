@@ -244,41 +244,79 @@ class App extends Component {
         e.target.reset()
     }
 
-    addShipToPack(packId, shipId) {
-        // const shipId = shipId
-        // const packId = packId
+    addShipToPack(packId, ship, shipName) {
         let packShips = []
-        let movedShip = {}
-        let isError = false
-        console.log(shipId)
+
+        console.log(
+            'Packid ===',
+            packId,
+            'shipid ===',
+            ship.id,
+            'shipname===',
+            shipName
+        )
+        // if (ship.id === 0 && name.length > 0) {
+        //     let newShip = this.Factory.newShip(name)
+        // } else if (ship.id > 0) {
+        //     let newShip = this.Factory.newShip(
+        //         ship.name,
+        //         ship.defaultPrice,
+        //         [],
+        //         ship.manufacturer,
+        //         ship.role,
+        //         ship.size
+        //     )
+        // }
+        // console.log('New ship to be added to pack', newShip)
+        // (price = 0),
+        //     (items = []),
+        //     (manufacturer = 'Unknown manufacturer'),
+        //     (role = 'Role'),
+        //     (size = 'Size')
+
+        // let isError = false
+
+        //get pack from id
+        //create new ship from shipName
+        //spread pack ships adding new ship
+        //save pack
+
+        // dbGetPack(packId)
+        //     .then((pack) => {
+        //         packShips = pack.ships
+        //         console.log('packShips===>', packShips)
+        //     })
+        //     .then(() => {
+        //         dbGetUserShip()
+        //     })
 
         // get pack so you can get pack's ships
-        Promise.all([
-            dbGetPack(packId).then((pack) => {
-                packShips = pack.ships
-                console.log('packShips===>', packShips)
-            }),
-            dbGetUserShip(shipId).then((ship) => {
-                movedShip = ship
-                console.log('ship===>', movedShip)
-            }),
-        ])
-            .then(() => {
-                packShips.push(movedShip)
-                Promise.all([
-                    dbUpdatePack(packId, { ships: packShips }).then(() => {
-                        console.log('Pack ships updated')
-                    }),
-                ]).then(() => {
-                    dbGetAllUserPacks().then((array) => {
-                        this.setState({ actualPacks: array })
-                    })
-                })
-            })
-            .catch((err) => {
-                console.log('Error on getting pack & ship', err)
-                isError = true
-            })
+        // Promise.all([
+        //     dbGetPack(packId).then((pack) => {
+        //         packShips = pack.ships
+        //         console.log('packShips===>', packShips)
+        //     }),
+        //     dbGetUserShip(shipId).then((ship) => {
+        //         movedShip = ship
+        //         console.log('ship===>', movedShip)
+        //     }),
+        // ])
+        //     .then(() => {
+        //         packShips.push(movedShip)
+        //         Promise.all([
+        //             dbUpdatePack(packId, { ships: packShips }).then(() => {
+        //                 console.log('Pack ships updated')
+        //             }),
+        //         ]).then(() => {
+        //             dbGetAllUserPacks().then((array) => {
+        //                 this.setState({ actualPacks: array })
+        //             })
+        //         })
+        //     })
+        //     .catch((err) => {
+        //         console.log('Error on getting pack & ship', err)
+        //         isError = true
+        //     })
 
         // .catch((err) => {
         //     console.log('Error on updating pack', err)

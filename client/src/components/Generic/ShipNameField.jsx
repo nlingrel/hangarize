@@ -8,7 +8,7 @@ class ShipNameField extends Component {
         this.state = {
             shipNameField: '',
             suggestedShips: [],
-            selectedShip: {},
+            selectedShip: { id: 0 },
         }
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -16,6 +16,7 @@ class ShipNameField extends Component {
             this.nickNames[manu.name] = manu.nickName
         }
         this.suggestShipNames = this.suggestShipNames.bind(this)
+        this.addShipToPack = this.addShipToPack.bind(this)
     }
 
     componentDidMount() {}
@@ -40,6 +41,7 @@ class ShipNameField extends Component {
         this.setState({
             suggestedShips: suggestedShips,
             shipNameField: value,
+            selectedShip: { id: 0 },
         })
     }
 
@@ -75,30 +77,45 @@ class ShipNameField extends Component {
         //get id from db and fill in rest of fields based on db
     }
 
+    addShipToPack(e) {
+        e.preventDefault()
+
+        this.props.addShipToPack(
+            this.props.packId,
+            this.state.selectedShip,
+            this.state.shipNameField
+        )
+    }
+
     render() {
         const suggestions = this.renderSuggestedShipNames()
         const inputId = `Pack${this.props.packId}inputShipname`
         return (
-            <div className="input-group input-group-sm flex-nowrap">
-                <input
-                    type="text"
-                    placeholder={this.props.placeholder}
-                    className={this.props.className}
-                    style={{ color: 'white' }}
-                    id={inputId}
-                    autoComplete="off"
-                    onChange={this.suggestShipNames}
-                    value={this.state.shipNameField}
-                />
-                {suggestions}
+            <>
+                <div className="input-group input-group-sm flex-nowrap">
+                    <input
+                        type="text"
+                        placeholder={this.props.placeholder}
+                        className={this.props.className}
+                        style={{ color: 'white' }}
+                        id={inputId}
+                        autoComplete="off"
+                        onChange={this.suggestShipNames}
+                        value={this.state.shipNameField}
+                    />
 
-                <div className="input-group-append">
-                    <button
-                        type="button"
-                        className="btn btn-sucess btn-sm ml-1"
-                    ></button>
+                    <div className="input-group-append">
+                        <button
+                            type="button"
+                            className="btn btn-success btn-sm "
+                            onClick={this.addShipToPack}
+                        >
+                            +
+                        </button>
+                    </div>
                 </div>
-            </div>
+                {suggestions}
+            </>
         )
     }
 }

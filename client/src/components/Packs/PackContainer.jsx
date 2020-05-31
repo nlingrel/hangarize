@@ -6,7 +6,7 @@ import PackItems from './PackItems'
 import PackToolBar from '../Generic/PackToolBar'
 import HideButton from '../Generic/HideButton'
 import ShipNameField from '../Generic/ShipNameField'
-import { ProgressPlugin } from 'webpack'
+
 //in name, packId, number, ships
 function PackContainer(props) {
     const ships = props.ships.map((ship, i) => {
@@ -87,9 +87,9 @@ function PackContainer(props) {
                                         <ShipNameField
                                             placeholder="Ships"
                                             className="form-control bg-dark"
-                                            PlusButton={true}
                                             name={props.name}
                                             packId={props.packId}
+                                            addShipToPack={props.addShipToPack}
                                         />
                                     </div>
 
