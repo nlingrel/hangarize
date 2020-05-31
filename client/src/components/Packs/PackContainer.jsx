@@ -5,6 +5,8 @@ import ShipContainer from '../Ships/ShipContainer'
 import PackItems from './PackItems'
 import PackToolBar from '../Generic/PackToolBar'
 import HideButton from '../Generic/HideButton'
+import ShipNameField from '../Generic/ShipNameField'
+import { ProgressPlugin } from 'webpack'
 //in name, packId, number, ships
 function PackContainer(props) {
     const ships = props.ships.map((ship, i) => {
@@ -82,16 +84,13 @@ function PackContainer(props) {
                                     addShipToPack={props.addShipToPack}
                                 >
                                     <div className="card-header bg-transparent border-bottom border-dark">
-                                        <div className="d-flex justify-content-between">
-                                            <div className="d-flex text-justify">
-                                                Ships&nbsp;&nbsp;
-                                            </div>
-                                            <div className="d-flex">
-                                                <PlusButton
-                                                    name={props.name + 'Ships'}
-                                                />
-                                            </div>
-                                        </div>
+                                        <ShipNameField
+                                            placeholder="Ships"
+                                            className="form-control bg-dark"
+                                            PlusButton={true}
+                                            name={props.name}
+                                            packId={props.packId}
+                                        />
                                     </div>
 
                                     {ships}

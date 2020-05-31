@@ -119,7 +119,6 @@ class App extends Component {
         for (let manu of manuSeed) {
             this.nickNames[manu.name] = manu.nickName
         }
-        console.log(this.nickNames)
 
         this.db = db
     }
