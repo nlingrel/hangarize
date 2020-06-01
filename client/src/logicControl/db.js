@@ -7,16 +7,25 @@ db.version(1).stores({
     defaultShips: 'id, name, manufacturer, role, size, defaultPrice, userPrice',
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
-    userShips: '++id, name, manufacturer, role, price, size',
-    userItems: '++id, name, price',
-    userManufacturers: '++id, name, nickName',
-    userPacks: '++id, name, ships',
+    ships: '++id, name, manufacturer, role, price, size',
+    items: '++id, name, price',
+    manufacturers: '++id, name, nickName',
+    packs: '++id, name, ships',
     hangars: '++id, name',
-    actualBuyback: '++id',
-    actualShips: '++id, name, manufacturer, role, price, size',
-    actualItems: '++id, name, price',
-    actualCCUs: '++id, base, to, appliedBase, appliedTo, price',
-    actualPacks: '++id, name, ships',
+    buybacks: '++id, name',
+    ccus: '++id, base, to, appliedBase, appliedTo, price',
+})
+
+db.on('populate', () => {
+    db.hangars.add({
+        id: 1,
+        name: 'Actual',
+        packs: [],
+        ships: [],
+        items: [],
+        ccus: [],
+        buyback: {},
+    })
 })
 // Seed
 const seedManus = () => {
@@ -31,92 +40,85 @@ const seedShips = () => {
         console.log('error seeding ships', err)
     })
 }
+
 // Get
-const dbGetUserPack = (key) => {
-    return db.userPacks.get(key)
-}
-
-const dbGetUserPacks = (keys) => {
-    return db.userPacks.bulkGet(keys)
-}
-
 const dbGetHangar = (key) => {
     return db.hangars.get(key)
 }
-
-const dbGetUserHangar = (key) => {
-    return db.userHangars.get(key)
+const dbGetPack = (key) => {
+    return db.packs.get(key)
 }
 
-const dbGetActualShips = (keys) => {
-    return db.userShips.bulkGet(keys)
+const dbGetPacks = (keys) => {
+    return db.packs.bulkGet(keys)
 }
 
-const dbGetActualPacks = (keys) => {
-    return db.actualPacks.bulkGet(keys)
+const dbGetAllPacks = () => {
+    return db.packs.toCollection().toArray()
 }
 
-const dbGetActualItems = (keys) => {
-    return db.actualItems.bulkGet(keys)
-}
-
-const dbGetActualCCUs = (keys) => {
-    return db.actualCCUs.bulkGet(keys)
-}
-
-const dbGetUserShip = (key) => {
+const dbGetShip = (key) => {
     return db.userShips.get(key)
 }
-
-const dbGetAllUserPacks = () => {
-    return db.userPacks.toCollection().toArray()
+const dbGetShips = (keys) => {
+    return db.ships.bulkGet(keys)
 }
 
-const dbGetAllUserShips = () => {
-    return db.userShips.toCollection().toArray()
+const dbGetAllShips = () => {
+    return db.ships.toCollection().toArray()
 }
+
+const dbGetItems = (keys) => {
+    return db.items.bulkGet(keys)
+}
+
+const dbGetCCUs = (keys) => {
+    return db.ccus.bulkGet(keys)
+}
+
 // Put
+
+const dbPutPack = (pack) => {
+    return db.packs.put(pack)
+}
 const dbPutShip = (ship, key) => {
-    return db.userShips.put(ship)
+    return db.ships.put(ship)
+}
+
+const dbPutHangar = (hangar, key) => {
+    return db.hangars.put(hangar, key)
 }
 
 const dbPutActualHangar = (hangar) => {
     return db.hangars.put(hangar)
 }
-const dbPutUserPack = (pack, key) => {
-    return db.userPacks.put(pack)
-}
-const dbPutActualPack = (pack, key) => {
-    return db.actualPacks.put(pack)
-}
+
 //Update
 const dbUpdateHangar = (key, obj) => {
     return db.hangars.update(key, obj)
 }
 
 const dbUpdatePack = (key, obj) => {
-    return db.userPacks.update(key, obj)
+    return db.packs.update(key, obj)
 }
 
 export {
     db,
     seedManus,
     seedShips,
-    dbPutUserPack,
-    dbGetUserPack,
-    dbGetAllUserPacks,
-    dbPutShip,
-    dbGetUserShip,
-    dbGetAllUserShips,
-    dbUpdatePack,
-    dbPutActualHangar,
     dbGetHangar,
+    dbGetPack,
+    dbGetPacks,
+    dbGetAllPacks,
+    dbGetShip,
+    dbGetShips,
+    dbGetAllShips,
+    dbGetItems,
+    dbGetCCUs,
+    dbPutPack,
+    dbPutShip,
+    dbPutHangar,
+    dbPutActualHangar,
     dbUpdateHangar,
-    dbGetActualShips,
-    dbGetActualPacks,
-    dbGetActualCCUs,
-    dbGetActualItems,
-    dbPutActualPack,
-    dbGetUserHangar,
-    dbGetUserPacks,
+    dbUpdatePack,
 }

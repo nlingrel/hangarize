@@ -6,109 +6,42 @@ import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
-import { db, dbGetUserHangar } from '../logicControl/db'
+import { db } from '../logicControl/db'
 import {
+    dbGetHangar,
+    dbGetPack,
+    dbGetPacks,
+    dbGetAllPacks,
+    dbGetShip,
+    dbGetShips,
+    dbGetAllShips,
+    dbGetItems,
+    dbGetCCUs,
     seedManus,
     seedShips,
+    dbPutPack,
     dbPutShip,
-    dbGetUserShip,
-    dbPutUserPack,
-    dbGettUserPack,
-    dbGetUserPacks,
-    dbUpdatePack,
-    dbGetAllUserPacks,
-    dbGetAllUserShips,
+    dbPutHangar,
     dbPutActualHangar,
-    dbGetHangar,
     dbUpdateHangar,
-    dbGetActualShips,
-    dbGetActualPacks,
-    dbGetActualCCUs,
-    dbGetActualItems,
-    dbPutActualPack,
+    dbUpdatePack,
 } from '../logicControl/db'
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userShips: [],
-            userItems: [],
-            userManufacturers: [],
-            packsPlaceHolder: [
-                {
-                    id: 0,
-                    name: 'Pack 1',
-                    price: 0,
-                    ships: [
-                        {
-                            id: 0,
-                            name: '315p',
-                            price: 65,
-                            manu: 'Origin',
-                            role: 'Pathfinder',
-                            size: 'small',
-                            items: [],
-                        },
-                        {
-                            id: 1,
-                            name: 'DUR',
-                            price: 135,
-                            manu: 'MISC',
-                            role: 'Exploration',
-                            size: 'medium',
-                            items: [],
-                        },
-                        {
-                            id: 2,
-                            name: 'Aurora LN',
-                            price: 40,
-                            manu: 'RSI',
-                            role: 'Fighter',
-                            size: 'small',
-                            items: [],
-                        },
-                    ],
-                    items: [
-                        { id: 0, name: 'LTI' },
-                        { name: 'self-land hangar' },
-                    ],
-                },
-            ],
-            shipsPlaceholder: [
-                {
-                    id: 0,
-                    name: 'Ship 1',
-                    price: 0,
-                    manu: 'Aegis',
-                    role: 'Role 1',
-                    size: 'small',
-                    items: [],
-                },
-            ],
-            ccusPlaceHolder: [
-                {
-                    id: 0,
-                    name: 'CCU 1',
-                    price: 0,
-                    base: { name: 'Ship 1', price: 0 },
-                    upgrade: { name: 'Ship 2', price: 0 },
-                },
-                {
-                    id: 1,
-                    name: 'CCU 2',
-                    price: 0,
-                    base: { name: 'Ship 2', price: 0 },
-                    upgrade: { name: 'Ship 4', price: 0 },
-                },
-            ],
+            currentHangar: {
+                packs: [],
+                ships: [],
+                ccus: [],
+                items: [],
+                buyback: {},
+            },
+            shipNameField: '',
             actualHangar: {},
             suggestedShips: [],
             selectedShip: {},
-            packs: [],
-            actualShips: [],
-            actualCCUs: [],
-            actualItems: [],
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
@@ -140,52 +73,12 @@ class App extends Component {
         })
         seedManus()
         seedShips()
-        //get actual hangar which just contains reference ids to user tables
 
-        //get ships pack items ccus and buyback for actual hangar
-
-        //setState for actual hangar
-        let actualHangarRaw = {}
-        let actualHangarReal = {}
         dbGetHangar(this.state.currentHangarId)
             .then((hangar) => {
-                if (hangar) {
-                    actualHangarRaw = hangar
-                } else {
-                    actualHangarRaw = this.Factory.newHangar('Actual')
-                    dbPutActualHangar(actualHangarRaw)
-                    return
-                }
-            })
-            .then(() => {
-                Promise.all([
-                    dbGetActualShips(actualHangarRaw.ships),
-                    dbGetActualPacks(actualHangarRaw.packs),
-                    dbGetActualItems(actualHangarRaw.items),
-                    dbGetActualCCUs(actualHangarRaw.ccus),
-                ]).then((results) => {
-                    actualHangarReal.ships = results[0]
-                    actualHangarReal.packs = results[1]
-                    actualHangarReal.items = results[2]
-                    actualHangarReal.ccus = results[3]
-                    this.setState({ actualHangar: actualHangarReal })
-                })
+                this.setState({ currentHangar: hangar })
             })
             .catch('error getting actual hangar')
-        // dbGetAllUserPacks()
-        //     .then((array) => {
-        //         this.setState({ packs: array })
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error getting all packs', err)
-        //     })
-        // dbGetAllUserShips()
-        //     .then((array) => {
-        //         this.setState({ actualShips: array })
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error getting all ships', err)
-        //     })
     }
 
     suggestShipNames(e) {
@@ -274,31 +167,18 @@ class App extends Component {
         }
 
         let pack = this.Factory.newPack(name, price, [], items)
+        let packs = this.state.currentHangar.packs
 
-        let putPack =
-            this.state.currentHangarId === 1 ? dbPutActualPack : dbPutUserPack
-
-        let getPacks =
-            this.state.currentHangarId === 1 ? dbGetActualPacks : dbGetUserPacks
-
-        //put pack to where it goes
-        //update current hangar with pack
-        //   get current hangar packs (id refs either to packs or userPacks)
-        //   push id of added pack to hangar packs
-        //   update hangar packs with the new array containing pushed id
-        //get all packs from that hangar (based on id refs) and setState
-        Promise.all([putPack(pack), dbGetHangar(this.state.currentHangarId)])
-            .then((results) => {
-                console.log('result of putpack===', results[0])
-                console.log('result of getHangar', results[1])
-                let packIds = results[1].packs
-                let newId = results[0]
-                packIds.push(parseInt(newId))
-                dbUpdateHangar(this.state.currentHangarId, { packs: packIds })
-            })
-            .then(() => {
-                getPacks(packIds).then((packs) => {
-                    this.setState({ packs })
+        dbPutPack(pack)
+            .then((id) => {
+                pack.id = id
+                packs.push(pack)
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: packs,
+                }).then(() => {
+                    let hangar = this.state.currentHangar
+                    hangar.packs = packs
+                    this.setState({ currentHangar: hangar })
                 })
             })
             .catch((err) => {
@@ -394,7 +274,7 @@ class App extends Component {
 
         dbPutShip(ship)
             .then(() => {
-                let ships = [...this.state.actualShips, ship]
+                let ships = [...this.state.currentHangar.ships, ship]
                 this.setState({ actualShips: ships })
             })
             .catch((err) => {
@@ -425,18 +305,10 @@ class App extends Component {
     }
 
     render() {
-        let packs =
-            this.state.packs.length > 0
-                ? this.state.packs
-                : this.state.packsPlaceHolder
-        let ships =
-            this.state.actualShips.length > 0
-                ? this.state.actualShips
-                : this.state.shipsPlaceholder
-        let ccus =
-            this.state.actualCCUs.length > 0
-                ? this.state.actualCCUs
-                : this.state.ccusPlaceHolder
+        const packs = this.state.currentHangar.packs
+        const ships = this.state.currentHangar.ships
+        const ccus = this.state.currentHangar.ccus
+
         return (
             <>
                 <div className="bg-dark text-light">
