@@ -11,8 +11,8 @@ db.version(1).stores({
     items: '++id, name, price',
     manufacturers: '++id, name, nickName',
     packs: '++id, name, ships',
-    hangars: '++id, name',
-    buybacks: '++id, name',
+    hangars: '++id, name, packs, ships, items, ccus, buyback',
+    buybacks: '++id, name, packs, ships, items, ccus',
     ccus: '++id, base, to, appliedBase, appliedTo, price',
 })
 

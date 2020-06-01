@@ -133,7 +133,6 @@ class App extends Component {
             selectedShip: ship,
             suggestedShips: [],
         })
-        //get id from db and fill in rest of fields based on db
     }
 
     acceptShipInputForPack(e) {
@@ -148,9 +147,7 @@ class App extends Component {
     addNewPackToHangar(e) {
         e.preventDefault()
         e.persist()
-        // for (var i = 0; i < e.target.length; i++) {
-        //     console.log(`target number ${i}: ${e.target[i].value}`)
-        // }
+
         let name = e.target[0].value
         let price = parseInt(e.target[1].value)
         let items = []
@@ -189,7 +186,6 @@ class App extends Component {
     }
 
     addShipToPack(packId, ship, shipName) {
-        let packShips = []
         let newShip
 
         console.log(
@@ -217,33 +213,35 @@ class App extends Component {
                 ship.size
             )
         }
-        console.log('New ship to be added to pack', newShip)
 
-        //get pack from id
-        //create new ship from shipName
-        //spread pack ships adding new ship
-        //save pack
-        Promise.all([dbPutShip(newShip), dbPutUserPack(packId)])
-            .then((results) => {
-                newShip.id = results[0]
-                packShips = results[1].ships
-                console.log(
-                    'new Ship created in userShips',
-                    newShip,
-                    '  pack ships got from pack',
-                    packShips
-                )
-                packShips.push(newShip)
-            })
-            .then(() => {
-                dbUpdatePack(packId, { ships: [...packShips] })
-            })
-            .then(() => {
-                dbGetAllUserPacks().then((array) => {
-                    this.setState({ packs: array })
+        let packs = this.state.currentHangar.packs
+        let pack = {}
+
+        for (let pk of packs) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+        let otherPacks = packs.filter((p) => p.id !== packId)
+        let finalPacks = []
+
+        dbPutShip(newShip)
+            .then((id) => {
+                newShip.id = id
+                pack.ships.push(newShip)
+                finalPacks = [...otherPacks, pack]
+
+                dbUpdatePack(packId, { ships: pack.ships }).then(() => {
+                    dbUpdateHangar(this.state.currentHangar.id, {
+                        packs: finalPacks,
+                    }).then(() => {
+                        let hngr = this.state.currentHangar
+                        hngr.packs = finalPacks
+                        this.setState({ currentHangar: hngr })
+                    })
                 })
             })
-
             .catch((err) => {
                 console.log('Error trying to add ship to pack', err)
             })
@@ -271,11 +269,19 @@ class App extends Component {
             items.push({ name: e.target[5].name })
         }
         let ship = this.Factory.newShip(name, price, items, manufacturer)
+        let ships = this.state.currentHangar.ships
 
         dbPutShip(ship)
-            .then(() => {
-                let ships = [...this.state.currentHangar.ships, ship]
-                this.setState({ actualShips: ships })
+            .then((id) => {
+                ship.id = id
+                ships.push(ship)
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    ships: ships,
+                }).then(() => {
+                    let hangar = this.state.currentHangar
+                    hangar.ships = ships
+                    this.setState({ currentHangar: hangar })
+                })
             })
             .catch((err) => {
                 console.log('Error saving ship', err)
