@@ -10,7 +10,7 @@ function ShipToolBar(props) {
         <>
             <div className="btn">
                 <UpgradeButton onClick={props.upgradeShip} />
-                <MeltButton />
+                {props.meltable ? <MeltButton /> : ''}
                 <MinusButton onClick={props.removeShip} />
             </div>
         </>

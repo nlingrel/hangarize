@@ -62,6 +62,7 @@ function ShipContainer(props) {
                     >
                         <ShipToolBar
                             name={props.name}
+                            meltable={props.meltable}
                             removeShip={() => {
                                 console.log('Remove ship onclick')
                             }}
@@ -95,16 +96,20 @@ function ShipContainer(props) {
                     </div>
 
                     <div className="card-footer text-center">
-                        <div className="btn-group">
+                        <div className="list-group list-group-horizontal">
                             <ManuIcon
                                 manufacturer={props.manufacturer}
-                                classes={['btn', 'bg-dark', 'text-white']}
+                                classes={[
+                                    'list-group-item',
+                                    'bg-dark',
+                                    'text-white',
+                                ]}
                             />
 
-                            <small className="btn bg-dark text-light">
+                            <small className="list-group-item bg-dark text-light">
                                 {props.role}
                             </small>
-                            <small className="btn bg-dark text-light">
+                            <small className="list-group-item bg-dark text-light">
                                 {props.size}
                             </small>
                         </div>

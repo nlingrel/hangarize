@@ -246,6 +246,7 @@ class App extends Component {
 
     addShipToPack(packId, ship, shipName) {
         let packShips = []
+        let newShip
 
         console.log(
             'Packid ===',
@@ -255,87 +256,53 @@ class App extends Component {
             'shipname===',
             shipName
         )
-        // if (ship.id === 0 && name.length > 0) {
-        //     let newShip = this.Factory.newShip(name)
-        // } else if (ship.id > 0) {
-        //     let newShip = this.Factory.newShip(
-        //         ship.name,
-        //         ship.defaultPrice,
-        //         [],
-        //         ship.manufacturer,
-        //         ship.role,
-        //         ship.size
-        //     )
-        // }
-        // console.log('New ship to be added to pack', newShip)
-        // (price = 0),
-        //     (items = []),
-        //     (manufacturer = 'Unknown manufacturer'),
-        //     (role = 'Role'),
-        //     (size = 'Size')
-
-        // let isError = false
+        if (ship.id === 0 && shipName.length === 0) {
+            return null
+        }
+        if (ship.id === 0 && shipName.length > 0) {
+            newShip = this.Factory.newShip(shipName)
+            console.log(newShip)
+        }
+        if (ship.id > 0) {
+            newShip = this.Factory.newShip(
+                ship.name,
+                ship.defaultPrice,
+                [],
+                ship.manufacturer,
+                ship.role,
+                ship.size
+            )
+        }
+        console.log('New ship to be added to pack', newShip)
 
         //get pack from id
         //create new ship from shipName
         //spread pack ships adding new ship
         //save pack
+        Promise.all([dbPutShip(newShip), dbGetPack(packId)])
+            .then((results) => {
+                newShip.id = results[0]
+                packShips = results[1].ships
+                console.log(
+                    'new Ship created in userShips',
+                    newShip,
+                    '  pack ships got from pack',
+                    packShips
+                )
+                packShips.push(newShip)
+            })
+            .then(() => {
+                dbUpdatePack(packId, { ships: [...packShips] })
+            })
+            .then(() => {
+                dbGetAllUserPacks().then((array) => {
+                    this.setState({ actualPacks: array })
+                })
+            })
 
-        // dbGetPack(packId)
-        //     .then((pack) => {
-        //         packShips = pack.ships
-        //         console.log('packShips===>', packShips)
-        //     })
-        //     .then(() => {
-        //         dbGetUserShip()
-        //     })
-
-        // get pack so you can get pack's ships
-        // Promise.all([
-        //     dbGetPack(packId).then((pack) => {
-        //         packShips = pack.ships
-        //         console.log('packShips===>', packShips)
-        //     }),
-        //     dbGetUserShip(shipId).then((ship) => {
-        //         movedShip = ship
-        //         console.log('ship===>', movedShip)
-        //     }),
-        // ])
-        //     .then(() => {
-        //         packShips.push(movedShip)
-        //         Promise.all([
-        //             dbUpdatePack(packId, { ships: packShips }).then(() => {
-        //                 console.log('Pack ships updated')
-        //             }),
-        //         ]).then(() => {
-        //             dbGetAllUserPacks().then((array) => {
-        //                 this.setState({ actualPacks: array })
-        //             })
-        //         })
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error on getting pack & ship', err)
-        //         isError = true
-        //     })
-
-        // .catch((err) => {
-        //     console.log('Error on updating pack', err)
-        //     isError = true
-        // })
-        // .then((ship) => {
-        //     movedShip = ship
-        // })
-        // .then(packShips.push(movedShip))
-        //     .catch((err) => {
-        //         console.log('Error on getting ship', err)
-        //         isError = true
-        //     })
-
-        // get ship
-        // push ship into pack's ships
-        // update pack's ships with new ships array
-        // remove ship from userShips
-        // setState
+            .catch((err) => {
+                console.log('Error trying to add ship to pack', err)
+            })
     }
 
     addNewShipToHangar(e) {

@@ -15,12 +15,14 @@ import CNOU from '../../icons/CNOU.png'
 import Kruger from '../../icons/Kruger.png'
 import Argo from '../../icons/Argo.png'
 import Tumbril from '../../icons/Tumbril.png'
+import manuSeed from '../../logicControl/manuSeed'
 // import Xian from '..icons/Xi’an.png'
 // import UEE from '.../icons/UEE.png'
 
 function ManuIcon(props) {
     let className = props.classes.join(' ')
     const manufacturer = props.manufacturer
+
     const manus = {
         Aegis: Aegis,
         Anvil: Anvil,
@@ -40,9 +42,11 @@ function ManuIcon(props) {
         // UEE: UEE,
         // 'Xi’an': Xian,
         Tumbril: Tumbril,
-        'Tumbril Land Systems': Tumbril,
     }
-    return <img className={className} src={manus[manufacturer]}></img>
+    for (let manu of manuSeed) {
+        manus[manu.name] = manu.nickName
+    }
+    return <img className={className} src={manus[manus[manufacturer]]}></img>
 }
 
 export default ManuIcon

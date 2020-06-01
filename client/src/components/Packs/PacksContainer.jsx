@@ -4,13 +4,6 @@ import AddPackForm from '../Forms/AddPackForm'
 import PackContainer from '../Packs/PackContainer'
 //PacksContainer -> [PackContainer] -> [PackShips, PackItems, PackExtras]
 function PacksContainer(props) {
-    // const buttons = props.packs.map((pack, i) => {
-    //     return <PackButton key={i} pack={pack} />
-    // })
-    // const bodies = props.packs.map((pack, i) => {
-    //     return <PackBody key={i} pack={pack} />
-    // })
-
     const items = props.packs.map((pack, i) => {
         return (
             <PackContainer

@@ -30,7 +30,7 @@ function PackShips(props) {
             onDrop={drop}
             onDragOver={dragOver}
         >
-            <ul className="list-group">{props.children}</ul>
+            <ul className="list-group pb-2">{props.children}</ul>
         </div>
     )
     // return <>{props.children}</>
