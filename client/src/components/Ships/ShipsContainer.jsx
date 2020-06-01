@@ -31,6 +31,7 @@ function ShipsContainer(props) {
                 price={ship.price}
                 draggable="true"
                 meltable={true}
+                showPrice={true}
             />
         )
     })

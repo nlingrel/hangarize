@@ -25,7 +25,7 @@ function ShipContainer(props) {
 
     return (
         <div
-            className="accordion"
+            className="accordion mb-1"
             id={props.shipId}
             draggable={props.draggable}
             onDragStart={dragStart}
@@ -52,9 +52,13 @@ function ShipContainer(props) {
                         data-toggle="collapse"
                         data-target={`#collapseShip${props.shipId}${props.number}`}
                     >
-                        <div className="bg-dark text-light btn btn-ouline-info">
-                            <small>${props.price}</small>
-                        </div>
+                        {props.showPrice ? (
+                            <div className="bg-dark text-light btn btn-ouline-info">
+                                <small>${props.price}</small>
+                            </div>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     <div
                         className="btn collapse"
@@ -107,12 +111,12 @@ function ShipContainer(props) {
                             />
 
                             <small className="list-group-item bg-dark text-light">
-                                {props.role}
-                            </small>
-                            <small className="list-group-item bg-dark text-light">
                                 {props.size}
                             </small>
                         </div>
+                        <small className="list-group-item bg-dark text-light">
+                            {props.role}
+                        </small>
                         <HideButton
                             dataTarget={`#collapseShip${props.shipId}${props.number}`}
                             classes={['btn-block']}

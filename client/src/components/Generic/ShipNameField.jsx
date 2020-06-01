@@ -55,7 +55,7 @@ class ShipNameField extends Component {
                 <ul className="list-group-sm ">
                     {suggestedShips.map((item, i) => (
                         <li
-                            className="btn-secondary dropdown-item bg-dark text-light"
+                            className="btn btn-secondary dropdown-item bg-dark text-light"
                             onClick={() => {
                                 this.selectSuggestedShip(item)
                             }}
