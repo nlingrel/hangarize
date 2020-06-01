@@ -3,7 +3,7 @@ import React from 'react'
 function HangarControlBar(props) {
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid mb-1">
                 <div className="card bg-dark border-bottom border-secondary">
                     <div
                         className="btn-toolbar bg-dark"

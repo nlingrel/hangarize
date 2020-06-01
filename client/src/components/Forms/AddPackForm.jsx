@@ -62,7 +62,7 @@ function AddPackForm(props) {
                                     <div className="col-auto">
                                         <select
                                             className="form-control alert-info text-muted mb-1"
-                                            id="hangarExtraSelect"
+                                            id="hangarExtraSelectPack"
                                         >
                                             <option>Hangar...</option>
                                             <option>VFG Industrial</option>
@@ -85,7 +85,7 @@ function AddPackForm(props) {
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
-                                                id="LTIcheck"
+                                                id="LTIcheckPack"
                                                 name="LTI"
                                             />
                                             <label

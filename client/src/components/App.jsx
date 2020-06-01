@@ -6,17 +6,26 @@ import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
-import { db } from '../logicControl/db'
+import { db, dbGetUserHangar } from '../logicControl/db'
 import {
     seedManus,
     seedShips,
     dbPutShip,
     dbGetUserShip,
-    dbGetPack,
-    dbPutPack,
+    dbPutUserPack,
+    dbGettUserPack,
+    dbGetUserPacks,
     dbUpdatePack,
     dbGetAllUserPacks,
     dbGetAllUserShips,
+    dbPutActualHangar,
+    dbGetHangar,
+    dbUpdateHangar,
+    dbGetActualShips,
+    dbGetActualPacks,
+    dbGetActualCCUs,
+    dbGetActualItems,
+    dbPutActualPack,
 } from '../logicControl/db'
 
 class App extends Component {
@@ -93,14 +102,16 @@ class App extends Component {
                     upgrade: { name: 'Ship 4', price: 0 },
                 },
             ],
+            actualHangar: {},
             suggestedShips: [],
             selectedShip: {},
-            actualPacks: [],
+            packs: [],
             actualShips: [],
             actualCCUs: [],
             actualItems: [],
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
+            currentHangarId: 1,
         }
         this.navToActual = this.navToActual.bind(this)
         this.navToHangarize = this.navToHangarize.bind(this)
@@ -129,20 +140,52 @@ class App extends Component {
         })
         seedManus()
         seedShips()
-        dbGetAllUserPacks()
-            .then((array) => {
-                this.setState({ actualPacks: array })
+        //get actual hangar which just contains reference ids to user tables
+
+        //get ships pack items ccus and buyback for actual hangar
+
+        //setState for actual hangar
+        let actualHangarRaw = {}
+        let actualHangarReal = {}
+        dbGetHangar(this.state.currentHangarId)
+            .then((hangar) => {
+                if (hangar) {
+                    actualHangarRaw = hangar
+                } else {
+                    actualHangarRaw = this.Factory.newHangar('Actual')
+                    dbPutActualHangar(actualHangarRaw)
+                    return
+                }
             })
-            .catch((err) => {
-                console.log('Error getting all packs', err)
+            .then(() => {
+                Promise.all([
+                    dbGetActualShips(actualHangarRaw.ships),
+                    dbGetActualPacks(actualHangarRaw.packs),
+                    dbGetActualItems(actualHangarRaw.items),
+                    dbGetActualCCUs(actualHangarRaw.ccus),
+                ]).then((results) => {
+                    actualHangarReal.ships = results[0]
+                    actualHangarReal.packs = results[1]
+                    actualHangarReal.items = results[2]
+                    actualHangarReal.ccus = results[3]
+                    this.setState({ actualHangar: actualHangarReal })
+                })
             })
-        dbGetAllUserShips()
-            .then((array) => {
-                this.setState({ actualShips: array })
-            })
-            .catch((err) => {
-                console.log('Error getting all ships', err)
-            })
+            .catch('error getting actual hangar')
+        // dbGetAllUserPacks()
+        //     .then((array) => {
+        //         this.setState({ packs: array })
+        //     })
+        //     .catch((err) => {
+        //         console.log('Error getting all packs', err)
+        //     })
+        // dbGetAllUserShips()
+        //     .then((array) => {
+        //         this.setState({ actualShips: array })
+        //     })
+        //     .catch((err) => {
+        //         console.log('Error getting all ships', err)
+        //     })
     }
 
     suggestShipNames(e) {
@@ -232,10 +275,31 @@ class App extends Component {
 
         let pack = this.Factory.newPack(name, price, [], items)
 
-        dbPutPack(pack)
+        let putPack =
+            this.state.currentHangarId === 1 ? dbPutActualPack : dbPutUserPack
+
+        let getPacks =
+            this.state.currentHangarId === 1 ? dbGetActualPacks : dbGetUserPacks
+
+        //put pack to where it goes
+        //update current hangar with pack
+        //   get current hangar packs (id refs either to packs or userPacks)
+        //   push id of added pack to hangar packs
+        //   update hangar packs with the new array containing pushed id
+        //get all packs from that hangar (based on id refs) and setState
+        Promise.all([putPack(pack), dbGetHangar(this.state.currentHangarId)])
+            .then((results) => {
+                console.log('result of putpack===', results[0])
+                console.log('result of getHangar', results[1])
+                let packIds = results[1].packs
+                let newId = results[0]
+                packIds.push(parseInt(newId))
+                dbUpdateHangar(this.state.currentHangarId, { packs: packIds })
+            })
             .then(() => {
-                let packs = [...this.state.actualPacks, pack]
-                this.setState({ actualPacks: packs })
+                getPacks(packIds).then((packs) => {
+                    this.setState({ packs })
+                })
             })
             .catch((err) => {
                 console.log('Error saving pack', err)
@@ -279,7 +343,7 @@ class App extends Component {
         //create new ship from shipName
         //spread pack ships adding new ship
         //save pack
-        Promise.all([dbPutShip(newShip), dbGetPack(packId)])
+        Promise.all([dbPutShip(newShip), dbPutUserPack(packId)])
             .then((results) => {
                 newShip.id = results[0]
                 packShips = results[1].ships
@@ -296,7 +360,7 @@ class App extends Component {
             })
             .then(() => {
                 dbGetAllUserPacks().then((array) => {
-                    this.setState({ actualPacks: array })
+                    this.setState({ packs: array })
                 })
             })
 
@@ -362,8 +426,8 @@ class App extends Component {
 
     render() {
         let packs =
-            this.state.actualPacks.length > 0
-                ? this.state.actualPacks
+            this.state.packs.length > 0
+                ? this.state.packs
                 : this.state.packsPlaceHolder
         let ships =
             this.state.actualShips.length > 0

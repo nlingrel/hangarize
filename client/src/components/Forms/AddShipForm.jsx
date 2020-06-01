@@ -57,7 +57,7 @@ function AddShipForm(props) {
                             <div className="col-auto">
                                 <select
                                     className="form-control alert-info mb-1"
-                                    id="hangarExtraSelect"
+                                    id="hangarExtraSelectShip"
                                 >
                                     <option>Hangar...</option>
                                     <option>VFG Industrial</option>
@@ -80,7 +80,7 @@ function AddShipForm(props) {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        id="LTIcheck"
+                                        id="LTIcheckShip"
                                         name="LTI"
                                     />
                                     <label
