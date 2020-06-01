@@ -4,6 +4,8 @@ import ShipToolBar from '../Generic/ShipToolBar'
 import PlusButton from '../Generic/PlusButton'
 import ShipItems from './ShipItems'
 import HideButton from '../Generic/HideButton'
+import ItemNameField from '../Generic/ItemNameField'
+import MinusButton from '../Generic/MinusButton'
 
 //in: name, manu, role, size, shipId, key
 function ShipContainer(props) {
@@ -22,7 +24,19 @@ function ShipContainer(props) {
     const dragOver = (e) => {
         e.stopPropagation()
     }
-
+    const items = props.items.map((item, i) => {
+        return (
+            <div
+                className="d-flex justify-content-between align-items-center  bg-dark text-light pl-2 mb-1 mx-2"
+                key={i}
+            >
+                {item.name}
+                <span className="badge">
+                    <MinusButton />
+                </span>
+            </div>
+        )
+    })
     return (
         <div
             className="accordion mb-1"
@@ -35,15 +49,15 @@ function ShipContainer(props) {
                 <div
                     className="button-group border-bottom border-secondary"
                     role="group"
+                    data-toggle="collapse"
+                    data-target={`#collapseShip${props.shipId}${props.number}`}
+                    aria-expanded="false"
+                    aria-controls={`heading${props.shipId}${props.number}`}
                 >
                     <button
                         className="btn text-left text-light btn-outline-dark"
                         id={`heading${props.shipId}${props.number}`}
                         type="button"
-                        data-toggle="collapse"
-                        data-target={`#collapseShip${props.shipId}${props.number}`}
-                        aria-expanded="false"
-                        aria-controls={`heading${props.shipId}${props.number}`}
                     >
                         {props.name}
                     </button>
@@ -85,17 +99,18 @@ function ShipContainer(props) {
                 >
                     <div className="card-body bg-dark">
                         <div className="card bg-secondary text-white">
-                            <div className="card-header bg-transparent border-bottom border-dark">
-                                <div className="d-flex justify-content-between">
-                                    Items&nbsp;&nbsp;
-                                    <PlusButton name={props.name + 'Items'} />
+                            <ShipItems>
+                                <div className="card-header bg-transparent border-bottom border-dark">
+                                    <ItemNameField
+                                        placeholder="Items"
+                                        className="form-control bg-dark"
+                                        name={props.name}
+                                        id={props.shipId}
+                                        addItemToPack={props.addItemToPack}
+                                    />
                                 </div>
-                            </div>
-                            <div className="card-body p-0">
-                                <ul className="list-group">
-                                    <ShipItems items={props.items} />
-                                </ul>
-                            </div>
+                                {items}
+                            </ShipItems>
                         </div>
                     </div>
 

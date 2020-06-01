@@ -6,6 +6,8 @@ import PackItems from './PackItems'
 import PackToolBar from '../Generic/PackToolBar'
 import HideButton from '../Generic/HideButton'
 import ShipNameField from '../Generic/ShipNameField'
+import ItemNameField from '../Generic/ItemNameField'
+import MinusButton from '../Generic/MinusButton'
 
 //in name, packId, number, ships
 function PackContainer(props) {
@@ -20,6 +22,19 @@ function PackContainer(props) {
                 key={i}
                 items={ship.items}
             />
+        )
+    })
+    const items = props.items.map((item, i) => {
+        return (
+            <div
+                className="d-flex justify-content-between align-items-center  bg-dark text-light pl-2 mb-1 mx-2"
+                key={i}
+            >
+                {item.name}
+                <span className="badge">
+                    <MinusButton />
+                </span>
+            </div>
         )
     })
     return (
@@ -97,22 +112,22 @@ function PackContainer(props) {
                                 </PackShips>
                             </div>
                             <div className="card bg-secondary text-white">
-                                <div className="card-header bg-transparent border-bottom border-dark">
-                                    <div className="d-flex justify-content-between">
-                                        Items&nbsp;&nbsp;
-                                        <PlusButton
-                                            name={props.name + 'Items'}
+                                <PackItems>
+                                    <div className="card-header bg-transparent border-bottom border-dark">
+                                        <ItemNameField
+                                            placeholder="Items"
+                                            className="form-control bg-dark"
+                                            name={props.name}
+                                            id={props.packId}
+                                            addItemToPack={props.addItemToPack}
                                         />
                                     </div>
-                                </div>
-                                <div className="card-body p-0">
-                                    <ul className="list-group">
-                                        <PackItems items={props.items} />
-                                    </ul>
-                                </div>
+                                    {items}
+                                </PackItems>
                             </div>
                         </div>
                     </div>
+
                     <div className="card-footer text center">
                         <HideButton
                             dataTarget={`#collapsePack${props.packId}${props.number}`}

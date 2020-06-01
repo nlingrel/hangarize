@@ -92,7 +92,7 @@ class ShipNameField extends Component {
 
     render() {
         const suggestions = this.renderSuggestedShipNames()
-        const inputId = `Pack${this.props.packId}inputShipname`
+        const inputId = `Pack${this.props.packId}inputShipName`
         return (
             <>
                 <div className="input-group input-group-sm flex-nowrap">

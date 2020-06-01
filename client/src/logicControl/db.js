@@ -72,6 +72,10 @@ const dbGetItems = (keys) => {
     return db.items.bulkGet(keys)
 }
 
+const dbGetAllItems = () => {
+    return db.items.toCollection().toArray()
+}
+
 const dbGetCCUs = (keys) => {
     return db.ccus.bulkGet(keys)
 }
@@ -114,6 +118,7 @@ export {
     dbGetShips,
     dbGetAllShips,
     dbGetItems,
+    dbGetAllItems,
     dbGetCCUs,
     dbPutPack,
     dbPutShip,
