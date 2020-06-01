@@ -43,10 +43,18 @@ function ManuIcon(props) {
         // 'Xi’an': Xian,
         Tumbril: Tumbril,
     }
+
+    const nicks = {}
     for (let manu of manuSeed) {
-        manus[manu.name] = manu.nickName
+        nicks[manu.name] = manu.nickName
     }
-    return <img className={className} src={manus[manus[manufacturer]]}></img>
+
+    return (
+        <img
+            className={className}
+            src={manus[nicks[manufacturer]] || manus[manufacturer]}
+        ></img>
+    )
 }
 
 export default ManuIcon
