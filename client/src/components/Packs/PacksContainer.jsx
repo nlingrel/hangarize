@@ -15,6 +15,8 @@ function PacksContainer(props) {
                 price={pack.price}
                 number={i}
                 addShipToPack={props.addShipToPack}
+                addItemToPack={props.addItemToPack}
+                addItemToShip={props.addItemToShip}
             />
         )
     })

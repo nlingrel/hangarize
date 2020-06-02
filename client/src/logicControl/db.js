@@ -7,7 +7,7 @@ db.version(1).stores({
     defaultShips: 'id, name, manufacturer, role, size, defaultPrice, userPrice',
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
-    ships: '++id, name, manufacturer, role, price, size',
+    ships: '++id, name, items, manufacturer, role, price, size',
     items: '++id, name, price',
     manufacturers: '++id, name, nickName',
     packs: '++id, name, ships',
@@ -89,6 +89,10 @@ const dbPutShip = (ship, key) => {
     return db.ships.put(ship)
 }
 
+const dbPutItem = (item) => {
+    return db.items.put(item)
+}
+
 const dbPutHangar = (hangar, key) => {
     return db.hangars.put(hangar, key)
 }
@@ -104,6 +108,10 @@ const dbUpdateHangar = (key, obj) => {
 
 const dbUpdatePack = (key, obj) => {
     return db.packs.update(key, obj)
+}
+
+const dbUpdateShip = (key, obj) => {
+    return db.ships.update(key, obj)
 }
 
 export {
@@ -122,8 +130,10 @@ export {
     dbGetCCUs,
     dbPutPack,
     dbPutShip,
+    dbPutItem,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
+    dbUpdateShip,
     dbUpdatePack,
 }

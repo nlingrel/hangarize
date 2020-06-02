@@ -47,7 +47,7 @@ class Factory {
         return ccu
     }
 
-    newItem(name = 'Item', price = 0, meltable = true) {
+    newItem(name = 'Item', price = 0, meltable = false) {
         let item = { name: name, price: price, meltable: meltable }
         return item
     }

@@ -106,7 +106,9 @@ function ShipContainer(props) {
                                         className="form-control bg-dark"
                                         name={props.name}
                                         id={props.shipId}
-                                        addItemToPack={props.addItemToPack}
+                                        addItemToShip={props.addItemToShip}
+                                        inPack={props.inPack}
+                                        packId={props.packId}
                                     />
                                 </div>
                                 {items}

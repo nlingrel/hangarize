@@ -8,8 +8,10 @@ class ItemNameField extends Component {
         this.state = {
             itemNameField: '',
             itemSeed: [],
+            selectedItem: { id: 0 },
         }
         this.addItemToPack = this.addItemToPack.bind(this)
+        this.addItemToShip = this.addItemToShip.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -31,12 +33,35 @@ class ItemNameField extends Component {
         this.setState({ itemNameField: value })
     }
 
-    addItemToPack(item) {
-        console.log('Add item to pack', item)
+    addItemToPack(e) {
+        this.props.addItemToPack(
+            this.props.id,
+            this.state.selectedItem,
+            this.state.itemNameField
+        )
+        this.setState({ itemNameField: '' })
+    }
+
+    addItemToShip(e) {
+        const pId = this.props.inPack ? this.props.packId : undefined
+        this.props.addItemToShip(
+            this.props.id,
+            this.state.selectedItem,
+            this.state.itemNameField,
+            pId
+        )
+        this.setState({ itemNameField: '' })
+    }
+
+    removeItemFromPack(e) {
+        console.log('Remove item from pack', itemId)
     }
 
     render() {
         const inputId = `${this.props.name}${this.props.id}inputItemName`
+        let onClick = this.props.addItemToPack
+            ? this.addItemToPack
+            : this.addItemToShip
         return (
             <>
                 <div className="input-group input-group-sm flex-nowrap">
@@ -55,7 +80,7 @@ class ItemNameField extends Component {
                         <button
                             type="button"
                             className="btn btn-success btn-sm "
-                            onClick={this.addShipToPack}
+                            onClick={onClick}
                         >
                             +
                         </button>

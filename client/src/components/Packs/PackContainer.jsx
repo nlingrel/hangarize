@@ -21,6 +21,9 @@ function PackContainer(props) {
                 shipId={ship.id}
                 key={i}
                 items={ship.items}
+                inPack={true}
+                packId={props.packId}
+                addItemToShip={props.addItemToShip}
             />
         )
     })
@@ -112,7 +115,7 @@ function PackContainer(props) {
                                 </PackShips>
                             </div>
                             <div className="card bg-secondary text-white">
-                                <PackItems>
+                                <PackItems addItemToPack={props.addItemToPack}>
                                     <div className="card-header bg-transparent border-bottom border-dark">
                                         <ItemNameField
                                             placeholder="Items"
@@ -120,6 +123,7 @@ function PackContainer(props) {
                                             name={props.name}
                                             id={props.packId}
                                             addItemToPack={props.addItemToPack}
+                                            type="pack"
                                         />
                                     </div>
                                     {items}

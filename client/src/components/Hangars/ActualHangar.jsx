@@ -18,6 +18,8 @@ function ActualHangar(props) {
                 addNewPackToHangar={props.addNewPackToHangar}
                 resetShipAddForm={props.resetShipAddForm}
                 addShipToPack={props.addShipToPack}
+                addItemToPack={props.addItemToPack}
+                addItemToShip={props.addItemToShip}
             />
         </>
     )

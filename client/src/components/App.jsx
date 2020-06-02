@@ -21,9 +21,11 @@ import {
     seedShips,
     dbPutPack,
     dbPutShip,
+    dbPutItem,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
+    dbUpdateShip,
     dbUpdatePack,
 } from '../logicControl/db'
 
@@ -57,6 +59,8 @@ class App extends Component {
         this.acceptShipInputForPack = this.acceptShipInputForPack.bind(this)
         this.resetShipAddForm = this.resetShipAddForm.bind(this)
         this.addShipToPack = this.addShipToPack.bind(this)
+        this.addItemToPack = this.addItemToPack.bind(this)
+        this.addItemToShip = this.addItemToShip.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -149,7 +153,7 @@ class App extends Component {
         e.persist()
 
         let name = e.target[0].value
-        let price = parseInt(e.target[1].value)
+        let price = parseInt(e.target[1].value) || 0
         let items = []
         if (e.target[2].value !== 'Hangar...') {
             items.push({ name: e.target[2].value + ' hangar' })
@@ -245,6 +249,189 @@ class App extends Component {
             .catch((err) => {
                 console.log('Error trying to add ship to pack', err)
             })
+    }
+
+    addItemToPack(packId, item, itemName) {
+        console.log('Add item to pack called in App')
+        let newItem
+        if (item.id === 0 && itemName.length === 0) {
+            return null
+        }
+        if (item.id === 0 && itemName.length > 0) {
+            newItem = this.Factory.newItem(itemName)
+            console.log(newItem)
+        }
+        if (item.id > 0) {
+            newItem = this.Factory.newItem(item.name, item.price, false)
+        }
+
+        let packs = this.state.currentHangar.packs
+        let pack = {}
+
+        for (let pk of packs) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+        let otherPacks = packs.filter((p) => p.id !== packId)
+        let finalPacks = []
+
+        dbPutItem(newItem).then((id) => {
+            newItem.id = id
+            pack.items.push(newItem)
+            finalPacks = [...otherPacks, pack]
+            dbUpdatePack(packId, { items: pack.items }).then(() => {
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: finalPacks,
+                }).then(() => {
+                    let hngr = this.state.currentHangar
+                    hngr.packs = finalPacks
+                    this.setState({ currentHangar: hngr })
+                })
+            })
+        })
+    }
+
+    addItemToShip(shipId, item, itemName, packId) {
+        //hangar -> packs -> ships ->
+        console.log('Add Item To Ship in APP:')
+        const inPack = packId !== undefined
+        console.log(
+            `shipId = ${shipId}, item = ${item}, itemName = ${itemName}, packId = ${packId}, inpack? ${inPack}`
+        )
+
+        let newItem
+        if (item.id === 0 && itemName.length === 0) {
+            return null
+        }
+        if (item.id === 0 && itemName.length > 0) {
+            newItem = this.Factory.newItem(itemName)
+            console.log(newItem)
+        }
+        if (item.id > 0) {
+            newItem = this.Factory.newItem(item.name, item.price, false)
+        }
+        let packs = []
+        let pack = {}
+        let ships = []
+        let ship = {}
+
+        let otherPacks = []
+        let finalPacks = []
+        if (inPack) {
+            packs = this.state.currentHangar.packs
+
+            for (let pk of packs) {
+                if (pk.id === packId) {
+                    pack = pk
+                    break
+                }
+            }
+            otherPacks = packs.filter((p) => p.id !== packId)
+            ships = pack.ships
+            for (let s of ships) {
+                if (s.id === shipId) {
+                    ship = s
+                    break
+                }
+            }
+        } else {
+            ships = this.state.currentHangar.ships
+            ship = {}
+
+            for (let s of ships) {
+                if (s.id === shipId) {
+                    ship = s
+                    break
+                }
+            }
+        }
+        let otherShips = ships.filter((s) => s.id !== shipId)
+        let finalShips = []
+        let finalItems = []
+
+        if (inPack) {
+            dbPutItem(newItem)
+                .then((id) => {
+                    newItem.id = id
+                    finalItems = ship.items.push(newItem)
+                    finalShips = [...otherShips, ship]
+                    pack.ships = finalShips
+                    finalPacks = [...otherPacks, pack]
+                    console.log('finalShips going into updateShip', finalShips)
+                    console.log('finalPacks inside pack if', finalPacks)
+                    Promise.all([
+                        dbUpdateShip(shipId, { items: finalItems }),
+                        dbUpdatePack(packId, { ships: finalShips }),
+                        dbUpdateHangar(this.state.currentHangar.id, {
+                            packs: finalPacks,
+                        }),
+                    ]).then(() => {
+                        let hngr = this.state.currentHangar
+                        hngr.packs = finalPacks
+                        this.setState({ currentHangar: hngr })
+                    })
+                })
+
+                .catch((err) => {
+                    console.log('Error adding item to ship', err)
+                })
+        } else {
+            dbPutItem(newItem)
+                .then((id) => {
+                    newItem.id = id
+                    ship.items.push(newItem)
+                    finalShips = [...otherShips, ship]
+                    console.log('finalShips going into updateShip', finalShips)
+                    Promise.all([
+                        dbUpdateShip(shipId, { items: ship.items }),
+                        dbUpdateHangar(this.state.currentHangar.id, {
+                            ships: finalShips,
+                        }),
+                    ]).then(() => {
+                        let hngr = this.state.currentHangar
+                        hngr.ships = finalShips
+                        this.setState({ currentHangar: hngr })
+                    })
+                })
+                .catch((err) => {
+                    console.log('Error adding item to ship', err)
+                })
+        }
+
+        // dbUpdateShip((shipId, { items: ship.items }))
+        //     .then(() => {
+        //         pack.ships = finalShips
+        //         finalPacks = [...otherPacks, pack]
+        //         console.log('finalPacks inside pack if', finalPacks)
+        //         dbUpdatePack(packId, { ships: finalShips }).then(() => {
+        //             dbUpdateHangar(this.state.currentHangar.id, {
+        //                 packs: finalPacks,
+        //             })
+        //         })
+        //     })
+        //     .then(() => {
+        //         let hngr = this.state.currentHangar
+        //         hngr.packs = finalPacks
+        //         this.setState({ currentHangar: hngr })
+        //     })
+        // .catch((err) => {
+        //     console.log('Error in inPack if', err)
+        // })
+
+        // dbUpdateShip((shipId, { items: ship.items }))
+        //     .then(() => {
+        //         dbUpdateHangar(this.state.currentHangar.id, {
+        //             ships: finalShips,
+        //         })
+        //     })
+        //     .then(() => {
+        //         let hngr = this.state.currentHangar
+        //         hngr.ships = finalShips
+        //         this.setState({ currentHangar: hngr })
+        //     })
+        // .catch('Error in inPack else', err)
     }
 
     addNewShipToHangar(e) {
@@ -347,6 +534,8 @@ class App extends Component {
                             selectedShip={this.state.selectedShip}
                             resetShipAddForm={this.resetShipAddForm}
                             addShipToPack={this.addShipToPack}
+                            addItemToPack={this.addItemToPack}
+                            addItemToShip={this.addItemToShip}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

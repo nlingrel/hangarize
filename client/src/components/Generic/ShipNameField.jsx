@@ -85,9 +85,8 @@ class ShipNameField extends Component {
             this.state.selectedShip,
             this.state.shipNameField
         )
-        setTimeout(() => {
-            this.setState({ shipNameField: '' })
-        }, 0)
+
+        this.setState({ shipNameField: '' })
     }
 
     render() {
