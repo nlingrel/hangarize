@@ -96,36 +96,35 @@ function PackContainer(props) {
                     <div className="card-body">
                         <div className="card-deck">
                             <div className="card bg-secondary text-white">
+                                <div className="card-header bg-transparent mb-1">
+                                    <ShipNameField
+                                        placeholder="Ships"
+                                        className="form-control bg-dark"
+                                        name={props.name}
+                                        packId={props.packId}
+                                        addShipToPack={props.addShipToPack}
+                                    />
+                                </div>
                                 <PackShips
                                     id={`ships${props.packId}`}
                                     packId={props.packId}
                                     addShipToPack={props.addShipToPack}
                                 >
-                                    <div className="card-header bg-transparent border-bottom border-dark">
-                                        <ShipNameField
-                                            placeholder="Ships"
-                                            className="form-control bg-dark"
-                                            name={props.name}
-                                            packId={props.packId}
-                                            addShipToPack={props.addShipToPack}
-                                        />
-                                    </div>
-
                                     {ships}
                                 </PackShips>
                             </div>
                             <div className="card bg-secondary text-white">
+                                <div className="card-header bg-transparent mb-1 ">
+                                    <ItemNameField
+                                        placeholder="Items"
+                                        className="form-control bg-dark"
+                                        name={props.name}
+                                        id={props.packId}
+                                        addItemToPack={props.addItemToPack}
+                                        type="pack"
+                                    />
+                                </div>
                                 <PackItems addItemToPack={props.addItemToPack}>
-                                    <div className="card-header bg-transparent border-bottom border-dark">
-                                        <ItemNameField
-                                            placeholder="Items"
-                                            className="form-control bg-dark"
-                                            name={props.name}
-                                            id={props.packId}
-                                            addItemToPack={props.addItemToPack}
-                                            type="pack"
-                                        />
-                                    </div>
                                     {items}
                                 </PackItems>
                             </div>

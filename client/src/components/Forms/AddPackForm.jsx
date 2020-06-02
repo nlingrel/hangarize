@@ -1,9 +1,5 @@
 import React from 'react'
 import HideButton from '../Generic/HideButton'
-import CardTray from '../Generic/CardTray'
-import PackContainer from '../Packs/PackContainer'
-import DragPorts from '../Generic/DragPorts'
-import DragPort from '../Generic/DragPort'
 
 function AddPackForm(props) {
     const collapseId = `${props.name}FormCollapse`

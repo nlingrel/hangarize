@@ -8,7 +8,7 @@ function Home(props) {
                     <h3>Welcome to HangarizeSC</h3>
                     <div className="card-body bg-secondary text-light">
                         <div className="card-deck">
-                            <div className="card bg-dark text-center m-2">
+                            <div className="card bg-dark text-center m-2 p-2">
                                 <h5>How To Use</h5>
                                 <h6>
                                     1. Build Your Actual Hangar
@@ -32,7 +32,7 @@ function Home(props) {
                                     </p>
                                 </h6>
                             </div>
-                            <div className="card bg-dark text-center m-2">
+                            <div className="card bg-dark text-center m-2 p-2">
                                 <h5>How It Works</h5>
                                 <h6>
                                     IndexedDB

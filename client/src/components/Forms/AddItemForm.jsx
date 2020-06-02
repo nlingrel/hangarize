@@ -8,12 +8,15 @@ class AddItemForm extends Component {
             itemNameField: '',
         }
         this.handleChange = this.handleChange.bind(this)
+        this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
         this.resetForm = this.resetForm.bind(this)
+        this.formId = `${this.props.name}AddForm`
     }
     addNewItemToHangar(e) {
         e.preventDefault()
-        e.persist()
-        console.log('addNewItem called in component', e.target[0].value)
+        // e.persist()
+        console.log('addNewItem called in component')
+        this.resetForm()
     }
     handleChange(e) {
         const value = e.target.value
@@ -22,12 +25,12 @@ class AddItemForm extends Component {
 
     resetForm() {
         this.setState({ itemNameField: '' })
+        document.getElementById(this.formId).reset()
     }
 
     render() {
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
-        const formId = `${this.props.name}AddForm`
 
         return (
             <div
@@ -35,7 +38,7 @@ class AddItemForm extends Component {
                 id={collapseId}
             >
                 <div className="card-body">
-                    <form onSubmit={this.addNewItemToHangar} id={formId}>
+                    <form onSubmit={this.addNewItemToHangar} id={this.formId}>
                         <div className="form-group row">
                             <div className="col-auto">
                                 <div className="card bg-dark text-white-50 col-auto border-secondary m-1">
@@ -81,16 +84,14 @@ class AddItemForm extends Component {
                         <button
                             type="submit"
                             className="btn btn-secondary ml-1"
+                            onClick={this.addNewItemToHangar}
                         >
                             Create Item
                         </button>
                         <button
                             type="button"
                             className="btn btn-outline-light ml-1"
-                            onClick={(e) => {
-                                this.resetForm()
-                                document.getElementById(formId).reset()
-                            }}
+                            onClick={this.resetForm}
                         >
                             Reset
                         </button>
