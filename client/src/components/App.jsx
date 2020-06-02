@@ -501,6 +501,7 @@ class App extends Component {
         const packs = this.state.currentHangar.packs
         const ships = this.state.currentHangar.ships
         const ccus = this.state.currentHangar.ccus
+        const items = this.state.currentHangar.items
 
         return (
             <>
@@ -523,6 +524,7 @@ class App extends Component {
                             packs={packs}
                             ships={ships}
                             ccus={ccus}
+                            items={items}
                             addNewPackToHangar={this.addNewPackToHangar}
                             addNewShipToHangar={this.addNewShipToHangar}
                             suggestShipNames={this.suggestShipNames}

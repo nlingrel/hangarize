@@ -2,6 +2,7 @@ import React from 'react'
 import PacksContainer from '../Packs/PacksContainer'
 import ShipsContainer from '../Ships/ShipsContainer'
 import CCUsContainer from '../CCUs/CCUsContainer'
+import ItemsContainer from '../Items/ItemsContainer'
 
 function HangarContainer(props) {
     return (
@@ -27,6 +28,7 @@ function HangarContainer(props) {
                 ships={props.ships}
                 packs={props.packs}
             />
+            <ItemsContainer items={props.items} />
         </div>
     )
 }

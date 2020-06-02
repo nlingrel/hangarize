@@ -9,20 +9,7 @@ function AddPackForm(props) {
     const collapseId = `${props.name}FormCollapse`
     const collapseTarget = `#${props.name}FormCollapse`
     const formId = `${props.name}AddForm`
-    const trayPacks = props.trayPacks.map((pack, i) => {
-        return (
-            <PackContainer
-                key={i}
-                packId={pack.id}
-                name={pack.name}
-                ships={pack.ships}
-                items={pack.items}
-                price={pack.price}
-                number={i}
-                addShipToPack={props.addShipToPack}
-            />
-        )
-    })
+
     return (
         <div
             className="card border border-secondary collapse bg-dark text-light"

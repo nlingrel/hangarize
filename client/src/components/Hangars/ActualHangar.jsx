@@ -11,6 +11,7 @@ function ActualHangar(props) {
                 packs={props.packs}
                 ships={props.ships}
                 ccus={props.ccus}
+                items={props.items}
                 addNewShipToHangar={props.addNewShipToHangar}
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
