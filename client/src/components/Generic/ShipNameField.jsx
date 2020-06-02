@@ -27,14 +27,15 @@ class ShipNameField extends Component {
 
         let suggestedShips = []
         if (value.length > 0) {
-            const regex = new RegExp(`${lcValue}`, 'i')
+            const has = new RegExp(`${lcValue}`, 'i')
+            const startsWith = new RegExp(`^${lcValue}`, 'i')
             suggestedShips = this.shipSeed
                 .sort()
                 .filter(
                     (v) =>
-                        regex.test(v.name) ||
-                        regex.test(v.manufacturer) ||
-                        regex.test(this.nickNames[v.manufacturer])
+                        has.test(v.name) ||
+                        has.test(v.manufacturer) ||
+                        startsWith.test(this.nickNames[v.manufacturer])
                 )
         }
 
@@ -100,7 +101,7 @@ class ShipNameField extends Component {
                         placeholder={this.props.placeholder}
                         className={this.props.className}
                         style={{ color: 'white' }}
-                        id={inputId}
+                        // id={inputId}
                         autoComplete="off"
                         onChange={this.suggestShipNames}
                         value={this.state.shipNameField}

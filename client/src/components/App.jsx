@@ -90,14 +90,15 @@ class App extends Component {
 
         let suggestedShips = []
         if (value.length > 0) {
-            const regex = new RegExp(`^${value}`, 'i')
+            const has = new RegExp(`${lcValue}`, 'i')
+            const startsWith = new RegExp(`^${lcValue}`, 'i')
             suggestedShips = this.shipSeed
                 .sort()
                 .filter(
                     (v) =>
-                        regex.test(v.name) ||
-                        regex.test(v.manufacturer) ||
-                        regex.test(this.nickNames[v.manufacturer])
+                        has.test(v.name) ||
+                        has.test(v.manufacturer) ||
+                        startsWith.test(this.nickNames[v.manufacturer])
                 )
         }
 
@@ -234,7 +235,9 @@ class App extends Component {
             .then((id) => {
                 newShip.id = id
                 pack.ships.push(newShip)
-                finalPacks = [...otherPacks, pack]
+                finalPacks = [...otherPacks, pack].sort((a, b) => {
+                    return a.id - b.id
+                })
 
                 dbUpdatePack(packId, { ships: pack.ships }).then(() => {
                     dbUpdateHangar(this.state.currentHangar.id, {
@@ -280,7 +283,9 @@ class App extends Component {
         dbPutItem(newItem).then((id) => {
             newItem.id = id
             pack.items.push(newItem)
-            finalPacks = [...otherPacks, pack]
+            finalPacks = [...otherPacks, pack].sort((a, b) => {
+                return a.id - b.id
+            })
             dbUpdatePack(packId, { items: pack.items }).then(() => {
                 dbUpdateHangar(this.state.currentHangar.id, {
                     packs: finalPacks,
@@ -356,9 +361,13 @@ class App extends Component {
                 .then((id) => {
                     newItem.id = id
                     finalItems = ship.items.push(newItem)
-                    finalShips = [...otherShips, ship]
+                    finalShips = [...otherShips, ship].sort((a, b) => {
+                        return a.id - b.id
+                    })
                     pack.ships = finalShips
-                    finalPacks = [...otherPacks, pack]
+                    finalPacks = [...otherPacks, pack].sort((a, b) => {
+                        return a.id - b.id
+                    })
                     console.log('finalShips going into updateShip', finalShips)
                     console.log('finalPacks inside pack if', finalPacks)
                     Promise.all([
@@ -382,7 +391,9 @@ class App extends Component {
                 .then((id) => {
                     newItem.id = id
                     ship.items.push(newItem)
-                    finalShips = [...otherShips, ship]
+                    finalShips = [...otherShips, ship].sort((a, b) => {
+                        return a.id - b.id
+                    })
                     console.log('finalShips going into updateShip', finalShips)
                     Promise.all([
                         dbUpdateShip(shipId, { items: ship.items }),
@@ -399,39 +410,6 @@ class App extends Component {
                     console.log('Error adding item to ship', err)
                 })
         }
-
-        // dbUpdateShip((shipId, { items: ship.items }))
-        //     .then(() => {
-        //         pack.ships = finalShips
-        //         finalPacks = [...otherPacks, pack]
-        //         console.log('finalPacks inside pack if', finalPacks)
-        //         dbUpdatePack(packId, { ships: finalShips }).then(() => {
-        //             dbUpdateHangar(this.state.currentHangar.id, {
-        //                 packs: finalPacks,
-        //             })
-        //         })
-        //     })
-        //     .then(() => {
-        //         let hngr = this.state.currentHangar
-        //         hngr.packs = finalPacks
-        //         this.setState({ currentHangar: hngr })
-        //     })
-        // .catch((err) => {
-        //     console.log('Error in inPack if', err)
-        // })
-
-        // dbUpdateShip((shipId, { items: ship.items }))
-        //     .then(() => {
-        //         dbUpdateHangar(this.state.currentHangar.id, {
-        //             ships: finalShips,
-        //         })
-        //     })
-        //     .then(() => {
-        //         let hngr = this.state.currentHangar
-        //         hngr.ships = finalShips
-        //         this.setState({ currentHangar: hngr })
-        //     })
-        // .catch('Error in inPack else', err)
     }
 
     addNewShipToHangar(e) {

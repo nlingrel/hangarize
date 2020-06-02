@@ -70,7 +70,7 @@ class ItemNameField extends Component {
                         placeholder={this.props.placeholder}
                         className={this.props.className}
                         style={{ color: 'white' }}
-                        id={inputId}
+                        // id={inputId}
                         autoComplete="off"
                         onChange={this.handleChange}
                         value={this.state.itemNameField}
