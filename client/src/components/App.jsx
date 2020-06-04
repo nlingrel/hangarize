@@ -421,8 +421,8 @@ class App extends Component {
         // }
 
         let name = e.target[0].value
-        let price = parseInt(e.target[1].value) || 0
-        let manufacturer = e.target[2].value || 'Unknown Manufacturer'
+        let manufacturer = e.target[1].value || 'Unknown Manufacturer'
+        let price = parseInt(e.target[2].value) || 0
         let items = []
         let size, role
         if (e.target[3].value !== 'Size...') {

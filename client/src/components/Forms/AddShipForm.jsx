@@ -23,6 +23,7 @@ class AddShipForm extends Component {
             hangarSelected: false,
             sizeSelected: false,
             roleSelected: false,
+            ltiSelected: false,
         }
         this.handlePriceChange = this.handlePriceChange.bind(this)
         this.suggestShipNames = this.suggestShipNames.bind(this)
@@ -37,6 +38,7 @@ class AddShipForm extends Component {
         this.hangarChange = this.hangarChange.bind(this)
         this.sizeChange = this.sizeChange.bind(this)
         this.roleChange = this.roleChange.bind(this)
+        this.ltiChange = this.ltiChange.bind(this)
         this.handleSkinChange = this.handleSkinChange.bind(this)
 
         this.suggestManufacturers = this.suggestManufacturers.bind(this)
@@ -86,6 +88,13 @@ class AddShipForm extends Component {
             this.setState({ roleSelected: true, roleValue: value })
         } else {
             this.setState({ roleSelected: false, roleValue: 'Role...' })
+        }
+    }
+    ltiChange(e) {
+        if (e.target.checked) {
+            this.setState({ ltiSelected: true })
+        } else {
+            this.setState({ ltiSelected: false })
         }
     }
     handleSkinChange(e) {
@@ -167,9 +176,9 @@ class AddShipForm extends Component {
         }
         return (
             <div style={{ maxHeight: '150px' }} className="overflow-auto">
-                <ul className="list-group-sm ">
+                <ul className="list-group ">
                     {suggestedShips.map((item, i) => (
-                        <li
+                        <option
                             className="btn btn-secondary dropdown-item bg-dark text-light"
                             onClick={() => {
                                 this.selectSuggestedShip(item)
@@ -177,7 +186,7 @@ class AddShipForm extends Component {
                             key={i}
                         >
                             {item.name}
-                        </li>
+                        </option>
                     ))}
                 </ul>
             </div>
@@ -236,7 +245,6 @@ class AddShipForm extends Component {
             roleSelected: true,
             sizeSelected: true,
         })
-        //get id from db and fill in rest of fields based on db
     }
 
     selectSuggestedManufacturer(manu) {
@@ -296,8 +304,11 @@ class AddShipForm extends Component {
         const filledInRole = this.state.roleSelected
             ? filled
             : `${empty} text-secondary`
+        const checkedLTI = this.state.ltiSelected ? 'text-light' : 'text-dark'
         const pricePlaceholder =
-            this.state.defaultPrice > 0 ? `${this.state.defaultPrice}` : 'Price'
+            this.state.defaultPrice > 0
+                ? `$${this.state.defaultPrice}`
+                : 'Price'
 
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
@@ -315,8 +326,6 @@ class AddShipForm extends Component {
             >
                 <div className="card-body">
                     <form onSubmit={this.addNewShipToHangar} id={this.formId}>
-                        {/* <div className="form-group row"> */}
-                        {/* <div className="col-auto"> */}
                         <div className="form-row">
                             <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark mb-3 col">
                                 <div className="card-title border-bottom border-dark">
@@ -340,17 +349,7 @@ class AddShipForm extends Component {
 
                                     <input
                                         type="text"
-                                        className={`form-control ${filledInPrice} mb-1`}
-                                        id="inputShipPrice"
-                                        placeholder={pricePlaceholder}
-                                        onChange={this.handlePriceChange}
-                                        value={this.state.priceField}
-                                        autoComplete="off"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        className={`form-control ${filledInManu} mb-3`}
+                                        className={`form-control ${filledInManu} mb-1`}
                                         id="inputShipManufacturer"
                                         placeholder="Manufacturer"
                                         autoComplete="off"
@@ -362,35 +361,45 @@ class AddShipForm extends Component {
                                     {this.state.showManus
                                         ? manuSuggestions
                                         : ''}
-                                </div>
-                                <div className="form-group">
+                                    <div className="form-inline">
+                                        <input
+                                            type="text"
+                                            className={`form-control ${filledInPrice} mb-1 col`}
+                                            id="inputShipPrice"
+                                            placeholder={pricePlaceholder}
+                                            onChange={this.handlePriceChange}
+                                            value={this.state.priceField}
+                                            autoComplete="off"
+                                        />
+
+                                        <select
+                                            className={`form-control ${filledInSize} mb-1 col`}
+                                            id="hangarInfoSelectSize"
+                                            onChange={this.sizeChange}
+                                            value={this.state.sizeValue}
+                                        >
+                                            <option className="bg-dark text-secondary">
+                                                Size...
+                                            </option>
+                                            <option className="bg-dark text-light">
+                                                Snub
+                                            </option>
+                                            <option className="bg-dark text-light">
+                                                Small
+                                            </option>
+                                            <option className="bg-dark text-light">
+                                                Medium
+                                            </option>
+                                            <option className="bg-dark text-light">
+                                                Large
+                                            </option>
+                                            <option className="bg-dark text-light">
+                                                Capital
+                                            </option>
+                                        </select>
+                                    </div>
                                     <select
-                                        className={`form-control ${filledInSize} mb-1`}
-                                        id="hangarInfoSelectSize"
-                                        onChange={this.sizeChange}
-                                        value={this.state.sizeValue}
-                                    >
-                                        <option className="bg-dark text-secondary">
-                                            Size...
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Snub
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Small
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Medium
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Large
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Capital
-                                        </option>
-                                    </select>
-                                    <select
-                                        className={`form-control ${filledInRole} mb-1`}
+                                        className={`form-control ${filledInRole} mb-1 `}
                                         id="hangarInfoSelectRole"
                                         onChange={this.roleChange}
                                         value={this.state.roleValue}
@@ -402,8 +411,7 @@ class AddShipForm extends Component {
                                     </select>
                                 </div>
                             </div>
-                            {/* </div> */}
-                            {/* <div className="col-auto"> */}
+
                             <div className="card bg-secondary font-weight-bold text-dark border-dark col-auto mb-3 col">
                                 <div className="card-title border-bottom border-dark">
                                     Extras
@@ -443,13 +451,14 @@ class AddShipForm extends Component {
 
                                 <div className="mb-2 form-check-inline">
                                     <input
-                                        className="form-check-input mr-2"
+                                        className="form-check mr-2"
                                         type="checkbox"
                                         id="LTIcheckShip"
                                         name="LTI"
+                                        onChange={this.ltiChange}
                                     />
                                     <label
-                                        className="form-check-label font-weight-bold text-dark"
+                                        className={`form-check-label font-weight-bold ${checkedLTI}`}
                                         htmlFor="LTIcheck"
                                     >
                                         LTI
@@ -457,8 +466,7 @@ class AddShipForm extends Component {
                                 </div>
                             </div>
                         </div>
-                        {/* </div> */}
-                        {/* </div> */}
+
                         <div className="form-row">
                             <button
                                 type="submit"
