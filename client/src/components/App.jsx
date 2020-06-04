@@ -416,24 +416,38 @@ class App extends Component {
         e.preventDefault()
         e.persist()
 
-        for (var i = 0; i < e.target.length; i++) {
-            console.log(`target number ${i}: ${e.target[i].value}`)
-        }
+        // for (var i = 0; i < e.target.length; i++) {
+        //     console.log(`target number ${i}: ${e.target[i].value}`)
+        // }
 
         let name = e.target[0].value
         let price = parseInt(e.target[1].value) || 0
         let manufacturer = e.target[2].value || 'Unknown Manufacturer'
         let items = []
-        if (e.target[3].value !== 'Hangar...') {
-            items.push({ name: e.target[3].value + ' hangar' })
+        let size, role
+        if (e.target[3].value !== 'Size...') {
+            size = e.target[3].value
         }
-        if (e.target[4].value !== '') {
-            items.push({ name: e.target[4].value + ' Skin' })
+        if (e.target[4].value !== 'Role...') {
+            role = e.target[4].value
         }
-        if (e.target[5].checked) {
-            items.push({ name: e.target[5].name })
+        if (e.target[5].value !== 'Hangar...') {
+            items.push({ name: e.target[5].value + ' hangar' })
         }
-        let ship = this.Factory.newShip(name, price, items, manufacturer)
+        if (e.target[6].value !== '') {
+            items.push({ name: e.target[6].value + ' Skin' })
+        }
+        if (e.target[7].checked) {
+            items.push({ name: e.target[7].name })
+        }
+        let ship = this.Factory.newShip(
+            name,
+            price,
+            items,
+            manufacturer,
+            role,
+            size
+        )
         let ships = this.state.currentHangar.ships
 
         dbPutShip(ship)

@@ -18,7 +18,11 @@ class AddShipForm extends Component {
             defaultPrice: 0,
             selectedShip: { id: 0 },
             selectedManu: { id: 0 },
+            sizeValue: 'Size...',
+            roleValue: 'Role...',
             hangarSelected: false,
+            sizeSelected: false,
+            roleSelected: false,
         }
         this.handlePriceChange = this.handlePriceChange.bind(this)
         this.suggestShipNames = this.suggestShipNames.bind(this)
@@ -31,6 +35,8 @@ class AddShipForm extends Component {
         this.showSuggestedManus = this.showSuggestedManus.bind(this)
         this.hideSuggestedManus = this.hideSuggestedManus.bind(this)
         this.hangarChange = this.hangarChange.bind(this)
+        this.sizeChange = this.sizeChange.bind(this)
+        this.roleChange = this.roleChange.bind(this)
         this.handleSkinChange = this.handleSkinChange.bind(this)
 
         this.suggestManufacturers = this.suggestManufacturers.bind(this)
@@ -47,6 +53,14 @@ class AddShipForm extends Component {
         for (let manu of manuSeed) {
             this.nickNames[manu.name] = manu.nickName
         }
+
+        this.roleNames = {}
+        for (let ship of shipSeed) {
+            if (ship.role.length > 0) {
+                this.roleNames[ship.role] = ship.role
+            }
+        }
+        this.roleSeed = Object.values(this.roleNames).sort()
     }
 
     hangarChange(e) {
@@ -57,15 +71,32 @@ class AddShipForm extends Component {
             this.setState({ hangarSelected: false })
         }
     }
+    sizeChange(e) {
+        const value = e.target.value
+        if (value !== 'Size...') {
+            this.setState({ sizeSelected: true, sizeValue: value })
+        } else {
+            this.setState({ sizeSelected: false, roleValue: 'Size...' })
+        }
+    }
+
+    roleChange(e) {
+        const value = e.target.value
+        if (value !== 'Role...') {
+            this.setState({ roleSelected: true, roleValue: value })
+        } else {
+            this.setState({ roleSelected: false, roleValue: 'Role...' })
+        }
+    }
     handleSkinChange(e) {
         e.preventDefault()
-        console.log(e.target.value)
+
         const value = e.target.value
         this.setState({ skinField: value })
     }
     handlePriceChange(e) {
         const value = e.target.value
-        console.log('typeof value===', typeof value)
+
         if (parseInt(value) >= 0) {
             this.setState({ priceField: value })
         } else {
@@ -121,6 +152,10 @@ class AddShipForm extends Component {
             shipNameField: value,
             selectedShip: { id: 0 },
             defaultPrice: '',
+            roleValue: 'Role...',
+            roleSelected: false,
+            sizeSelected: false,
+            sizeValue: 'Size...',
         })
     }
 
@@ -196,6 +231,10 @@ class AddShipForm extends Component {
             suggestedShips: [],
             manuNameField: ship.manufacturer,
             defaultPrice: ship.defaultPrice,
+            roleValue: ship.role,
+            sizeValue: ship.size,
+            roleSelected: true,
+            sizeSelected: true,
         })
         //get id from db and fill in rest of fields based on db
     }
@@ -230,6 +269,10 @@ class AddShipForm extends Component {
             selectedShip: { id: 0 },
             selectedManu: { id: 0 },
             hangarSelected: false,
+            sizeSelected: false,
+            roleSelected: false,
+            sizeValue: 'Size...',
+            roleValue: 'Role...',
         })
     }
 
@@ -247,13 +290,24 @@ class AddShipForm extends Component {
             ? filled
             : `${empty} text-secondary`
         const filledInSkin = this.state.skinField.length > 0 ? filled : empty
+        const filledInSize = this.state.sizeSelected
+            ? filled
+            : `${empty} text-secondary`
+        const filledInRole = this.state.roleSelected
+            ? filled
+            : `${empty} text-secondary`
         const pricePlaceholder =
-            this.state.defaultPrice > 0
-                ? `$${this.state.defaultPrice}`
-                : 'Price'
+            this.state.defaultPrice > 0 ? `${this.state.defaultPrice}` : 'Price'
 
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
+        const roleOptions = this.roleSeed.map((role, i) => {
+            return (
+                <option key={i} className="bg-dark text-light">
+                    {role}
+                </option>
+            )
+        })
         return (
             <div
                 className="card border border-secondary collapse bg-dark text-light"
@@ -308,6 +362,44 @@ class AddShipForm extends Component {
                                     {this.state.showManus
                                         ? manuSuggestions
                                         : ''}
+                                </div>
+                                <div className="form-group">
+                                    <select
+                                        className={`form-control ${filledInSize} mb-1`}
+                                        id="hangarInfoSelectSize"
+                                        onChange={this.sizeChange}
+                                        value={this.state.sizeValue}
+                                    >
+                                        <option className="bg-dark text-secondary">
+                                            Size...
+                                        </option>
+                                        <option className="bg-dark text-light">
+                                            Snub
+                                        </option>
+                                        <option className="bg-dark text-light">
+                                            Small
+                                        </option>
+                                        <option className="bg-dark text-light">
+                                            Medium
+                                        </option>
+                                        <option className="bg-dark text-light">
+                                            Large
+                                        </option>
+                                        <option className="bg-dark text-light">
+                                            Capital
+                                        </option>
+                                    </select>
+                                    <select
+                                        className={`form-control ${filledInRole} mb-1`}
+                                        id="hangarInfoSelectRole"
+                                        onChange={this.roleChange}
+                                        value={this.state.roleValue}
+                                    >
+                                        <option className="bg-dark text-secondary">
+                                            Role...
+                                        </option>
+                                        {roleOptions}
+                                    </select>
                                 </div>
                             </div>
                             {/* </div> */}
