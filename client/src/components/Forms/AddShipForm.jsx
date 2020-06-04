@@ -64,9 +64,13 @@ class AddShipForm extends Component {
         this.setState({ skinField: value })
     }
     handlePriceChange(e) {
-        const value =
-            typeof parseInt(e.target.value) === 'number' ? e.target.value : ''
-        this.setState({ priceField: value })
+        const value = e.target.value
+        console.log('typeof value===', typeof value)
+        if (parseInt(value) >= 0) {
+            this.setState({ priceField: value })
+        } else {
+            this.setState({ priceField: '' })
+        }
     }
     suggestManufacturers(e) {
         const value = e.target.value
@@ -257,13 +261,14 @@ class AddShipForm extends Component {
             >
                 <div className="card-body">
                     <form onSubmit={this.addNewShipToHangar} id={this.formId}>
-                        <div className="form-group row">
-                            <div className="col-auto">
-                                <div className="card bg-secondary font-weight-bold text-dark col-auto border-secondary mb-3">
-                                    <div className="card-title border-bottom border-dark">
-                                        Info
-                                    </div>
-
+                        {/* <div className="form-group row"> */}
+                        {/* <div className="col-auto"> */}
+                        <div className="form-row">
+                            <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark mb-3 col">
+                                <div className="card-title border-bottom border-dark">
+                                    Info
+                                </div>
+                                <div className="form-group">
                                     <input
                                         type="text"
                                         className={`form-control ${filledInName} mb-1`}
@@ -291,7 +296,7 @@ class AddShipForm extends Component {
 
                                     <input
                                         type="text"
-                                        className={`form-control ${filledInManu} mb-2`}
+                                        className={`form-control ${filledInManu} mb-3`}
                                         id="inputShipManufacturer"
                                         placeholder="Manufacturer"
                                         autoComplete="off"
@@ -305,78 +310,81 @@ class AddShipForm extends Component {
                                         : ''}
                                 </div>
                             </div>
-                            <div className="col-auto">
-                                <div className="card bg-secondary font-weight-bold text-dark border-secondary col-auto mb-3">
-                                    <div className="card-title border-bottom border-dark">
-                                        Extras
-                                    </div>
+                            {/* </div> */}
+                            {/* <div className="col-auto"> */}
+                            <div className="card bg-secondary font-weight-bold text-dark border-dark col-auto mb-3 col">
+                                <div className="card-title border-bottom border-dark">
+                                    Extras
+                                </div>
 
-                                    <select
-                                        className={`form-control ${filledInHangar} mb-1`}
-                                        id="hangarExtraSelectShip"
-                                        onChange={this.hangarChange}
-                                    >
-                                        <option className="bg-dark text-secondary">
-                                            Hangar...
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            VFG Industrial
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Revel and York
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            AeroView
-                                        </option>
-                                        <option className="bg-dark text-light">
-                                            Self-Land
-                                        </option>
-                                    </select>
+                                <select
+                                    className={`form-control ${filledInHangar} mb-1`}
+                                    id="hangarExtraSelectShip"
+                                    onChange={this.hangarChange}
+                                >
+                                    <option className="bg-dark text-secondary">
+                                        Hangar...
+                                    </option>
+                                    <option className="bg-dark text-light">
+                                        VFG Industrial
+                                    </option>
+                                    <option className="bg-dark text-light">
+                                        Revel and York
+                                    </option>
+                                    <option className="bg-dark text-light">
+                                        AeroView
+                                    </option>
+                                    <option className="bg-dark text-light">
+                                        Self-Land
+                                    </option>
+                                </select>
 
+                                <input
+                                    type="text"
+                                    className={`form-control ${filledInSkin} mb-1`}
+                                    id="inputShipSkin"
+                                    placeholder="Skin"
+                                    onChange={this.handleSkinChange}
+                                    value={this.state.skinField}
+                                    autoComplete="off"
+                                />
+
+                                <div className="mb-2 form-check-inline">
                                     <input
-                                        type="text"
-                                        className={`form-control ${filledInSkin} mb-1`}
-                                        id="inputShipSkin"
-                                        placeholder="Skin"
-                                        onChange={this.handleSkinChange}
-                                        value={this.state.skinField}
-                                        autoComplete="off"
+                                        className="form-check-input mr-2"
+                                        type="checkbox"
+                                        id="LTIcheckShip"
+                                        name="LTI"
                                     />
-
-                                    <div className="mb-2 form-check-inline">
-                                        <label
-                                            className="form-check-label font-weight-bold text-dark mr-2"
-                                            htmlFor="LTIcheck"
-                                        >
-                                            LTI
-                                        </label>
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="LTIcheckShip"
-                                            name="LTI"
-                                        />
-                                    </div>
+                                    <label
+                                        className="form-check-label font-weight-bold text-dark"
+                                        htmlFor="LTIcheck"
+                                    >
+                                        LTI
+                                    </label>
                                 </div>
                             </div>
                         </div>
-
-                        <button
-                            type="submit"
-                            className="btn btn-secondary ml-1"
-                        >
-                            Create Ship
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-light ml-1"
-                            onClick={(e) => {
-                                this.resetShipAddForm()
-                                document.getElementById(this.formId).reset()
-                            }}
-                        >
-                            Reset
-                        </button>
+                        {/* </div> */}
+                        {/* </div> */}
+                        <div className="form-row">
+                            <button
+                                type="submit"
+                                className="btn btn-secondary ml-1"
+                            >
+                                Create Ship
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-outline-light ml-1"
+                                onClick={(e) => {
+                                    this.resetShipAddForm()
+                                    document.getElementById(this.formId).reset()
+                                }}
+                            >
+                                Reset
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div className="card-footer">
