@@ -58,6 +58,8 @@ class AddShipForm extends Component {
         }
     }
     handleSkinChange(e) {
+        e.preventDefault()
+        console.log(e.target.value)
         const value = e.target.value
         this.setState({ skinField: value })
     }
@@ -228,7 +230,7 @@ class AddShipForm extends Component {
     }
 
     render() {
-        const filled = 'alert-primary'
+        const filled = 'bg-dark text-white'
         const empty = 'bg-dark'
         const shipSuggestions = this.renderSuggestedShipNames()
         const manuSuggestions = this.renderSuggestedManufacturers()
@@ -257,68 +259,58 @@ class AddShipForm extends Component {
                     <form onSubmit={this.addNewShipToHangar} id={this.formId}>
                         <div className="form-group row">
                             <div className="col-auto">
-                                <div className="card bg-secondary text-light col-auto border-secondary m-1">
-                                    <div className="card-title ">Info</div>
-                                    <div className="form-group row">
-                                        <div className="col-auto">
-                                            <input
-                                                type="text"
-                                                className={`form-control ${filledInName} mb-1`}
-                                                id="inputShipName"
-                                                onChange={this.suggestShipNames}
-                                                value={this.state.shipNameField}
-                                                autoComplete="off"
-                                                placeholder="Name"
-                                                onBlur={this.hideSuggestedShips}
-                                                onFocus={
-                                                    this.showSuggestedShips
-                                                }
-                                            />
-                                            {this.state.showShips
-                                                ? shipSuggestions
-                                                : ''}
-                                        </div>
-                                        <div className="col-auto">
-                                            <input
-                                                type="text"
-                                                className={`form-control ${filledInPrice} mb-1`}
-                                                id="inputShipPrice"
-                                                placeholder={pricePlaceholder}
-                                                onChange={
-                                                    this.handlePriceChange
-                                                }
-                                                value={this.state.priceField}
-                                            />
-                                        </div>
-                                        <div className="col-auto">
-                                            <input
-                                                type="text"
-                                                className={`form-control ${filledInManu} mb-1`}
-                                                id="inputShipManufacturer"
-                                                placeholder="Manufacturer"
-                                                autoComplete="off"
-                                                onChange={
-                                                    this.suggestManufacturers
-                                                }
-                                                value={this.state.manuNameField}
-                                                onBlur={this.hideSuggestedManus}
-                                                onFocus={
-                                                    this.showSuggestedManus
-                                                }
-                                            />
-                                            {this.state.showManus
-                                                ? manuSuggestions
-                                                : ''}
-                                        </div>
+                                <div className="card bg-secondary font-weight-bold text-dark col-auto border-secondary mb-3">
+                                    <div className="card-title border-bottom border-dark">
+                                        Info
                                     </div>
+
+                                    <input
+                                        type="text"
+                                        className={`form-control ${filledInName} mb-1`}
+                                        id="inputShipName"
+                                        onChange={this.suggestShipNames}
+                                        value={this.state.shipNameField}
+                                        autoComplete="off"
+                                        placeholder="Name"
+                                        onBlur={this.hideSuggestedShips}
+                                        onFocus={this.showSuggestedShips}
+                                    />
+                                    {this.state.showShips
+                                        ? shipSuggestions
+                                        : ''}
+
+                                    <input
+                                        type="text"
+                                        className={`form-control ${filledInPrice} mb-1`}
+                                        id="inputShipPrice"
+                                        placeholder={pricePlaceholder}
+                                        onChange={this.handlePriceChange}
+                                        value={this.state.priceField}
+                                        autoComplete="off"
+                                    />
+
+                                    <input
+                                        type="text"
+                                        className={`form-control ${filledInManu} mb-2`}
+                                        id="inputShipManufacturer"
+                                        placeholder="Manufacturer"
+                                        autoComplete="off"
+                                        onChange={this.suggestManufacturers}
+                                        value={this.state.manuNameField}
+                                        onBlur={this.hideSuggestedManus}
+                                        onFocus={this.showSuggestedManus}
+                                    />
+                                    {this.state.showManus
+                                        ? manuSuggestions
+                                        : ''}
                                 </div>
                             </div>
-                        </div>
+                            <div className="col-auto">
+                                <div className="card bg-secondary font-weight-bold text-dark border-secondary col-auto mb-3">
+                                    <div className="card-title border-bottom border-dark">
+                                        Extras
+                                    </div>
 
-                        <div className="card bg-secondary text-light border-secondary col-auto mb-1">
-                            <div className="card-title">Extras</div>
-                            <div className="form-group row">
-                                <div className="col-auto">
                                     <select
                                         className={`form-control ${filledInHangar} mb-1`}
                                         id="hangarExtraSelectShip"
@@ -340,9 +332,7 @@ class AddShipForm extends Component {
                                             Self-Land
                                         </option>
                                     </select>
-                                </div>
 
-                                <div className="col-auto">
                                     <input
                                         type="text"
                                         className={`form-control ${filledInSkin} mb-1`}
@@ -350,22 +340,22 @@ class AddShipForm extends Component {
                                         placeholder="Skin"
                                         onChange={this.handleSkinChange}
                                         value={this.state.skinField}
+                                        autoComplete="off"
                                     />
-                                </div>
-                                <div className="form-group col-atuo">
-                                    <div className="form-check form-check-inline">
+
+                                    <div className="mb-2 form-check-inline">
+                                        <label
+                                            className="form-check-label font-weight-bold text-dark mr-2"
+                                            htmlFor="LTIcheck"
+                                        >
+                                            LTI
+                                        </label>
                                         <input
                                             className="form-check-input"
                                             type="checkbox"
                                             id="LTIcheckShip"
                                             name="LTI"
                                         />
-                                        <label
-                                            className="form-check-label text-white-50"
-                                            htmlFor="LTIcheck"
-                                        >
-                                            LTI
-                                        </label>
                                     </div>
                                 </div>
                             </div>
