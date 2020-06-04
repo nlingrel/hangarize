@@ -53,6 +53,7 @@ class App extends Component {
         this.addNewPackToHangar = this.addNewPackToHangar.bind(this)
         this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
         this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
+        this.addNewCCUToHangar = this.addNewCCUToHangar.bind(this)
 
         this.addShipToPack = this.addShipToPack.bind(this)
         this.addItemToPack = this.addItemToPack.bind(this)
@@ -431,6 +432,12 @@ class App extends Component {
             })
     }
 
+    addNewCCUToHangar(e) {
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
+        }
+    }
+
     navToActual(e) {
         e.preventDefault()
         this.setState({ currentView: 'actual' })
@@ -477,6 +484,7 @@ class App extends Component {
                             addNewPackToHangar={this.addNewPackToHangar}
                             addNewShipToHangar={this.addNewShipToHangar}
                             addNewItemToHangar={this.addNewItemToHangar}
+                            addNewCCUToHangar={this.addNewCCUToHangar}
                             suggestShipNames={this.suggestShipNames}
                             renderSuggestedShipNames={
                                 this.renderSuggestedShipNames

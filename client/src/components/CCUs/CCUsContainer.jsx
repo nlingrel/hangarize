@@ -1,32 +1,29 @@
 import React from 'react'
-import CCUButton from './CCUButton'
 import CategoryContainer from '../Generic/CategoryContainer'
+import CCUContainer from './CCUContainer'
+import AddCCUForm from '../Forms/AddCCUForm'
 
 function CCUsContainer(props) {
-    let packShips = []
-    props.packs.map((pack, i) => (packShips = [...packShips, ...pack.ships]))
-    // const ships = props.ships
-    const bases = [...packShips, ...props.ships]
-
-    const buttons = props.ccus.map((ccu, i) => {
-        let regex = new RegExp(`^${ccu.base.name}`, 'i')
-        let options = bases.filter((s) => regex.test(s.name))
-
+    const ccus = props.ccus.map((c, i) => {
         return (
-            <CCUButton
-                key={i}
-                name={ccu.name}
-                number={i}
-                price={ccu.price}
-                base={ccu.base}
-                upgrade={ccu.upgrade}
-                id={ccu.id}
-                options={options}
-            />
+            <div>
+                <CCUContainer key={i} base={c.base} to={c.to} price={c.price} />
+            </div>
         )
     })
 
-    return <CategoryContainer items={buttons} name={'CCUs'} />
+    return (
+        <CategoryContainer
+            items={ccus}
+            name={'CCUs'}
+            form={
+                <AddCCUForm
+                    addNewCCUToHangar={props.addNewCCUToHangar}
+                    name={'CCUs'}
+                />
+            }
+        />
+    )
 }
 
 export default CCUsContainer

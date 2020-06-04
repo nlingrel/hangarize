@@ -46,11 +46,11 @@ function ItemContainer(props) {
                         <ItemToolBar
                             name={props.name}
                             meltable={props.meltable}
-                            removeShip={() => {
-                                console.log('Remove ship onclick')
+                            removeItem={() => {
+                                console.log('Remove item onclick')
                             }}
-                            upgradeShip={() => {
-                                console.log('Upgrade ship onclick')
+                            meltItem={() => {
+                                console.log('meltItem onclick')
                             }}
                         />
                     </div>

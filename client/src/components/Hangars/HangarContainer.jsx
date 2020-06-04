@@ -27,6 +27,7 @@ function HangarContainer(props) {
                 ccus={props.ccus}
                 ships={props.ships}
                 packs={props.packs}
+                addNewCCUToHangar={props.addNewCCUToHangar}
             />
             <ItemsContainer
                 items={props.items}

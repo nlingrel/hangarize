@@ -7,7 +7,7 @@ function ItemToolBar(props) {
     return (
         <>
             <div className="btn">
-                {props.meltable ? <MeltButton /> : ''}
+                {props.meltable ? <MeltButton onClick={props.meltItem} /> : ''}
                 <MinusButton onClick={props.removeItem} />
             </div>
         </>
