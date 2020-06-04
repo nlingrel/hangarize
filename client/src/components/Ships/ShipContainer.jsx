@@ -49,15 +49,15 @@ function ShipContainer(props) {
                 <div
                     className="button-group border-bottom border-secondary"
                     role="group"
-                    data-toggle="collapse"
-                    data-target={`#collapseShip${props.shipId}${props.number}`}
-                    aria-expanded="false"
-                    aria-controls={`heading${props.shipId}${props.number}`}
                 >
                     <button
                         className="btn text-left text-light btn-outline-dark"
                         id={`heading${props.shipId}${props.number}`}
                         type="button"
+                        data-toggle="collapse"
+                        data-target={`#collapseShip${props.shipId}${props.number}`}
+                        aria-expanded="false"
+                        aria-controls={`heading${props.shipId}${props.number}`}
                     >
                         {props.name}
                     </button>
@@ -68,7 +68,12 @@ function ShipContainer(props) {
                     >
                         {props.showPrice ? (
                             <div className="bg-dark text-light btn btn-ouline-info">
-                                <small>${props.price}</small>
+                                <small>
+                                    <span className="text-white-50">
+                                        $&nbsp;
+                                    </span>
+                                    {props.price}
+                                </small>
                             </div>
                         ) : (
                             ''

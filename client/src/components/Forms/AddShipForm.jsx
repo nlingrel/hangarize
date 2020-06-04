@@ -281,6 +281,7 @@ class AddShipForm extends Component {
             roleSelected: false,
             sizeValue: 'Size...',
             roleValue: 'Role...',
+            ltiSelected: false,
         })
     }
 
@@ -326,8 +327,8 @@ class AddShipForm extends Component {
             >
                 <div className="card-body">
                     <form onSubmit={this.addNewShipToHangar} id={this.formId}>
-                        <div className="form-row">
-                            <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark mb-3 col">
+                        <div className="form-row mb-3">
+                            <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark p-2 ">
                                 <div className="card-title border-bottom border-dark">
                                     Info
                                 </div>
@@ -412,7 +413,7 @@ class AddShipForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="card bg-secondary font-weight-bold text-dark border-dark col-auto mb-3 col">
+                            <div className="card bg-secondary font-weight-bold text-dark border-dark col-auto p-2 ">
                                 <div className="card-title border-bottom border-dark">
                                     Extras
                                 </div>
@@ -455,7 +456,8 @@ class AddShipForm extends Component {
                                         type="checkbox"
                                         id="LTIcheckShip"
                                         name="LTI"
-                                        onChange={this.ltiChange}
+                                        onClick={this.ltiChange}
+                                        onBlur={this.ltiChange}
                                     />
                                     <label
                                         className={`form-check-label font-weight-bold ${checkedLTI}`}

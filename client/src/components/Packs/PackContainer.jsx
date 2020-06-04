@@ -1,5 +1,4 @@
 import React from 'react'
-import PlusButton from '../Generic/PlusButton'
 import PackShips from './PackShips'
 import ShipContainer from '../Ships/ShipContainer'
 import PackItems from './PackItems'
