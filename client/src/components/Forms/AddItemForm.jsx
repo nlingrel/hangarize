@@ -5,32 +5,66 @@ class AddItemForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            itemNameField: '',
+            nameField: '',
+            priceField: '',
+            meltableSelected: false,
         }
-        this.handleChange = this.handleChange.bind(this)
+        this.nameChange = this.nameChange.bind(this)
+        this.priceChange = this.priceChange.bind(this)
+        this.meltableChange = this.meltableChange.bind(this)
         this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
         this.resetForm = this.resetForm.bind(this)
         this.formId = `${this.props.name}AddForm`
     }
     addNewItemToHangar(e) {
         e.preventDefault()
-        // e.persist()
-        console.log('addNewItem called in component')
+        e.persist()
+
+        this.props.addNewItemToHangar(e)
         this.resetForm()
     }
-    handleChange(e) {
+    nameChange(e) {
         const value = e.target.value
-        this.setState({ itemNameField: value })
+        this.setState({ nameField: value })
+    }
+    priceChange(e) {
+        const value = e.target.value
+
+        if (parseInt(value) >= 0) {
+            this.setState({ priceField: value })
+        } else {
+            this.setState({ priceField: '' })
+        }
+    }
+    meltableChange(e) {
+        if (e.target.checked) {
+            this.setState({ meltableSelected: true })
+        } else {
+            this.setState({ meltableSelected: false })
+        }
     }
 
     resetForm() {
-        this.setState({ itemNameField: '' })
+        this.setState({
+            nameField: '',
+            priceField: '',
+            meltableSelected: false,
+        })
         document.getElementById(this.formId).reset()
     }
 
     render() {
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
+
+        const filled = 'bg-dark text-white'
+        const empty = 'bg-dark'
+
+        const nameFilled = this.state.nameField.length > 0 ? filled : empty
+        const priceFilled = this.state.priceField.length > 0 ? filled : empty
+        const checkedMelt = this.state.meltableSelected
+            ? 'text-light'
+            : 'text-dark'
 
         return (
             <div
@@ -39,43 +73,48 @@ class AddItemForm extends Component {
             >
                 <div className="card-body">
                     <form onSubmit={this.addNewItemToHangar} id={this.formId}>
-                        <div className="form-group row">
-                            <div className="col-auto">
-                                <div className="card bg-dark text-white-50 col-auto border-secondary m-1">
-                                    <div className="card-title ">Info</div>
-                                    <div className="form-group row">
-                                        <div className="col-auto">
-                                            <input
-                                                type="text"
-                                                className="form-control alert-info mb-1"
-                                                id="inputItemName"
-                                                autoComplete="off"
-                                                placeholder="Name"
-                                                onChange={this.handleChange}
-                                            />
-                                        </div>
-                                        <div className="col-auto">
-                                            <input
-                                                type="text"
-                                                className="form-control alert-info mb-1"
-                                                id="inputItemPrice"
-                                                placeholder="Price"
-                                            />
-                                        </div>
-                                        <div className="form-check form-check-inline">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                id="meltCheckItem"
-                                                name="Meltable"
-                                            />
-                                            <label
-                                                className="form-check-label text-white-50"
-                                                htmlFor="meltCheckItem"
-                                            >
-                                                Melt-able
-                                            </label>
-                                        </div>
+                        <div className="form-row mb-3">
+                            <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark p-2 ">
+                                <div className="card-title border-bottom border-dark">
+                                    Info
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className={`form-control ${nameFilled} mb-1`}
+                                        id="inputItemName"
+                                        autoComplete="off"
+                                        placeholder="Name"
+                                        onChange={this.nameChange}
+                                        value={this.state.nameField}
+                                        autoComplete="off"
+                                    />
+
+                                    <input
+                                        type="text"
+                                        className={`form-control ${priceFilled} mb-1`}
+                                        id="inputItemPrice"
+                                        placeholder="Price"
+                                        onChange={this.priceChange}
+                                        value={this.state.priceField}
+                                        autoComplete="off"
+                                    />
+
+                                    <div className="form-check form-check-inline">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="meltCheckItem"
+                                            name="Meltable"
+                                            onClick={this.meltableChange}
+                                            onBlur={this.meltableChange}
+                                        />
+                                        <label
+                                            className={`form-check-label font-weight-bold ${checkedMelt}`}
+                                            htmlFor="meltCheckItem"
+                                        >
+                                            Melt-able
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +123,6 @@ class AddItemForm extends Component {
                         <button
                             type="submit"
                             className="btn btn-secondary ml-1"
-                            onClick={this.addNewItemToHangar}
                         >
                             Create Item
                         </button>

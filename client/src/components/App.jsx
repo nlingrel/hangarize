@@ -40,10 +40,9 @@ class App extends Component {
                 items: [],
                 buyback: {},
             },
-            shipNameField: '',
+
             actualHangar: {},
-            suggestedShips: [],
-            selectedShip: {},
+
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
@@ -53,11 +52,8 @@ class App extends Component {
         this.navToHome = this.navToHome.bind(this)
         this.addNewPackToHangar = this.addNewPackToHangar.bind(this)
         this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
-        this.suggestShipNames = this.suggestShipNames.bind(this)
-        this.renderSuggestedShipNames = this.renderSuggestedShipNames.bind(this)
-        this.selectSuggestedShip = this.selectSuggestedShip.bind(this)
-        this.acceptShipInputForPack = this.acceptShipInputForPack.bind(this)
-        this.resetShipAddForm = this.resetShipAddForm.bind(this)
+        this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
+
         this.addShipToPack = this.addShipToPack.bind(this)
         this.addItemToPack = this.addItemToPack.bind(this)
         this.addItemToShip = this.addItemToShip.bind(this)
@@ -83,70 +79,6 @@ class App extends Component {
                 this.setState({ currentHangar: hangar })
             })
             .catch('error getting actual hangar')
-    }
-
-    suggestShipNames(e) {
-        const value = e.target.value.toLowerCase()
-
-        let suggestedShips = []
-        if (value.length > 0) {
-            const has = new RegExp(`${lcValue}`, 'i')
-            const startsWith = new RegExp(`^${lcValue}`, 'i')
-            suggestedShips = this.shipSeed
-                .sort()
-                .filter(
-                    (v) =>
-                        has.test(v.name) ||
-                        has.test(v.manufacturer) ||
-                        startsWith.test(this.nickNames[v.manufacturer])
-                )
-        }
-
-        this.setState({
-            suggestedShips: suggestedShips,
-            shipNameField: value,
-        })
-    }
-
-    renderSuggestedShipNames() {
-        const { suggestedShips } = this.state
-        if (suggestedShips.length === 0) {
-            return null
-        }
-        return (
-            <div style={{ maxHeight: '150px' }} className="overflow-auto">
-                <ul className="list-group-sm ">
-                    {suggestedShips.map((item, i) => (
-                        <li
-                            className="btn-secondary dropdown-item bg-secondary text-light"
-                            onClick={() => {
-                                this.selectSuggestedShip(item)
-                            }}
-                            key={i}
-                        >
-                            {item.name}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
-    }
-
-    selectSuggestedShip(ship) {
-        this.setState({
-            shipNameField: ship.name,
-            selectedShip: ship,
-            suggestedShips: [],
-        })
-    }
-
-    acceptShipInputForPack(e) {
-        e.preventDefault()
-        console.log(
-            'Ship would have been added to list',
-            this.state.selectedShip
-        )
-        this.setState({ selectedShip: {} })
     }
 
     addNewPackToHangar(e) {
@@ -467,11 +399,36 @@ class App extends Component {
             })
         e.target.reset()
     }
+    addNewItemToHangar(e) {
+        e.preventDefault()
+        e.persist()
+        // for (var i = 0; i < e.target.length; i++) {
+        //     console.log(`target number ${i}: ${e.target[i].value}`)
+        // }
+        let name = e.target[0].value
+        let price = parseInt(e.target[1].value) || 0
+        let meltable = e.target[2].checked
 
-    resetShipAddForm() {
-        this.setState({
-            shipNameField: '',
-        })
+        let item = this.Factory.newItem(name, price, meltable)
+        let items = this.state.currentHangar.items
+
+        dbPutItem(item)
+            .then((id) => {
+                item.id = id
+                items.push(item)
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    items: items,
+                }).then(() => {
+                    let hangar = this.state.currentHangar
+                    hangar.items = items
+                    this.setState({
+                        currentHangar: hangar,
+                    })
+                })
+            })
+            .catch((err) => {
+                console.log('Error saving ship', err)
+            })
     }
 
     navToActual(e) {
@@ -519,6 +476,7 @@ class App extends Component {
                             items={items}
                             addNewPackToHangar={this.addNewPackToHangar}
                             addNewShipToHangar={this.addNewShipToHangar}
+                            addNewItemToHangar={this.addNewItemToHangar}
                             suggestShipNames={this.suggestShipNames}
                             renderSuggestedShipNames={
                                 this.renderSuggestedShipNames

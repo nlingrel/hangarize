@@ -28,7 +28,10 @@ function HangarContainer(props) {
                 ships={props.ships}
                 packs={props.packs}
             />
-            <ItemsContainer items={props.items} />
+            <ItemsContainer
+                items={props.items}
+                addNewItemToHangar={props.addNewItemToHangar}
+            />
         </div>
     )
 }

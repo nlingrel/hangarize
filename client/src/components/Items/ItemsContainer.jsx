@@ -7,7 +7,7 @@ function ItemsContainer(props) {
     const items = props.items.map((item, i) => {
         return (
             <ItemContainer
-                name={ship.name}
+                name={item.name}
                 itemId={item.id}
                 key={i}
                 number={i}
@@ -21,7 +21,12 @@ function ItemsContainer(props) {
         <CategoryContainer
             items={items}
             name={'Items'}
-            form={<AddItemForm name={'Items'} />}
+            form={
+                <AddItemForm
+                    name={'Items'}
+                    addNewItemToHangar={props.addNewItemToHangar}
+                />
+            }
         />
     )
 }
