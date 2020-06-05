@@ -30,10 +30,10 @@ function PackContainer(props) {
     const items = props.items.map((item, i) => {
         return (
             <div
-                className="d-flex justify-content-between align-items-center  bg-dark text-light pl-2 mb-1 mx-2"
+                className="d-flex justify-content-between align-items-center bg-dark text-light pl-2 mb-1 mx-2"
                 key={i}
             >
-                {item.name}
+                <span className="text-truncate ">{item.name}</span>
                 <span className="badge">
                     <MinusButton />
                 </span>

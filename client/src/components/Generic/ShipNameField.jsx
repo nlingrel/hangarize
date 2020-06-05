@@ -75,11 +75,18 @@ class ShipNameField extends Component {
             selectedShip: ship,
             suggestedShips: [],
         })
+
+        setTimeout(() => {
+            this.addShipToPack()
+        }, 0)
+
         //get id from db and fill in rest of fields based on db
     }
 
     addShipToPack(e) {
-        e.preventDefault()
+        if (e) {
+            e.preventDefault()
+        }
 
         this.props.addShipToPack(
             this.props.packId,
@@ -87,7 +94,7 @@ class ShipNameField extends Component {
             this.state.shipNameField
         )
 
-        this.setState({ shipNameField: '' })
+        this.setState({ shipNameField: '', suggestedShips: [] })
     }
 
     render() {
@@ -95,28 +102,32 @@ class ShipNameField extends Component {
         const inputId = `Pack${this.props.packId}inputShipName`
         return (
             <>
-                <div className="input-group input-group-sm flex-nowrap">
-                    <input
-                        type="text"
-                        placeholder={this.props.placeholder}
-                        className={this.props.className}
-                        style={{ color: 'white' }}
-                        // id={inputId}
-                        autoComplete="off"
-                        onChange={this.suggestShipNames}
-                        value={this.state.shipNameField}
-                    />
+                {' '}
+                <form onSubmit={this.addShipToPack}>
+                    <div className="input-group input-group-sm flex-nowrap">
+                        <input
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            className={this.props.className}
+                            style={{ color: 'white' }}
+                            // id={inputId}
+                            autoComplete="off"
+                            onChange={this.suggestShipNames}
+                            value={this.state.shipNameField}
+                        />
 
-                    <div className="input-group-append">
-                        <button
-                            type="button"
-                            className="btn btn-success btn-sm "
-                            onClick={this.addShipToPack}
-                        >
-                            +
-                        </button>
+                        <div className="input-group-append">
+                            <button
+                                type="button"
+                                className="btn btn-success btn-sm "
+                                onClick={this.addShipToPack}
+                                title="Add Ship"
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 {suggestions}
             </>
         )

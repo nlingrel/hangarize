@@ -27,10 +27,10 @@ function ShipContainer(props) {
     const items = props.items.map((item, i) => {
         return (
             <div
-                className="d-flex justify-content-between align-items-center  bg-dark text-light pl-2 mb-1 mx-2"
+                className="d-flex justify-content-between align-items-center bg-dark text-light pl-2 mb-1 mx-2"
                 key={i}
             >
-                {item.name}
+                <span className="text-truncate">{item.name}</span>
                 <span className="badge">
                     <MinusButton />
                 </span>
@@ -122,20 +122,25 @@ function ShipContainer(props) {
                     </div>
 
                     <div className="card-footer text-center">
-                        <div className="list-group list-group-horizontal">
-                            <ManuIcon
-                                manufacturer={props.manufacturer}
-                                classes={[
-                                    'list-group-item',
-                                    'bg-dark',
-                                    'text-white',
-                                ]}
-                            />
-
-                            <small className="list-group-item bg-dark text-light">
-                                {props.size}
-                            </small>
+                        {/* <div className="list-group list-group-horizontal"> */}
+                        <div className="d-flex justify-content-center">
+                            <div className="d-flex">
+                                <ManuIcon
+                                    manufacturer={props.manufacturer}
+                                    classes={[
+                                        'list-group-item',
+                                        'bg-dark',
+                                        'text-white',
+                                    ]}
+                                />
+                            </div>
+                            <div className="d-flex">
+                                <small className="list-group-item bg-dark text-light pt-3">
+                                    {props.size}
+                                </small>
+                            </div>
                         </div>
+                        {/* </div> */}
                         <small className="list-group-item bg-dark text-light">
                             {props.role}
                         </small>

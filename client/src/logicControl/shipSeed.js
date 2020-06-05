@@ -69,7 +69,7 @@ const shipSeed = [
         defaultPrice: 435,
         userPrice: 435,
         role: 'Personal Transport',
-        size: 'Small',
+        size: 'Large',
     },
     {
         id: 9,

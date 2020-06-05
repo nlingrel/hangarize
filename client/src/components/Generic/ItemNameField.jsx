@@ -34,6 +34,7 @@ class ItemNameField extends Component {
     }
 
     addItemToPack(e) {
+        e.preventDefault()
         this.props.addItemToPack(
             this.props.id,
             this.state.selectedItem,
@@ -43,6 +44,7 @@ class ItemNameField extends Component {
     }
 
     addItemToShip(e) {
+        e.preventDefault()
         const pId = this.props.inPack ? this.props.packId : undefined
         this.props.addItemToShip(
             this.props.id,
@@ -64,28 +66,31 @@ class ItemNameField extends Component {
             : this.addItemToShip
         return (
             <>
-                <div className="input-group input-group-sm flex-nowrap">
-                    <input
-                        type="text"
-                        placeholder={this.props.placeholder}
-                        className={this.props.className}
-                        style={{ color: 'white' }}
-                        // id={inputId}
-                        autoComplete="off"
-                        onChange={this.handleChange}
-                        value={this.state.itemNameField}
-                    />
+                <form onSubmit={onClick}>
+                    <div className="input-group input-group-sm flex-nowrap">
+                        <input
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            className={this.props.className}
+                            style={{ color: 'white' }}
+                            // id={inputId}
+                            autoComplete="off"
+                            onChange={this.handleChange}
+                            value={this.state.itemNameField}
+                        />
 
-                    <div className="input-group-append">
-                        <button
-                            type="button"
-                            className="btn btn-success btn-sm "
-                            onClick={onClick}
-                        >
-                            +
-                        </button>
+                        <div className="input-group-append">
+                            <button
+                                type="submit"
+                                className="btn btn-success btn-sm "
+                                onClick={onClick}
+                                title="Add Item"
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </>
         )
     }
