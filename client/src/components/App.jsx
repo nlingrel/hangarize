@@ -76,6 +76,8 @@ class App extends Component {
         this.addItemToPack = this.addItemToPack.bind(this)
         this.addItemToShip = this.addItemToShip.bind(this)
         this.removePackFromHangar = this.removePackFromHangar.bind(this)
+        this.removeShipFromPack = this.removeShipFromPack.bind(this)
+        this.removeShipFromHangar = this.removeShipFromHangar.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -510,9 +512,9 @@ class App extends Component {
         if (this.state.packsCanDelete === false) {
             return null
         }
-        let packs = this.state.currentHangar.packs.filter((pack) => {
-            pack.id !== packId
-        })
+        let packs = this.state.currentHangar.packs.filter(
+            (pack) => pack.id !== packId
+        )
         console.log(
             'Before remove pack:',
             'shipKeys==>',
@@ -534,6 +536,66 @@ class App extends Component {
             })
             .catch((err) => {
                 console.log('Error removing pack from hangar', err)
+            })
+    }
+
+    removeShipFromPack(packId, shipId) {
+        console.log('remove ship from pack', 'PackId', packId, 'shipId', shipId)
+        if (this.state.packsCanDelete === false) {
+            return null
+        }
+        let packs = this.state.currentHangar.packs
+        let pack = {}
+
+        for (let pk of packs) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+
+        let otherShips = pack.ships.filter((shp) => shp.id !== shipId)
+
+        dbDeleteShip(shipId)
+            .then(() => {
+                pack.ships = otherShips
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: packs,
+                }).then(() => {
+                    let hangar = this.state.currentHangar
+                    hangar.packs = packs
+                    console.log('Hangar after remove pack: ', hangar)
+                    this.setState({ currentHangar: hangar })
+                })
+            })
+            .catch((err) => {
+                console.log('Error removing pack from hangar', err)
+            })
+    }
+
+    removeShipFromHangar(shipId) {
+        if (this.state.shipsCanDelete === false) {
+            return null
+        }
+        let ships = [...this.state.currentHangar.ships]
+        let otherShips = ships.filter((shp) => shp.id !== shipId)
+
+        console.log('removeshipfromhangar ships', otherShips, 'shipId', shipId)
+        Promise.all([
+            dbDeleteShip(shipId),
+            dbUpdateHangar(this.state.currentHangar.id, {
+                ships: otherShips,
+            }),
+        ])
+
+            .then(() => {
+                let hangar = this.state.currentHangar
+                hangar.ships = otherShips
+                this.setState({ currentHangar: hangar })
+            })
+
+            .catch((err) => {
+                console.log('Error removing ship from hangar', err)
             })
     }
 
@@ -606,6 +668,8 @@ class App extends Component {
                             addItemToPack={this.addItemToPack}
                             addItemToShip={this.addItemToShip}
                             removePackFromHangar={this.removePackFromHangar}
+                            removeShipFromPack={this.removeShipFromPack}
+                            removeShipFromHangar={this.removeShipFromHangar}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

@@ -23,6 +23,10 @@ function PackContainer(props) {
                 inPack={true}
                 packId={props.packId}
                 addItemToShip={props.addItemToShip}
+                removeShip={(e) => {
+                    e.preventDefault()
+                    props.removeShipFromPack(props.packId, ship.id)
+                }}
             />
         )
     })

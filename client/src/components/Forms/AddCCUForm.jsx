@@ -323,7 +323,7 @@ class AddCCUForm extends Component {
                             title="Clear All"
                         >
                             <svg
-                                className="bi bi-backspace"
+                                className="bi bi-arrow-counterclockwise"
                                 width="1em"
                                 height="1em"
                                 viewBox="0 0 16 16"
@@ -332,15 +332,11 @@ class AddCCUForm extends Component {
                             >
                                 <path
                                     fillRule="evenodd"
-                                    d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z"
+                                    d="M12.83 6.706a5 5 0 0 0-7.103-3.16.5.5 0 1 1-.454-.892A6 6 0 1 1 2.545 5.5a.5.5 0 1 1 .91.417 5 5 0 1 0 9.375.789z"
                                 />
                                 <path
                                     fillRule="evenodd"
-                                    d="M5.83 5.146a.5.5 0 0 0 0 .708l5 5a.5.5 0 0 0 .707-.708l-5-5a.5.5 0 0 0-.708 0z"
-                                />
-                                <path
-                                    fillRule="evenodd"
-                                    d="M11.537 5.146a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708l5-5a.5.5 0 0 1 .707 0z"
+                                    d="M7.854.146a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 0 .708l2.5 2.5a.5.5 0 1 0 .708-.708L5.707 3 7.854.854a.5.5 0 0 0 0-.708z"
                                 />
                             </svg>
                         </button>

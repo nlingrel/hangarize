@@ -23,6 +23,10 @@ function ShipsContainer(props) {
                 showPrice={true}
                 addItemToShip={props.addItemToShip}
                 inPack={false}
+                removeShip={(e) => {
+                    e.preventDefault()
+                    props.removeShipFromHangar(ship.id)
+                }}
             />
         )
     })

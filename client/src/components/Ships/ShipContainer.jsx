@@ -86,9 +86,7 @@ function ShipContainer(props) {
                         <ShipToolBar
                             name={props.name}
                             meltable={props.meltable}
-                            removeShip={() => {
-                                console.log('Remove ship onclick')
-                            }}
+                            removeShip={props.removeShip}
                             upgradeShip={() => {
                                 console.log('Upgrade ship onclick')
                             }}
