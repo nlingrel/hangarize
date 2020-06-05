@@ -10,6 +10,7 @@ function PlusButton(props) {
             onClick={props.onClick}
             data-toggle="collapse"
             data-target={collapseTarget}
+            title={`Add ${props.name}`}
         >
             +
         </button>

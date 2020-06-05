@@ -43,10 +43,12 @@ function HangarControlBar(props) {
                         </div>
                         <div className="d-flex">
                             <div className="btn-group" role="group">
-                                <LockButton
-                                    deleteLocked={props.allCanDelete}
-                                    toggleDeleteLock={props.allDeleteLock}
-                                />
+                                <div className="card-body">
+                                    <LockButton
+                                        deleteLocked={props.allCanDelete}
+                                        toggleDeleteLock={props.allDeleteLock}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

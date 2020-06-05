@@ -11,6 +11,7 @@ function HideButton(props) {
             data-toggle="collapse"
             type="button"
             className={cl}
+            title="Close"
         >
             &#8966;
         </button>
