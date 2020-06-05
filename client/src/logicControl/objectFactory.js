@@ -40,7 +40,13 @@ class Factory {
         appliedBase = 0,
         appliedTo = 0
     ) {
-        let ccu = { base: base, price: price, to: to, attachedTo: attachedTo }
+        let ccu = {
+            base: base,
+            price: price,
+            to: to,
+            appliedBase: appliedBase,
+            appliedTo: appliedTo,
+        }
         // 'base' and 'to' will just be ship names
         //appliedBase is the id of the baseship if the ccu is applied
         //appliedTo is the id of the new ship that the applied ccu now represents

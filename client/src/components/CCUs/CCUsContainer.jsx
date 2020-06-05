@@ -4,17 +4,44 @@ import CCUContainer from './CCUContainer'
 import AddCCUForm from '../Forms/AddCCUForm'
 
 function CCUsContainer(props) {
-    const ccus = props.ccus.map((c, i) => {
+    const containers = props.ccus.map((c, i) => {
         return (
-            <div>
-                <CCUContainer key={i} base={c.base} to={c.to} price={c.price} />
+            <div key={i}>
+                <CCUContainer base={c.base} to={c.to} price={c.price} />
             </div>
         )
     })
+    let ccus = {}
+    // let bases = {}
+    // let tos = {}
+    let matchesByBase = {}
+
+    for (let c of props.ccus) {
+        ccus[c.id] = c
+        if (matchesByBase[c.base] === undefined) {
+            matchesByBase[c.base] = [c]
+        } else {
+            matchesByBase[c.base].push(c)
+        }
+    }
+
+    for (let key in matchesByBase) {
+        for (let ccU of matchesByBase[key]) {
+            if (matchesByBase[ccU.to] !== undefined) {
+                ccU.children = matchesByBase[ccU.to]
+            }
+        }
+    }
+
+    console.log(matchesByBase)
+
+    const newChain = () => {
+        return { head: {}, tail: {} }
+    }
 
     return (
         <CategoryContainer
-            items={ccus}
+            items={containers}
             name={'CCUs'}
             form={
                 <AddCCUForm

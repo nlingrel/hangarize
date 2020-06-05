@@ -22,6 +22,7 @@ import {
     dbPutPack,
     dbPutShip,
     dbPutItem,
+    dbPutCCU,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
@@ -436,6 +437,29 @@ class App extends Component {
         for (var i = 0; i < e.target.length; i++) {
             console.log(`target number ${i}: ${e.target[i].value}`)
         }
+        let base = e.target[0].value
+        let to = e.target[1].value
+        let price = parseInt(e.target[2].value) || 0
+
+        let ccu = this.Factory.newCCU(base, to, price)
+        let ccus = this.state.currentHangar.ccus
+        dbPutCCU(ccu)
+            .then((id) => {
+                ccu.id = id
+                ccus.push(ccu)
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    ccus: ccus,
+                }).then(() => {
+                    let hangar = this.state.currentHangar
+                    hangar.ccus = ccus
+                    this.setState({
+                        currentHangar: hangar,
+                    })
+                })
+            })
+            .catch((err) => {
+                console.log('Error saving ccu', err)
+            })
     }
 
     navToActual(e) {

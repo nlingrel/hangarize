@@ -93,6 +93,10 @@ const dbPutItem = (item) => {
     return db.items.put(item)
 }
 
+const dbPutCCU = (ccu) => {
+    return db.ccus.put(ccu)
+}
+
 const dbPutHangar = (hangar, key) => {
     return db.hangars.put(hangar, key)
 }
@@ -131,6 +135,7 @@ export {
     dbPutPack,
     dbPutShip,
     dbPutItem,
+    dbPutCCU,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
