@@ -25,6 +25,8 @@ function PacksContainer(props) {
         <CategoryContainer
             items={items}
             name={'Packs'}
+            toggleDeleteLock={props.packsDeleteLock}
+            deleteLocked={props.packsCanDelete}
             form={
                 <AddPackForm
                     name={'Packs'}

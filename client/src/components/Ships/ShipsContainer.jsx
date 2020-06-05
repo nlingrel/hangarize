@@ -31,6 +31,8 @@ function ShipsContainer(props) {
         <CategoryContainer
             items={ships}
             name={'Ships'}
+            toggleDeleteLock={props.shipsDeleteLock}
+            deleteLocked={props.shipsCanDelete}
             form={
                 <AddShipForm
                     addNewShipToHangar={props.addNewShipToHangar}

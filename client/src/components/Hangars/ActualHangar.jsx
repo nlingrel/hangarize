@@ -6,7 +6,10 @@ import HangarControlBar from './HangarControlBar'
 function ActualHangar(props) {
     return (
         <>
-            <HangarControlBar />
+            <HangarControlBar
+                allCanDelete={props.allCanDelete}
+                allDeleteLock={props.allDeleteLock}
+            />
             <HangarContainer
                 packs={props.packs}
                 ships={props.ships}
@@ -24,6 +27,14 @@ function ActualHangar(props) {
                 addItemToPack={props.addItemToPack}
                 addItemToShip={props.addItemToShip}
                 removePackFromHangar={props.removePackFromHangar}
+                packsDeleteLock={props.packsDeleteLock}
+                packsCanDelete={props.packsCanDelete}
+                shipsDeleteLock={props.shipsDeleteLock}
+                shipsCanDelete={props.shipsCanDelete}
+                itemsDeleteLock={props.itemsDeleteLock}
+                itemsCanDelete={props.itemsCanDelete}
+                ccusDeleteLock={props.ccusDeleteLock}
+                ccusCanDelete={props.ccusCanDelete}
             />
         </>
     )

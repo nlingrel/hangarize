@@ -53,7 +53,17 @@ class App extends Component {
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
+            allCanDelete: false,
+            packsCanDelete: false,
+            shipsCanDelete: false,
+            itemsCanDelete: false,
+            ccusCanDelete: false,
         }
+        this.packsDeleteLock = this.packsDeleteLock.bind(this)
+        this.shipsDeleteLock = this.shipsDeleteLock.bind(this)
+        this.itemsDeleteLock = this.itemsDeleteLock.bind(this)
+        this.ccusDeleteLock = this.ccusDeleteLock.bind(this)
+        this.allDeleteLock = this.allDeleteLock.bind(this)
         this.navToActual = this.navToActual.bind(this)
         this.navToHangarize = this.navToHangarize.bind(this)
         this.navToHome = this.navToHome.bind(this)
@@ -88,6 +98,41 @@ class App extends Component {
                 this.setState({ currentHangar: hangar })
             })
             .catch('error getting actual hangar')
+    }
+
+    allDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.allCanDelete
+        this.setState({
+            packsCanDelete: locked,
+            shipsCanDelete: locked,
+            itemsCanDelete: locked,
+            ccusCanDelete: locked,
+            allCanDelete: locked,
+        })
+    }
+
+    packsDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.packsCanDelete
+        this.setState({ packsCanDelete: locked })
+    }
+
+    shipsDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.shipsCanDelete
+        this.setState({ shipsCanDelete: locked })
+    }
+
+    itemsDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.itemsCanDelete
+        this.setState({ itemsCanDelete: locked })
+    }
+    ccusDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.ccusCanDelete
+        this.setState({ ccusCanDelete: locked })
     }
 
     addNewPackToHangar(e) {
@@ -462,7 +507,9 @@ class App extends Component {
 
     removePackFromHangar(packId, shipIds) {
         //remove all packs items from db
-
+        if (this.state.packsCanDelete === false) {
+            return null
+        }
         let packs = this.state.currentHangar.packs.filter((pack) => {
             pack.id !== packId
         })
@@ -533,6 +580,16 @@ class App extends Component {
                             ships={ships}
                             ccus={ccus}
                             items={items}
+                            packsDeleteLock={this.packsDeleteLock}
+                            packsCanDelete={this.state.packsCanDelete}
+                            shipsDeleteLock={this.shipsDeleteLock}
+                            shipsCanDelete={this.state.shipsCanDelete}
+                            itemsDeleteLock={this.itemsDeleteLock}
+                            itemsCanDelete={this.state.itemsCanDelete}
+                            ccusDeleteLock={this.ccusDeleteLock}
+                            ccusCanDelete={this.state.ccusCanDelete}
+                            allDeleteLock={this.allDeleteLock}
+                            allCanDelete={this.state.allCanDelete}
                             addNewPackToHangar={this.addNewPackToHangar}
                             addNewShipToHangar={this.addNewShipToHangar}
                             addNewItemToHangar={this.addNewItemToHangar}

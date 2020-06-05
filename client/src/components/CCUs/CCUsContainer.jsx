@@ -43,6 +43,8 @@ function CCUsContainer(props) {
         <CategoryContainer
             items={containers}
             name={'CCUs'}
+            toggleDeleteLock={props.ccusDeleteLock}
+            deleteLocked={props.ccusCanDelete}
             form={
                 <AddCCUForm
                     addNewCCUToHangar={props.addNewCCUToHangar}

@@ -21,6 +21,8 @@ function ItemsContainer(props) {
         <CategoryContainer
             items={items}
             name={'Items'}
+            toggleDeleteLock={props.itemsDeleteLock}
+            deleteLocked={props.itemsCanDelete}
             form={
                 <AddItemForm
                     name={'Items'}

@@ -11,7 +11,11 @@ function CategoryContainer(props) {
                     <div className="d-flex text-justify">{props.name}</div>
 
                     <div className="d-flex">
-                        <CategoryToolBar name={props.name} />
+                        <CategoryToolBar
+                            name={props.name}
+                            toggleDeleteLock={props.toggleDeleteLock}
+                            deleteLocked={props.deleteLocked}
+                        />
                     </div>
                 </div>
             </div>
