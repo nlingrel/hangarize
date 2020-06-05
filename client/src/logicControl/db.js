@@ -92,6 +92,9 @@ const dbPutShip = (ship, key) => {
 const dbPutItem = (item) => {
     return db.items.put(item)
 }
+const dbPutItems = (items) => {
+    return db.items.bulkPut(items)
+}
 
 const dbPutCCU = (ccu) => {
     return db.ccus.put(ccu)
@@ -118,6 +121,23 @@ const dbUpdateShip = (key, obj) => {
     return db.ships.update(key, obj)
 }
 
+//Delete
+const dbDeletePack = (key) => {
+    return db.packs.delete(key)
+}
+const dbDeleteShip = (key) => {
+    return db.ships.delete(key)
+}
+const dbBulkDeleteShips = (keys) => {
+    return db.ships.bulkDelete(keys)
+}
+const dbDeleteItem = (key) => {
+    return db.items.delete(key)
+}
+const dbBulkDeleteItems = (keys) => {
+    return db.items.bulkDelete(keys)
+}
+
 export {
     db,
     seedManus,
@@ -135,10 +155,16 @@ export {
     dbPutPack,
     dbPutShip,
     dbPutItem,
+    dbPutItems,
     dbPutCCU,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
     dbUpdateShip,
     dbUpdatePack,
+    dbDeletePack,
+    dbDeleteShip,
+    dbBulkDeleteShips,
+    dbDeleteItem,
+    dbBulkDeleteItems,
 }

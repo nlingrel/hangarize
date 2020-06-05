@@ -26,6 +26,7 @@ function PackContainer(props) {
             />
         )
     })
+
     const items = props.items.map((item, i) => {
         return (
             <div
@@ -38,6 +39,9 @@ function PackContainer(props) {
                 </span>
             </div>
         )
+    })
+    const shipIds = props.ships.map((ship) => {
+        return ship.id
     })
     return (
         <div className="accordion mb-1">
@@ -75,12 +79,12 @@ function PackContainer(props) {
                         data-parent={`#collapsePack${props.packId}${props.number}`}
                     >
                         <PackToolBar
-                            removePack={() => {
-                                console.log('Remove Pack onclick')
-                            }}
+                            removePack={props.removePackFromHangar}
+                            shipIds={shipIds}
                             meltPack={() => {
                                 console.log('Melt Pack onclick')
                             }}
+                            packId={props.packId}
                             dataTarget={`#collapsePack${props.packId}${props.number}`}
                         />
                     </div>

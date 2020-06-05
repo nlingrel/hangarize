@@ -23,6 +23,7 @@ function ActualHangar(props) {
                 addShipToPack={props.addShipToPack}
                 addItemToPack={props.addItemToPack}
                 addItemToShip={props.addItemToShip}
+                removePackFromHangar={props.removePackFromHangar}
             />
         </>
     )

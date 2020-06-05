@@ -2,7 +2,7 @@ import React from 'react'
 
 function CCUContainer(props) {
     return (
-        <div className="card bg-dark border-light text-light">
+        <div className="card bg-dark border-light text-light mb-1">
             <div className="btn-group " role="group">
                 <div className="btn text-light border-right border-secondary">
                     {' '}

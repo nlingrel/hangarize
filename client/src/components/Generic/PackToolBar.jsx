@@ -5,11 +5,15 @@ import MeltButton from './MeltButton'
 
 //send name
 function PackToolBar(props) {
+    const remove = (e) => {
+        e.preventDefault()
+        props.removePack(props.packId, props.shipIds)
+    }
     return (
         <>
             <div className="btn">
                 <MeltButton />
-                <MinusButton onClick={props.removePack} />
+                <MinusButton onClick={remove} />
             </div>
         </>
     )

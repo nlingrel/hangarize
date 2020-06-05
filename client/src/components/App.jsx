@@ -22,12 +22,18 @@ import {
     dbPutPack,
     dbPutShip,
     dbPutItem,
+    dbPutItems,
     dbPutCCU,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,
     dbUpdateShip,
     dbUpdatePack,
+    dbDeletePack,
+    dbDeleteShip,
+    dbBulkDeleteShips,
+    dbDeleteItem,
+    dbBulkDeleteItems,
 } from '../logicControl/db'
 
 class App extends Component {
@@ -59,6 +65,7 @@ class App extends Component {
         this.addShipToPack = this.addShipToPack.bind(this)
         this.addItemToPack = this.addItemToPack.bind(this)
         this.addItemToShip = this.addItemToShip.bind(this)
+        this.removePackFromHangar = this.removePackFromHangar.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -214,20 +221,17 @@ class App extends Component {
         let otherPacks = packs.filter((p) => p.id !== packId)
         let finalPacks = []
 
-        dbPutItem(newItem).then((id) => {
-            newItem.id = id
-            pack.items.push(newItem)
-            finalPacks = [...otherPacks, pack].sort((a, b) => {
-                return a.id - b.id
-            })
-            dbUpdatePack(packId, { items: pack.items }).then(() => {
-                dbUpdateHangar(this.state.currentHangar.id, {
-                    packs: finalPacks,
-                }).then(() => {
-                    let hngr = this.state.currentHangar
-                    hngr.packs = finalPacks
-                    this.setState({ currentHangar: hngr })
-                })
+        pack.items.push(newItem)
+        finalPacks = [...otherPacks, pack].sort((a, b) => {
+            return a.id - b.id
+        })
+        dbUpdatePack(packId, { items: pack.items }).then(() => {
+            dbUpdateHangar(this.state.currentHangar.id, {
+                packs: finalPacks,
+            }).then(() => {
+                let hngr = this.state.currentHangar
+                hngr.packs = finalPacks
+                this.setState({ currentHangar: hngr })
             })
         })
     }
@@ -248,9 +252,7 @@ class App extends Component {
             newItem = this.Factory.newItem(itemName)
             console.log(newItem)
         }
-        if (item.id > 0) {
-            newItem = this.Factory.newItem(item.name, item.price, false)
-        }
+
         let packs = []
         let pack = {}
         let ships = []
@@ -291,55 +293,50 @@ class App extends Component {
         let finalItems = []
 
         if (inPack) {
-            dbPutItem(newItem)
-                .then((id) => {
-                    newItem.id = id
-                    finalItems = ship.items.push(newItem)
-                    finalShips = [...otherShips, ship].sort((a, b) => {
-                        return a.id - b.id
-                    })
-                    pack.ships = finalShips
-                    finalPacks = [...otherPacks, pack].sort((a, b) => {
-                        return a.id - b.id
-                    })
-                    console.log('finalShips going into updateShip', finalShips)
-                    console.log('finalPacks inside pack if', finalPacks)
-                    Promise.all([
-                        dbUpdateShip(shipId, { items: finalItems }),
-                        dbUpdatePack(packId, { ships: finalShips }),
-                        dbUpdateHangar(this.state.currentHangar.id, {
-                            packs: finalPacks,
-                        }),
-                    ]).then(() => {
-                        let hngr = this.state.currentHangar
-                        hngr.packs = finalPacks
-                        this.setState({ currentHangar: hngr })
-                    })
+            finalItems = ship.items.push(newItem)
+            finalShips = [...otherShips, ship].sort((a, b) => {
+                return a.id - b.id
+            })
+            pack.ships = finalShips
+            finalPacks = [...otherPacks, pack].sort((a, b) => {
+                return a.id - b.id
+            })
+            console.log('finalShips going into updateShip', finalShips)
+            console.log('finalPacks inside pack if', finalPacks)
+            Promise.all([
+                dbUpdateShip(shipId, { items: finalItems }),
+                dbUpdatePack(packId, { ships: finalShips }),
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: finalPacks,
+                }),
+            ])
+                .then(() => {
+                    let hngr = this.state.currentHangar
+                    hngr.packs = finalPacks
+                    this.setState({ currentHangar: hngr })
                 })
 
                 .catch((err) => {
                     console.log('Error adding item to ship', err)
                 })
         } else {
-            dbPutItem(newItem)
-                .then((id) => {
-                    newItem.id = id
-                    ship.items.push(newItem)
-                    finalShips = [...otherShips, ship].sort((a, b) => {
-                        return a.id - b.id
-                    })
-                    console.log('finalShips going into updateShip', finalShips)
-                    Promise.all([
-                        dbUpdateShip(shipId, { items: ship.items }),
-                        dbUpdateHangar(this.state.currentHangar.id, {
-                            ships: finalShips,
-                        }),
-                    ]).then(() => {
-                        let hngr = this.state.currentHangar
-                        hngr.ships = finalShips
-                        this.setState({ currentHangar: hngr })
-                    })
+            ship.items.push(newItem)
+            finalShips = [...otherShips, ship].sort((a, b) => {
+                return a.id - b.id
+            })
+            console.log('finalShips going into updateShip', finalShips)
+            Promise.all([
+                dbUpdateShip(shipId, { items: ship.items }),
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    ships: finalShips,
+                }),
+            ])
+                .then(() => {
+                    let hngr = this.state.currentHangar
+                    hngr.ships = finalShips
+                    this.setState({ currentHangar: hngr })
                 })
+
                 .catch((err) => {
                     console.log('Error adding item to ship', err)
                 })
@@ -396,6 +393,7 @@ class App extends Component {
                     this.setState({ currentHangar: hangar })
                 })
             })
+
             .catch((err) => {
                 console.log('Error saving ship', err)
             })
@@ -462,6 +460,36 @@ class App extends Component {
             })
     }
 
+    removePackFromHangar(packId, shipIds) {
+        //remove all packs items from db
+
+        let packs = this.state.currentHangar.packs.filter((pack) => {
+            pack.id !== packId
+        })
+        console.log(
+            'Before remove pack:',
+            'shipKeys==>',
+            shipIds,
+
+            'packId',
+            packId
+        )
+        Promise.all([
+            dbBulkDeleteShips(shipIds),
+            dbDeletePack(packId),
+            dbUpdateHangar(this.state.currentHangar.id, { packs: packs }),
+        ])
+            .then(() => {
+                let hangar = this.state.currentHangar
+                hangar.packs = packs
+                console.log('Hangar after remove pack: ', hangar)
+                this.setState({ currentHangar: hangar })
+            })
+            .catch((err) => {
+                console.log('Error removing pack from hangar', err)
+            })
+    }
+
     navToActual(e) {
         e.preventDefault()
         this.setState({ currentView: 'actual' })
@@ -520,6 +548,7 @@ class App extends Component {
                             addShipToPack={this.addShipToPack}
                             addItemToPack={this.addItemToPack}
                             addItemToShip={this.addItemToShip}
+                            removePackFromHangar={this.removePackFromHangar}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />
