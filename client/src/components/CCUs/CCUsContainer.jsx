@@ -7,7 +7,12 @@ function CCUsContainer(props) {
     const containers = props.ccus.map((c, i) => {
         return (
             <div key={i}>
-                <CCUContainer base={c.base} to={c.to} price={c.price} />
+                <CCUContainer
+                    base={c.base}
+                    to={c.to}
+                    price={c.price}
+                    id={c.id}
+                />
             </div>
         )
     })

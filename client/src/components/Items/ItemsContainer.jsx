@@ -6,15 +6,17 @@ import AddItemForm from '../Forms/AddItemForm'
 function ItemsContainer(props) {
     const items = props.items.map((item, i) => {
         return (
-            <ItemContainer
-                name={item.name}
-                itemId={item.id}
-                key={i}
-                number={i}
-                price={item.price}
-                meltable={item.meltable}
-                showPrice={true}
-            />
+            <div key={i}>
+                <ItemContainer
+                    name={item.name}
+                    itemId={item.id}
+                    key={i}
+                    number={i}
+                    price={item.price}
+                    meltable={item.meltable}
+                    showPrice={true}
+                />
+            </div>
         )
     })
     return (
