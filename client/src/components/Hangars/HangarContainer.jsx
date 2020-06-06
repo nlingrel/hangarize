@@ -17,6 +17,7 @@ function HangarContainer(props) {
                 packsDeleteLock={props.packsDeleteLock}
                 packsCanDelete={props.packsCanDelete}
                 removeShipFromPack={props.removeShipFromPack}
+                removeItemfromPack={props.removeItemfromPack}
             />
             <ShipsContainer
                 ships={props.ships}

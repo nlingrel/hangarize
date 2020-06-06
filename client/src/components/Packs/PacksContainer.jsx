@@ -19,6 +19,7 @@ function PacksContainer(props) {
                 addItemToShip={props.addItemToShip}
                 removePackFromHangar={props.removePackFromHangar}
                 removeShipFromPack={props.removeShipFromPack}
+                removeItemfromPack={props.removeItemfromPack}
             />
         )
     })

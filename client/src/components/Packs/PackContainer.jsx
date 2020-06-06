@@ -39,11 +39,17 @@ function PackContainer(props) {
             >
                 <span className="text-truncate ">{item.name}</span>
                 <span className="badge">
-                    <MinusButton />
+                    <MinusButton
+                        onClick={(e) => {
+                            e.preventDefault()
+                            props.removeItemfromPack(props.packId, item.name)
+                        }}
+                    />
                 </span>
             </div>
         )
     })
+
     const shipIds = props.ships.map((ship) => {
         return ship.id
     })

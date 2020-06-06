@@ -29,6 +29,7 @@ function ActualHangar(props) {
                 removePackFromHangar={props.removePackFromHangar}
                 removeShipFromPack={props.removeShipFromPack}
                 removeShipFromHangar={props.removeShipFromHangar}
+                removeItemfromPack={props.removeItemfromPack}
                 packsDeleteLock={props.packsDeleteLock}
                 packsCanDelete={props.packsCanDelete}
                 shipsDeleteLock={props.shipsDeleteLock}

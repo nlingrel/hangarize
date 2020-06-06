@@ -77,6 +77,7 @@ class App extends Component {
         this.addItemToShip = this.addItemToShip.bind(this)
         this.removePackFromHangar = this.removePackFromHangar.bind(this)
         this.removeShipFromPack = this.removeShipFromPack.bind(this)
+        this.removeItemfromPack = this.removeItemfromPack.bind(this)
         this.removeShipFromHangar = this.removeShipFromHangar.bind(this)
         this.Factory = new Factory()
         this.shipSeed = shipSeed
@@ -572,7 +573,43 @@ class App extends Component {
                 console.log('Error removing pack from hangar', err)
             })
     }
+    removeItemfromPack(packId, itemName) {
+        if (this.state.packsCanDelete === false) {
+            return null
+        }
+        let packs = this.state.currentHangar.packs
+        let pack = {}
+        let itemIndex = 0
 
+        for (let pk of packs) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+        if (pack.items.length > 1) {
+            for (let i = 0; i < pack.items; i++) {
+                if (pack.items[i].name === itemName) {
+                    itemIndex = i
+                    break
+                }
+            }
+        }
+
+        pack.items.splice(itemIndex, 1)
+
+        dbUpdatePack(packId, { packs: packs })
+            .then(() => {
+                let hangar = this.state.currentHangar
+                hangar.packs = packs
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: packs,
+                }).then(() => {
+                    this.setState({ currentHangar: hangar })
+                })
+            })
+            .catch()
+    }
     removeShipFromHangar(shipId) {
         if (this.state.shipsCanDelete === false) {
             return null
@@ -669,6 +706,7 @@ class App extends Component {
                             addItemToShip={this.addItemToShip}
                             removePackFromHangar={this.removePackFromHangar}
                             removeShipFromPack={this.removeShipFromPack}
+                            removeItemfromPack={this.removeItemfromPack}
                             removeShipFromHangar={this.removeShipFromHangar}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
