@@ -12,6 +12,7 @@ function CCUsContainer(props) {
                     to={c.to}
                     price={c.price}
                     id={c.id}
+                    removeCCU={props.removeCCUFromHangar}
                 />
             </div>
         )
@@ -37,8 +38,6 @@ function CCUsContainer(props) {
             }
         }
     }
-
-    console.log(matchesByBase)
 
     const newChain = () => {
         return { head: {}, tail: {} }

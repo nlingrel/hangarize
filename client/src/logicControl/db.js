@@ -24,7 +24,7 @@ db.on('populate', () => {
         ships: [],
         items: [],
         ccus: [],
-        buyback: {},
+        buyback: { name: 'Actual', id: 1 },
     })
 })
 // Seed
@@ -32,7 +32,6 @@ const seedManus = () => {
     db.defaultManufacturers.bulkPut(manuSeed).catch((err) => {
         console.log('error seeding manufacturers')
     })
-    console.log(shipSeed.length)
 }
 
 const seedShips = () => {
@@ -137,6 +136,9 @@ const dbDeleteItem = (key) => {
 const dbBulkDeleteItems = (keys) => {
     return db.items.bulkDelete(keys)
 }
+const dbDeleteCCU = (key) => {
+    return db.ccus.delete(key)
+}
 
 export {
     db,
@@ -167,4 +169,5 @@ export {
     dbBulkDeleteShips,
     dbDeleteItem,
     dbBulkDeleteItems,
+    dbDeleteCCU,
 }

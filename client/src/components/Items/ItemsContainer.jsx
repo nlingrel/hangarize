@@ -15,6 +15,7 @@ function ItemsContainer(props) {
                     price={item.price}
                     meltable={item.meltable}
                     showPrice={true}
+                    removeItem={props.removeItemFromHangar}
                 />
             </div>
         )

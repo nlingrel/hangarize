@@ -27,6 +27,7 @@ function ShipsContainer(props) {
                     e.preventDefault()
                     props.removeShipFromHangar(ship.id)
                 }}
+                removeItemFromShip={props.removeItemFromShip}
             />
         )
     })

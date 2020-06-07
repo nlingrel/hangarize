@@ -23,7 +23,13 @@ function CCUContainer(props) {
                     </small>
                 </div>
                 <div className="btn-group-vertical collapse" id={collapseId}>
-                    <button className="btn badge btn-outline-danger ">
+                    <button
+                        className="btn badge btn-outline-danger "
+                        onClick={(e) => {
+                            e.preventDefault()
+                            props.removeCCU(props.id)
+                        }}
+                    >
                         <svg
                             className="bi bi-trash"
                             width="1em"

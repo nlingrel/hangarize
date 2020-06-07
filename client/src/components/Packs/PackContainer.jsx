@@ -27,6 +27,7 @@ function PackContainer(props) {
                     e.preventDefault()
                     props.removeShipFromPack(props.packId, ship.id)
                 }}
+                removeItemFromShip={props.removeItemFromShip}
             />
         )
     })

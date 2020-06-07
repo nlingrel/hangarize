@@ -32,7 +32,29 @@ function ShipContainer(props) {
             >
                 <span className="text-truncate">{item.name}</span>
                 <span className="badge">
-                    <MinusButton />
+                    {props.inPack ? (
+                        <MinusButton
+                            packId={props.packId}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                props.removeItemFromShip(
+                                    props.shipId,
+                                    item.name,
+                                    props.packId
+                                )
+                            }}
+                        />
+                    ) : (
+                        <MinusButton
+                            onClick={(e) => {
+                                e.preventDefault()
+                                props.removeItemFromShip(
+                                    props.shipId,
+                                    item.name
+                                )
+                            }}
+                        />
+                    )}
                 </span>
             </div>
         )
@@ -112,6 +134,9 @@ function ShipContainer(props) {
                                         addItemToShip={props.addItemToShip}
                                         inPack={props.inPack}
                                         packId={props.packId}
+                                        removeItemFromShip={
+                                            props.removeItemFromShip
+                                        }
                                     />
                                 </div>
                                 {items}

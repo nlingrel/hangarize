@@ -38,6 +38,9 @@ function ActualHangar(props) {
                 itemsCanDelete={props.itemsCanDelete}
                 ccusDeleteLock={props.ccusDeleteLock}
                 ccusCanDelete={props.ccusCanDelete}
+                removeCCUFromHangar={props.removeCCUFromHangar}
+                removeItemFromHangar={props.removeItemFromHangar}
+                removeItemFromShip={props.removeItemFromShip}
             />
         </>
     )

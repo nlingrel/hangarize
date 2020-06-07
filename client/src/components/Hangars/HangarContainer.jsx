@@ -18,6 +18,7 @@ function HangarContainer(props) {
                 packsCanDelete={props.packsCanDelete}
                 removeShipFromPack={props.removeShipFromPack}
                 removeItemfromPack={props.removeItemfromPack}
+                removeItemFromShip={props.removeItemFromShip}
             />
             <ShipsContainer
                 ships={props.ships}
@@ -30,6 +31,7 @@ function HangarContainer(props) {
                 shipsDeleteLock={props.shipsDeleteLock}
                 shipsCanDelete={props.shipsCanDelete}
                 removeShipFromHangar={props.removeShipFromHangar}
+                removeItemFromShip={props.removeItemFromShip}
             />
             <CCUsContainer
                 ccus={props.ccus}
@@ -38,12 +40,14 @@ function HangarContainer(props) {
                 addNewCCUToHangar={props.addNewCCUToHangar}
                 ccusDeleteLock={props.ccusDeleteLock}
                 ccusCanDelete={props.ccusCanDelete}
+                removeCCUFromHangar={props.removeCCUFromHangar}
             />
             <ItemsContainer
                 items={props.items}
                 addNewItemToHangar={props.addNewItemToHangar}
                 itemsDeleteLock={props.itemsDeleteLock}
                 itemsCanDelete={props.itemsCanDelete}
+                removeItemFromHangar={props.removeItemFromHangar}
             />
         </div>
     )
