@@ -77,9 +77,9 @@ class Factory {
             name: name,
             price: price,
             meltable: meltable,
-            hangarId: hangarId,
-            packId: packId,
-            shipId: shipId,
+            itemHangarId: hangarId,
+            itemPackId: packId,
+            itemShipId: shipId,
             buyback: buyback,
         }
         return item

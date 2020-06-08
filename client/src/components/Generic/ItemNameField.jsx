@@ -35,23 +35,20 @@ class ItemNameField extends Component {
 
     addItemToPack(e) {
         e.preventDefault()
-        this.props.addItemToPack(
-            this.props.id,
-            this.state.selectedItem,
-            this.state.itemNameField
-        )
+        const packId = this.props.id
+        const { selectedItem } = this.state
+        const { itemNameField } = this.state
+        this.props.addItemToPack(packId, selectedItem, itemNameField)
         this.setState({ itemNameField: '' })
     }
 
     addItemToShip(e) {
         e.preventDefault()
         const pId = this.props.inPack ? this.props.packId : undefined
-        this.props.addItemToShip(
-            this.props.id,
-            this.state.selectedItem,
-            this.state.itemNameField,
-            pId
-        )
+        const shipId = this.props.id
+        const { selectedItem } = this.state
+        const { itemNameField } = this.state
+        this.props.addItemToShip(shipId, selectedItem, itemNameField, pId)
         this.setState({ itemNameField: '' })
     }
 

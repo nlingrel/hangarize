@@ -284,7 +284,16 @@ class App extends Component {
             return null
         }
         if (ship.id === 0 && shipName.length > 0) {
-            newShip = this.Factory.newShip(shipName)
+            newShip = this.Factory.newShip(
+                shipName,
+                0,
+                undefined,
+                undefined,
+                undefined,
+                hangarId,
+                packId,
+                buyback
+            )
             console.log(newShip)
         }
         if (ship.id > 0) {
@@ -318,6 +327,7 @@ class App extends Component {
 
     addItemToPack(packId, item, itemName) {
         console.log('Add item to pack called in App')
+
         let newItem
         if (item.id === 0 && itemName.length === 0) {
             return null
@@ -415,6 +425,7 @@ class App extends Component {
         //  (hangarId = 1),
         //  (packId = 0),
         //  (shipId = 0)
+        //  ship.name,
 
         dbPutShip(ship)
             .then((id) => {
