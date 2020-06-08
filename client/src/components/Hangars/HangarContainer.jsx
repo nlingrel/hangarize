@@ -3,6 +3,7 @@ import PacksContainer from '../Packs/PacksContainer'
 import ShipsContainer from '../Ships/ShipsContainer'
 import CCUsContainer from '../CCUs/CCUsContainer'
 import ItemsContainer from '../Items/ItemsContainer'
+import BuyBackContainer from '../Buybacks/BuyBackContainer'
 
 function HangarContainer(props) {
     return (
@@ -19,6 +20,7 @@ function HangarContainer(props) {
                 removeShipFromPack={props.removeShipFromPack}
                 removeItemfromPack={props.removeItemfromPack}
                 removeItemFromShip={props.removeItemFromShip}
+                meltPack={props.meltPack}
             />
             <ShipsContainer
                 ships={props.ships}
@@ -48,6 +50,20 @@ function HangarContainer(props) {
                 itemsDeleteLock={props.itemsDeleteLock}
                 itemsCanDelete={props.itemsCanDelete}
                 removeItemFromHangar={props.removeItemFromHangar}
+            />
+            <BuyBackContainer
+                buybackID={props.buybackID}
+                buybacksDeleteLock={props.buybacksDeleteLock}
+                buybacksCanDelete={props.buybacksCanDelete}
+                buyback={props.buyback}
+                addShipToPack={props.addShipToPack}
+                addItemToPack={props.addItemToPack}
+                addItemToShip={props.addItemToShip}
+                removePackFromHangar={props.removePackFromHangar}
+                removeShipFromPack={props.removeShipFromPack}
+                removeItemfromPack={props.removeItemfromPack}
+                removeItemFromShip={props.removeItemFromShip}
+                buyBackPack={props.buyBackPack}
             />
         </div>
     )

@@ -21,6 +21,7 @@ function PacksContainer(props) {
                 removeShipFromPack={props.removeShipFromPack}
                 removeItemfromPack={props.removeItemfromPack}
                 removeItemFromShip={props.removeItemFromShip}
+                meltPack={props.meltPack}
             />
         )
     })

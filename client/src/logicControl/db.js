@@ -7,24 +7,24 @@ db.version(1).stores({
     defaultShips: 'id, name, manufacturer, role, size, defaultPrice, userPrice',
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
-    ships: '++id, name, items, manufacturer, role, price, size',
-    items: '++id, name, price',
+    ships:
+        '++id, name, manufacturer, role, price, size, hangarId, packId, buyback',
+    items: '++id, name, price, hangarId, packId, shipId, buyback',
     manufacturers: '++id, name, nickName',
-    packs: '++id, name, ships',
-    hangars: '++id, name, packs, ships, items, ccus, buyback',
-    buybacks: '++id, name, packs, ships, items, ccus',
-    ccus: '++id, base, to, appliedBase, appliedTo, price',
+    packs: '++id, name, hangarId, buyback',
+    hangars: '++id, name',
+    buybacks: '++id, name',
+    ccus: '++id, base, to, appliedBase, appliedTo, price, hangarId, buyback',
 })
 
 db.on('populate', () => {
     db.hangars.add({
         id: 1,
         name: 'Actual',
-        packs: [],
-        ships: [],
-        items: [],
-        ccus: [],
-        buyback: { name: 'Actual', id: 1 },
+    })
+    db.buybacks.add({
+        id: 1,
+        name: 'Actual',
     })
 })
 // Seed
@@ -44,6 +44,9 @@ const seedShips = () => {
 const dbGetHangar = (key) => {
     return db.hangars.get(key)
 }
+const dbGetBuyback = (key) => {
+    return db.buybacks.get(key)
+}
 const dbGetPack = (key) => {
     return db.packs.get(key)
 }
@@ -52,8 +55,8 @@ const dbGetPacks = (keys) => {
     return db.packs.bulkGet(keys)
 }
 
-const dbGetAllPacks = () => {
-    return db.packs.toCollection().toArray()
+const dbGetAllPacks = (hangarId) => {
+    return db.packs.where({ hangarId: hangarId }).toArray()
 }
 
 const dbGetShip = (key) => {
@@ -63,16 +66,20 @@ const dbGetShips = (keys) => {
     return db.ships.bulkGet(keys)
 }
 
-const dbGetAllShips = () => {
-    return db.ships.toCollection().toArray()
+const dbGetAllShips = (hangarId) => {
+    return db.ships.where({ hangarId: hangarId }).toArray()
 }
 
 const dbGetItems = (keys) => {
     return db.items.bulkGet(keys)
 }
 
-const dbGetAllItems = () => {
-    return db.items.toCollection().toArray()
+const dbGetAllItems = (hangarId) => {
+    return db.items.where({ hangarId: hangarId }).toArray()
+}
+
+const dbGetAllCCUs = (hangarId) => {
+    return db.ccus.where({ hangarId: hangarId }).toArray()
 }
 
 const dbGetCCUs = (keys) => {
@@ -119,6 +126,9 @@ const dbUpdatePack = (key, obj) => {
 const dbUpdateShip = (key, obj) => {
     return db.ships.update(key, obj)
 }
+const dbUpdateBuyback = (key, obj) => {
+    return db.buybacks.update(key, obj)
+}
 
 //Delete
 const dbDeletePack = (key) => {
@@ -145,6 +155,7 @@ export {
     seedManus,
     seedShips,
     dbGetHangar,
+    dbGetBuyback,
     dbGetPack,
     dbGetPacks,
     dbGetAllPacks,
@@ -153,6 +164,7 @@ export {
     dbGetAllShips,
     dbGetItems,
     dbGetAllItems,
+    dbGetAllCCUs,
     dbGetCCUs,
     dbPutPack,
     dbPutShip,
@@ -164,6 +176,7 @@ export {
     dbUpdateHangar,
     dbUpdateShip,
     dbUpdatePack,
+    dbUpdateBuyback,
     dbDeletePack,
     dbDeleteShip,
     dbBulkDeleteShips,

@@ -2,7 +2,11 @@ import React from 'react'
 
 function MeltButton(props) {
     return (
-        <button className="btn btn-warning btn-sm ml-1" title="Melt">
+        <button
+            className="btn btn-warning btn-sm ml-1"
+            title="Melt"
+            onClick={props.meltPack}
+        >
             <svg
                 className="bi bi-credit-card"
                 width="1em"

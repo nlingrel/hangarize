@@ -6,7 +6,7 @@ import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
-import { db } from '../logicControl/db'
+import { db, dbGetBuyback } from '../logicControl/db'
 import {
     dbGetHangar,
     dbGetPack,
@@ -15,7 +15,8 @@ import {
     dbGetShip,
     dbGetShips,
     dbGetAllShips,
-    dbGetItems,
+    dbGetAllItems,
+    dbGetAllCCUs,
     dbGetCCUs,
     seedManus,
     seedShips,
@@ -29,6 +30,7 @@ import {
     dbUpdateHangar,
     dbUpdateShip,
     dbUpdatePack,
+    dbUpdateBuyback,
     dbDeletePack,
     dbDeleteShip,
     dbBulkDeleteShips,
@@ -46,11 +48,14 @@ class App extends Component {
                 ships: [],
                 ccus: [],
                 items: [],
-                buyback: {},
+                id: 1,
             },
-
-            actualHangar: {},
-
+            currentBuyback: {
+                packs: [],
+                ships: [],
+                ccus: [],
+                items: [],
+            },
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
@@ -59,12 +64,16 @@ class App extends Component {
             shipsCanDelete: false,
             itemsCanDelete: false,
             ccusCanDelete: false,
+            buybacksCanDelete: false,
         }
+        this.refreshHangar = this.refreshHangar.bind(this)
+
         this.packsDeleteLock = this.packsDeleteLock.bind(this)
         this.shipsDeleteLock = this.shipsDeleteLock.bind(this)
         this.itemsDeleteLock = this.itemsDeleteLock.bind(this)
         this.ccusDeleteLock = this.ccusDeleteLock.bind(this)
         this.allDeleteLock = this.allDeleteLock.bind(this)
+        this.buybacksDeleteLock = this.buybacksDeleteLock.bind(this)
         this.navToActual = this.navToActual.bind(this)
         this.navToHangarize = this.navToHangarize.bind(this)
         this.navToHome = this.navToHome.bind(this)
@@ -83,6 +92,10 @@ class App extends Component {
         this.removeCCUFromHangar = this.removeCCUFromHangar.bind(this)
         this.removeItemFromHangar = this.removeItemFromHangar.bind(this)
         this.removeItemFromShip = this.removeItemFromShip.bind(this)
+
+        this.meltPack = this.meltPack.bind(this)
+        this.buyBackPack = this.buyBackPack.bind(this)
+
         this.Factory = new Factory()
         this.shipSeed = shipSeed
         this.nickNames = {}
@@ -100,11 +113,70 @@ class App extends Component {
         seedManus()
         seedShips()
 
-        dbGetHangar(this.state.currentHangarId)
-            .then((hangar) => {
-                this.setState({ currentHangar: hangar })
+        this.refreshHangar()
+    }
+
+    refreshHangar() {
+        Promise.all([
+            dbGetAllPacks(this.state.currentHangar.id),
+            dbGetAllShips(this.state.currentHangar.id),
+            dbGetAllItems(this.state.currentHangar.id),
+            dbGetAllCCUs(this.state.currentHangar.id),
+        ])
+            .then((results) => {
+                let packsTbl = {}
+                for (let pk of results[0]) {
+                    let pack = pk
+                    pack.ships = []
+                    pack.items = []
+                    packsTbl[pack.id] = pack
+                }
+                console.log('packsTbl', packsTbl)
+                let shipsTbl = {}
+                for (let s of results[1]) {
+                    let ship = s
+                    ship.items = []
+
+                    shipsTbl[ship.id] = ship
+                }
+                let itemsTbl = {}
+                for (let itm of results[2]) {
+                    let item = itm
+                    if (item.packId === 0 && item.shipId === 0) {
+                        itemsTbl[item.id] = item
+                    } else if (item.shipId === 0 && item.packId !== 0) {
+                        packsTbl[item.packId].items.push(item)
+                    } else {
+                        shipsTbl[item.shipId].items.push(item)
+                    }
+                }
+                let hangar = {}
+                let buyback = {}
+                let allShips = Object.values(shipsTbl)
+                let PackShips = allShips.filter((s) => s.packId !== 0)
+                let nonPackShips = allShips.filter((s) => s.packId === 0)
+                for (let ps of PackShips) {
+                    packsTbl[ps.packId].ships.push(ps)
+                }
+                hangar.ships = nonPackShips.filter((s) => !s.buyback)
+                buyback.ships = nonPackShips.filter((s) => s.buyback)
+                let allItems = Object.values(itemsTbl)
+                hangar.items = allItems.filter((it) => !it.buyback)
+                buyback.items = allItems.filter((it) => it.buyback)
+                let allPacks = Object.values(packsTbl)
+                hangar.packs = allPacks.filter((p) => !p.buyback)
+                buyback.packs = allPacks.filter((p) => p.buyback)
+                hangar.ccus = results[3].filter((c) => !c.buyback)
+                buyback.ccus = hangar.ccus.filter((c) => c.buyback)
+
+                this.setState({
+                    currentHangar: hangar,
+                    currentBuyback: buyback,
+                })
             })
-            .catch('error getting actual hangar')
+            .catch((err) => {
+                console.log('Error getting packs', err)
+            })
     }
 
     allDeleteLock(e) {
@@ -116,6 +188,7 @@ class App extends Component {
             itemsCanDelete: locked,
             ccusCanDelete: locked,
             allCanDelete: locked,
+            buybacksCanDelete: locked,
         })
     }
 
@@ -141,6 +214,11 @@ class App extends Component {
         let locked = !this.state.ccusCanDelete
         this.setState({ ccusCanDelete: locked })
     }
+    buybacksDeleteLock(e) {
+        e.preventDefault()
+        let locked = !this.state.buybacksCanDelete
+        this.setState({ buybacksCanDelete: locked })
+    }
 
     addNewPackToHangar(e) {
         e.preventDefault()
@@ -161,20 +239,28 @@ class App extends Component {
             }
         }
 
-        let pack = this.Factory.newPack(name, price, [], items)
-        let packs = this.state.currentHangar.packs
+        let pack = this.Factory.newPack(
+            name,
+            price,
+            this.state.currentHangar.id
+        )
 
         dbPutPack(pack)
             .then((id) => {
-                pack.id = id
-                packs.push(pack)
-                dbUpdateHangar(this.state.currentHangar.id, {
-                    packs: packs,
-                }).then(() => {
-                    let hangar = this.state.currentHangar
-                    hangar.packs = packs
-                    this.setState({ currentHangar: hangar })
-                })
+                let packItems = []
+                for (let it of items) {
+                    packItems.push(
+                        this.Factory.newItem(
+                            it.name,
+                            0,
+                            false,
+                            this.state.currentHangar.id,
+                            id
+                        )
+                    )
+                }
+                dbPutItems(packItems)
+                this.refreshHangar()
             })
             .catch((err) => {
                 console.log('Error saving pack', err)
@@ -183,7 +269,7 @@ class App extends Component {
         e.target.reset()
     }
 
-    addShipToPack(packId, ship, shipName) {
+    addShipToPack(packId, ship, shipName, buyback = false) {
         let newShip
 
         console.log(
@@ -208,40 +294,16 @@ class App extends Component {
                 [],
                 ship.manufacturer,
                 ship.role,
-                ship.size
+                ship.size,
+                packId,
+                this.state.currentHangar.id,
+                buyback
             )
         }
 
-        let packs = this.state.currentHangar.packs
-        let pack = {}
-
-        for (let pk of packs) {
-            if (pk.id === packId) {
-                pack = pk
-                break
-            }
-        }
-        let otherPacks = packs.filter((p) => p.id !== packId)
-        let finalPacks = []
-
         dbPutShip(newShip)
-            .then((id) => {
-                newShip.id = id
-                pack.ships.push(newShip)
-                finalPacks = [...otherPacks, pack].sort((a, b) => {
-                    return a.id - b.id
-                })
+            .then(this.refreshHangar())
 
-                dbUpdatePack(packId, { ships: pack.ships }).then(() => {
-                    dbUpdateHangar(this.state.currentHangar.id, {
-                        packs: finalPacks,
-                    }).then(() => {
-                        let hngr = this.state.currentHangar
-                        hngr.packs = finalPacks
-                        this.setState({ currentHangar: hngr })
-                    })
-                })
-            })
             .catch((err) => {
                 console.log('Error trying to add ship to pack', err)
             })
@@ -544,6 +606,73 @@ class App extends Component {
             })
     }
 
+    meltPack(packId) {
+        let pack = {}
+        let packs = [...this.state.currentHangar.packs]
+        if (packs.length === 0) {
+            return null
+        }
+        for (let pk of packs) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+        packs = packs.filter((pack) => pack.id !== packId)
+
+        dbUpdateHangar(this.state.currentHangar.id, { packs: packs })
+            .then(() => {
+                let buyback = this.state.currentBuyback
+                let bbPacks = buyback.packs
+                bbPacks.push(pack)
+                dbUpdateBuyback(this.state.currentHangar.buybackID, {
+                    packs: bbPacks,
+                })
+                let hangar = this.state.currentHangar
+                hangar.packs = packs
+                console.log('Hangar after remove pack: ', hangar)
+                this.setState({
+                    currentHangar: hangar,
+                    currentBuyback: buyback,
+                })
+            })
+            .catch((err) => {
+                console.log('Error removing pack from hangar', err)
+            })
+    }
+    buyBackPack(packId) {
+        let pack = {}
+        let buyback = this.state.currentBuyback
+        let bbPacks = [...buyback.packs]
+        if (bbPacks.length === 0) {
+            return null
+        }
+        for (let pk of bbPacks) {
+            if (pk.id === packId) {
+                pack = pk
+                break
+            }
+        }
+        bbPacks = bbPacks.filter((pk) => pk.id !== packId)
+
+        dbUpdateBuyback(this.state.currentHangar.buybackID, {
+            packs: bbPacks,
+        })
+            .then(() => {
+                buyback.packs = bbPacks
+                let hangar = this.state.currentHangar
+                hangar.packs.push(pack)
+                dbUpdateHangar(this.state.currentHangar.id, {
+                    packs: hangar.packs,
+                })
+                this.setState({
+                    currentHangar: hangar,
+                    currentBuyback: buyback,
+                })
+            })
+            .catch((err) => console.log('Error buying pack', err))
+    }
+
     removeShipFromPack(packId, shipId) {
         console.log('remove ship from pack', 'PackId', packId, 'shipId', shipId)
         if (this.state.packsCanDelete === false) {
@@ -787,6 +916,7 @@ class App extends Component {
                 console.log('Error removing ccu from hangar', err)
             })
     }
+
     navToActual(e) {
         e.preventDefault()
         this.setState({ currentView: 'actual' })
@@ -807,6 +937,7 @@ class App extends Component {
         const ships = this.state.currentHangar.ships
         const ccus = this.state.currentHangar.ccus
         const items = this.state.currentHangar.items
+        const buyback = this.state.currentBuyback
 
         return (
             <>
@@ -830,6 +961,7 @@ class App extends Component {
                             ships={ships}
                             ccus={ccus}
                             items={items}
+                            buyback={buyback}
                             packsDeleteLock={this.packsDeleteLock}
                             packsCanDelete={this.state.packsCanDelete}
                             shipsDeleteLock={this.shipsDeleteLock}
@@ -838,6 +970,8 @@ class App extends Component {
                             itemsCanDelete={this.state.itemsCanDelete}
                             ccusDeleteLock={this.ccusDeleteLock}
                             ccusCanDelete={this.state.ccusCanDelete}
+                            buybacksDeleteLock={this.buybacksDeleteLock}
+                            buybacksCanDelete={this.state.buybacksCanDelete}
                             allDeleteLock={this.allDeleteLock}
                             allCanDelete={this.state.allCanDelete}
                             addNewPackToHangar={this.addNewPackToHangar}
@@ -862,6 +996,8 @@ class App extends Component {
                             removeCCUFromHangar={this.removeCCUFromHangar}
                             removeItemFromHangar={this.removeItemFromHangar}
                             removeItemFromShip={this.removeItemFromShip}
+                            meltPack={this.meltPack}
+                            buyBackPack={this.buyBackPack}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

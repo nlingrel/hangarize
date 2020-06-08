@@ -15,6 +15,7 @@ function ActualHangar(props) {
                 ships={props.ships}
                 ccus={props.ccus}
                 items={props.items}
+                buyback={props.buyback}
                 addNewShipToHangar={props.addNewShipToHangar}
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}
@@ -38,9 +39,13 @@ function ActualHangar(props) {
                 itemsCanDelete={props.itemsCanDelete}
                 ccusDeleteLock={props.ccusDeleteLock}
                 ccusCanDelete={props.ccusCanDelete}
+                buybacksDeleteLock={props.buybacksDeleteLock}
+                buybacksCanDelete={props.buybacksCanDelete}
                 removeCCUFromHangar={props.removeCCUFromHangar}
                 removeItemFromHangar={props.removeItemFromHangar}
                 removeItemFromShip={props.removeItemFromShip}
+                meltPack={props.meltPack}
+                buyBackPack={props.buyBackPack}
             />
         </>
     )

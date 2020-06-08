@@ -3,12 +3,12 @@ class Factory {
         this.name = name || 'factory'
     }
 
-    newPack(name = 'pack', price = 0, ships = [], items = []) {
+    newPack(name = 'pack', price = 0, hangarId = 1, buyback = false) {
         let pack = {
             name: name,
             price: price,
-            ships: ships,
-            items: items,
+            hangarId: hangarId,
+            buyback: buyback,
         }
         return pack
     }
@@ -19,7 +19,10 @@ class Factory {
         items = [],
         manufacturer = 'Unknown manufacturer',
         role = 'Role',
-        size = 'Size'
+        size = 'Size',
+        packId = 0,
+        hangarId = 1,
+        buyback = false
     ) {
         let ship = {
             name: name,
@@ -28,6 +31,9 @@ class Factory {
             role: role,
             manufacturer: manufacturer,
             size: size,
+            packId: packId,
+            hangarId: hangarId,
+            buyback: buyback,
         }
 
         return ship
@@ -53,8 +59,22 @@ class Factory {
         return ccu
     }
 
-    newItem(name = 'Item', price = 0, meltable = false) {
-        let item = { name: name, price: price, meltable: meltable }
+    newItem(
+        name = 'Item',
+        price = 0,
+        meltable = false,
+        hangarId = 1,
+        packId = 0,
+        shipId = 0
+    ) {
+        let item = {
+            name: name,
+            price: price,
+            meltable: meltable,
+            hangarId: hangarId,
+            packId: packId,
+            shipId: shipId,
+        }
         return item
     }
 

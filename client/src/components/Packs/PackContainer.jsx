@@ -92,8 +92,9 @@ function PackContainer(props) {
                         <PackToolBar
                             removePack={props.removePackFromHangar}
                             shipIds={shipIds}
-                            meltPack={() => {
-                                console.log('Melt Pack onclick')
+                            meltPack={(e) => {
+                                e.preventDefault()
+                                props.meltPack(props.packId)
                             }}
                             packId={props.packId}
                             dataTarget={`#collapsePack${props.packId}${props.number}`}

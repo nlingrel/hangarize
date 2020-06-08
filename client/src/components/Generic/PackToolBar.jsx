@@ -1,5 +1,4 @@
 import React from 'react'
-import HideButton from './HideButton'
 import MinusButton from './MinusButton'
 import MeltButton from './MeltButton'
 
@@ -12,7 +11,7 @@ function PackToolBar(props) {
     return (
         <>
             <div className="btn">
-                <MeltButton />
+                <MeltButton meltPack={props.meltPack} />
                 <MinusButton onClick={remove} />
             </div>
         </>
