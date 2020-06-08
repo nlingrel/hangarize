@@ -43,16 +43,19 @@ function BuyBackContainer(props) {
                     key={i}
                     items={ship.items}
                     inPack={true}
-                    packId={this.props.packId}
-                    addItemToShip={this.props.addItemToShip}
+                    packId={props.packId}
+                    addItemToShip={props.addItemToShip}
                     removeShip={(e) => {
                         e.preventDefault()
-                        this.props.removeShipFromPack(
-                            this.props.packId,
-                            ship.id
-                        )
+                        props.removeShipFromPack(props.packId, ship.id)
                     }}
-                    removeItemFromShip={this.props.removeItemFromShip}
+                    removeItemFromShip={props.removeItemFromShip}
+                    meltShip={(e) => {
+                        e.preventDefault()
+
+                        props.buyBackShip(ship.id)
+                    }}
+                    meltable={true}
                 />
             )
         })
@@ -72,6 +75,7 @@ function BuyBackContainer(props) {
                         meltable={item.meltable}
                         showPrice={true}
                         removeItem={props.removeItemFromHangar}
+                        meltItem={props.buyBackItem}
                     />
                 </div>
             )
@@ -88,7 +92,8 @@ function BuyBackContainer(props) {
                         to={c.to}
                         price={c.price}
                         id={c.id}
-                        removeCCU={this.props.removeCCUFromHangar}
+                        removeCCU={props.removeCCUFromHangar}
+                        meltCCU={props.buyBackCCU}
                     />
                 </div>
             )

@@ -5,7 +5,7 @@ function MeltButton(props) {
         <button
             className="btn btn-warning btn-sm ml-1"
             title="Melt"
-            onClick={props.meltPack}
+            onClick={props.melt}
         >
             <svg
                 className="bi bi-credit-card"

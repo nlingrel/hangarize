@@ -1,7 +1,6 @@
 import React from 'react'
 import ManuIcon from '../Generic/ManuIcon'
 import ShipToolBar from '../Generic/ShipToolBar'
-import PlusButton from '../Generic/PlusButton'
 import ShipItems from './ShipItems'
 import HideButton from '../Generic/HideButton'
 import ItemNameField from '../Generic/ItemNameField'
@@ -32,29 +31,13 @@ function ShipContainer(props) {
             >
                 <span className="text-truncate">{item.name}</span>
                 <span className="badge">
-                    {props.inPack ? (
-                        <MinusButton
-                            packId={props.packId}
-                            onClick={(e) => {
-                                e.preventDefault()
-                                props.removeItemFromShip(
-                                    props.shipId,
-                                    item.name,
-                                    props.packId
-                                )
-                            }}
-                        />
-                    ) : (
-                        <MinusButton
-                            onClick={(e) => {
-                                e.preventDefault()
-                                props.removeItemFromShip(
-                                    props.shipId,
-                                    item.name
-                                )
-                            }}
-                        />
-                    )}
+                    <MinusButton
+                        packId={props.packId}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            props.removeItemFromShip(item.id, props.inPack)
+                        }}
+                    />
                 </span>
             </div>
         )
@@ -112,6 +95,7 @@ function ShipContainer(props) {
                             upgradeShip={() => {
                                 console.log('Upgrade ship onclick')
                             }}
+                            meltShip={props.meltShip}
                         />
                     </div>
                 </div>

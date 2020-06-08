@@ -127,6 +127,14 @@ const dbUpdatePack = (key, obj) => {
 const dbUpdateShip = (key, obj) => {
     return db.ships.update(key, obj)
 }
+
+const dbUpdateItem = (key, obj) => {
+    return db.items.update(key, obj)
+}
+
+const dbUpdateCCU = (key, obj) => {
+    return db.ccus.update(key, obj)
+}
 const dbUpdateBuyback = (key, obj) => {
     return db.buybacks.update(key, obj)
 }
@@ -138,13 +146,13 @@ const dbDeletePack = (key) => {
 const dbDeleteShip = (key) => {
     return db.ships.delete(key)
 }
-const dbBulkDeleteShips = (keys) => {
+const dbDeleteShips = (keys) => {
     return db.ships.bulkDelete(keys)
 }
 const dbDeleteItem = (key) => {
     return db.items.delete(key)
 }
-const dbBulkDeleteItems = (keys) => {
+const dbDeleteItems = (keys) => {
     return db.items.bulkDelete(keys)
 }
 const dbDeleteCCU = (key) => {
@@ -177,11 +185,13 @@ export {
     dbUpdateHangar,
     dbUpdateShip,
     dbUpdatePack,
+    dbUpdateItem,
+    dbUpdateCCU,
     dbUpdateBuyback,
     dbDeletePack,
     dbDeleteShip,
-    dbBulkDeleteShips,
+    dbDeleteShips,
     dbDeleteItem,
-    dbBulkDeleteItems,
+    dbDeleteItems,
     dbDeleteCCU,
 }

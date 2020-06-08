@@ -11,7 +11,7 @@ function PackToolBar(props) {
     return (
         <>
             <div className="btn">
-                <MeltButton meltPack={props.meltPack} />
+                <MeltButton melt={props.meltPack} />
                 <MinusButton onClick={remove} />
             </div>
         </>

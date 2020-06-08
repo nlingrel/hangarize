@@ -25,7 +25,7 @@ function PackContainer(props) {
                 addItemToShip={props.addItemToShip}
                 removeShip={(e) => {
                     e.preventDefault()
-                    props.removeShipFromPack(props.packId, ship.id)
+                    props.removeShipFromPack(ship.id, props.packId)
                 }}
                 removeItemFromShip={props.removeItemFromShip}
             />
@@ -43,7 +43,7 @@ function PackContainer(props) {
                     <MinusButton
                         onClick={(e) => {
                             e.preventDefault()
-                            props.removeItemfromPack(props.packId, item.name)
+                            props.removeItemfromPack(item.id)
                         }}
                     />
                 </span>

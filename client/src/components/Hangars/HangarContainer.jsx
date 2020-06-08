@@ -34,6 +34,7 @@ function HangarContainer(props) {
                 shipsCanDelete={props.shipsCanDelete}
                 removeShipFromHangar={props.removeShipFromHangar}
                 removeItemFromShip={props.removeItemFromShip}
+                meltShip={props.meltShip}
             />
             <CCUsContainer
                 ccus={props.ccus}
@@ -43,6 +44,7 @@ function HangarContainer(props) {
                 ccusDeleteLock={props.ccusDeleteLock}
                 ccusCanDelete={props.ccusCanDelete}
                 removeCCUFromHangar={props.removeCCUFromHangar}
+                meltCCU={props.meltCCU}
             />
             <ItemsContainer
                 items={props.items}
@@ -50,6 +52,7 @@ function HangarContainer(props) {
                 itemsDeleteLock={props.itemsDeleteLock}
                 itemsCanDelete={props.itemsCanDelete}
                 removeItemFromHangar={props.removeItemFromHangar}
+                meltItem={props.meltItem}
             />
             <BuyBackContainer
                 buybackID={props.buybackID}
@@ -64,6 +67,9 @@ function HangarContainer(props) {
                 removeItemfromPack={props.removeItemfromPack}
                 removeItemFromShip={props.removeItemFromShip}
                 buyBackPack={props.buyBackPack}
+                buyBackShip={props.buyBackShip}
+                buyBackItem={props.buyBackItem}
+                buyBackCCU={props.buyBackCCU}
             />
         </div>
     )

@@ -2,7 +2,6 @@ import React from 'react'
 import UpgradeButton from './UpgradeButton'
 import MinusButton from './MinusButton'
 import MeltButton from './MeltButton'
-import HideButton from './HideButton'
 
 //send name
 function ShipToolBar(props) {
@@ -10,7 +9,7 @@ function ShipToolBar(props) {
         <>
             <div className="btn">
                 <UpgradeButton onClick={props.upgradeShip} />
-                {props.meltable ? <MeltButton /> : ''}
+                {props.meltable ? <MeltButton melt={props.meltShip} /> : ''}
                 <MinusButton onClick={props.removeShip} />
             </div>
         </>

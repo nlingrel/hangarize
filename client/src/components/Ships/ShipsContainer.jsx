@@ -28,6 +28,10 @@ function ShipsContainer(props) {
                     props.removeShipFromHangar(ship.id)
                 }}
                 removeItemFromShip={props.removeItemFromShip}
+                meltShip={(e) => {
+                    e.preventDefault()
+                    props.meltShip(ship.id)
+                }}
             />
         )
     })

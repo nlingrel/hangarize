@@ -46,6 +46,12 @@ function ActualHangar(props) {
                 removeItemFromShip={props.removeItemFromShip}
                 meltPack={props.meltPack}
                 buyBackPack={props.buyBackPack}
+                meltShip={props.meltShip}
+                buyBackShip={props.buyBackShip}
+                meltItem={props.meltItem}
+                buyBackItem={props.buyBackItem}
+                meltCCU={props.meltCCU}
+                buyBackCCU={props.buyBackCCU}
             />
         </>
     )
