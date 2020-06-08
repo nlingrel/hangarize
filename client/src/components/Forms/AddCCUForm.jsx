@@ -314,7 +314,7 @@ class AddCCUForm extends Component {
                             type="submit"
                             className="btn btn-secondary ml-1"
                         >
-                            Create Item
+                            Create CCU
                         </button>
                         <button
                             type="button"

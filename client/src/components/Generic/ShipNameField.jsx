@@ -70,15 +70,16 @@ class ShipNameField extends Component {
         )
     }
     selectSuggestedShip(ship) {
-        this.setState({
-            shipNameField: ship.name,
-            selectedShip: ship,
-            suggestedShips: [],
-        })
-
-        setTimeout(() => {
-            this.addShipToPack()
-        }, 0)
+        this.setState(
+            {
+                shipNameField: ship.name,
+                selectedShip: ship,
+                suggestedShips: [],
+            },
+            () => {
+                this.addShipToPack()
+            }
+        )
 
         //get id from db and fill in rest of fields based on db
     }
@@ -87,12 +88,11 @@ class ShipNameField extends Component {
         if (e) {
             e.preventDefault()
         }
+        const packId = this.props.packId
+        const selectedShip = this.state.selectedShip
+        const shipNameField = this.state.shipNameField
 
-        this.props.addShipToPack(
-            this.props.packId,
-            this.state.selectedShip,
-            this.state.shipNameField
-        )
+        this.props.addShipToPack(packId, selectedShip, shipNameField)
 
         this.setState({ shipNameField: '', suggestedShips: [] })
     }

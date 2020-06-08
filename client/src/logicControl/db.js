@@ -8,13 +8,14 @@ db.version(1).stores({
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
     ships:
-        '++id, name, manufacturer, role, price, size, hangarId, packId, buyback',
-    items: '++id, name, price, hangarId, packId, shipId, buyback',
+        '++id, name, manufacturer, role, price, size, shipHangarId, packId, buyback',
+    items:
+        '++id, name, price, meltable, itemHangarId, itemPackId, itemShipId, buyback',
     manufacturers: '++id, name, nickName',
-    packs: '++id, name, hangarId, buyback',
+    packs: '++id, name, packHangarId, buyback',
     hangars: '++id, name',
     buybacks: '++id, name',
-    ccus: '++id, base, to, appliedBase, appliedTo, price, hangarId, buyback',
+    ccus: '++id, base, to, appliedBase, appliedTo, price, ccuHangarId, buyback',
 })
 
 db.on('populate', () => {
@@ -56,7 +57,7 @@ const dbGetPacks = (keys) => {
 }
 
 const dbGetAllPacks = (hangarId) => {
-    return db.packs.where({ hangarId: hangarId }).toArray()
+    return db.packs.where({ packHangarId: hangarId }).toArray()
 }
 
 const dbGetShip = (key) => {
@@ -67,7 +68,7 @@ const dbGetShips = (keys) => {
 }
 
 const dbGetAllShips = (hangarId) => {
-    return db.ships.where({ hangarId: hangarId }).toArray()
+    return db.ships.where({ shipHangarId: hangarId }).toArray()
 }
 
 const dbGetItems = (keys) => {
@@ -75,11 +76,11 @@ const dbGetItems = (keys) => {
 }
 
 const dbGetAllItems = (hangarId) => {
-    return db.items.where({ hangarId: hangarId }).toArray()
+    return db.items.where({ itemHangarId: hangarId }).toArray()
 }
 
 const dbGetAllCCUs = (hangarId) => {
-    return db.ccus.where({ hangarId: hangarId }).toArray()
+    return db.ccus.where({ ccuHangarId: hangarId }).toArray()
 }
 
 const dbGetCCUs = (keys) => {

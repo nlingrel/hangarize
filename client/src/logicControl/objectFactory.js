@@ -7,7 +7,7 @@ class Factory {
         let pack = {
             name: name,
             price: price,
-            hangarId: hangarId,
+            packHangarId: hangarId,
             buyback: buyback,
         }
         return pack
@@ -16,23 +16,21 @@ class Factory {
     newShip(
         name = 'Name',
         price = 0,
-        items = [],
         manufacturer = 'Unknown manufacturer',
         role = 'Role',
         size = 'Size',
-        packId = 0,
         hangarId = 1,
+        packId = 0,
         buyback = false
     ) {
         let ship = {
             name: name,
             price: price,
-            items: items,
             role: role,
             manufacturer: manufacturer,
             size: size,
-            packId: packId,
-            hangarId: hangarId,
+            shipHangarId: hangarId,
+            shipPackId: packId,
             buyback: buyback,
         }
 
@@ -44,14 +42,21 @@ class Factory {
         to = 'to ship',
         price = 'price',
         appliedBase = 0,
-        appliedTo = 0
+        appliedTo = 0,
+        hangarId = 0,
+        buyback = false
+
+        // base, to, appliedBase, appliedTo, price, hangarId, buyback
     ) {
+        console.log('hangarId in object factory', hangarId)
         let ccu = {
             base: base,
             price: price,
             to: to,
             appliedBase: appliedBase,
             appliedTo: appliedTo,
+            ccuHangarId: hangarId,
+            buyback: buyback,
         }
         // 'base' and 'to' will just be ship names
         //appliedBase is the id of the baseship if the ccu is applied
@@ -65,7 +70,8 @@ class Factory {
         meltable = false,
         hangarId = 1,
         packId = 0,
-        shipId = 0
+        shipId = 0,
+        buyback = false
     ) {
         let item = {
             name: name,
@@ -74,6 +80,7 @@ class Factory {
             hangarId: hangarId,
             packId: packId,
             shipId: shipId,
+            buyback: buyback,
         }
         return item
     }
@@ -98,7 +105,7 @@ class Factory {
     }
 
     newBuyback(packs = [], ships = [], items = [], ccus = []) {
-        let bubyback = { packs: packs, ships: ships, items: items, ccus: ccus }
+        let buyback = { packs: packs, ships: ships, items: items, ccus: ccus }
         return buyback
     }
 }

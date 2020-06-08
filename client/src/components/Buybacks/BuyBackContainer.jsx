@@ -71,7 +71,7 @@ function BuyBackContainer(props) {
                         price={item.price}
                         meltable={item.meltable}
                         showPrice={true}
-                        removeItem={this.props.removeItemFromHangar}
+                        removeItem={props.removeItemFromHangar}
                     />
                 </div>
             )
