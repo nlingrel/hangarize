@@ -147,7 +147,7 @@ class AddShipForm extends Component {
             const has = new RegExp(`${lcValue}`, 'i')
             const startsWith = new RegExp(`^${lcValue}`, 'i')
             suggestedShips = shipList
-                .sort()
+                .sort((a, b) => a.defaultPrice - b.defaultPrice)
                 .filter(
                     (v) =>
                         has.test(v.name) ||
@@ -200,7 +200,7 @@ class AddShipForm extends Component {
         }
         return (
             <div style={{ maxHeight: '150px' }} className="overflow-auto">
-                <ul className="list-group-sm ">
+                <ul className="list-group ">
                     {suggestedManus.map((item, i) => (
                         <li
                             className="btn btn-secondary dropdown-item bg-dark text-light"

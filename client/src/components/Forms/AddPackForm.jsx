@@ -239,10 +239,12 @@ class AddPackForm extends Component {
                         <div className="form-row">
                             <button
                                 type="submit"
+                                name="hangar"
                                 className="btn btn-secondary ml-1"
                             >
                                 Create Pack
                             </button>
+
                             <button
                                 type="button"
                                 className="btn btn-outline-light ml-1"

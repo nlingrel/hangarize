@@ -102,6 +102,7 @@ class App extends Component {
         this.meltItem = this.meltItem.bind(this)
         this.buyBackItem = this.buyBackItem.bind(this)
         this.meltCCU = this.meltCCU.bind(this)
+        this.buyBackCCU = this.buyBackCCU.bind(this)
 
         this.Factory = new Factory()
         this.shipSeed = shipSeed
@@ -232,6 +233,10 @@ class App extends Component {
     addNewPackToHangar(e) {
         e.preventDefault()
         e.persist()
+
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
+        }
 
         let name = e.target[0].value
         let price = parseInt(e.target[1].value) || 0

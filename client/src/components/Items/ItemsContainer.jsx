@@ -16,6 +16,9 @@ function ItemsContainer(props) {
                     meltable={item.meltable}
                     showPrice={true}
                     removeItem={props.removeItemFromHangar}
+                    meltItem={(e) => {
+                        props.meltItem(item.id)
+                    }}
                 />
             </div>
         )

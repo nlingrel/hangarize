@@ -13,6 +13,9 @@ function CCUsContainer(props) {
                     price={c.price}
                     id={c.id}
                     removeCCU={props.removeCCUFromHangar}
+                    meltCCU={() => {
+                        props.meltCCU(c.id)
+                    }}
                 />
             </div>
         )

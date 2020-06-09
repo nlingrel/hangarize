@@ -75,7 +75,9 @@ function BuyBackContainer(props) {
                         meltable={item.meltable}
                         showPrice={true}
                         removeItem={props.removeItemFromHangar}
-                        meltItem={props.buyBackItem}
+                        meltItem={(e) => {
+                            props.buyBackItem(item.id)
+                        }}
                     />
                 </div>
             )
@@ -93,7 +95,9 @@ function BuyBackContainer(props) {
                         price={c.price}
                         id={c.id}
                         removeCCU={props.removeCCUFromHangar}
-                        meltCCU={props.buyBackCCU}
+                        meltCCU={() => {
+                            props.buyBackCCU(c.id)
+                        }}
                     />
                 </div>
             )

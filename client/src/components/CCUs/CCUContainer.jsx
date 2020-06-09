@@ -44,7 +44,10 @@ function CCUContainer(props) {
                             />
                         </svg>
                     </button>
-                    <button className="btn badge btn-warning">
+                    <button
+                        className="btn badge btn-warning"
+                        onClick={props.meltCCU}
+                    >
                         <svg
                             className="bi bi-credit-card"
                             width="1em"

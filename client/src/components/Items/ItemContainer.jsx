@@ -44,7 +44,10 @@ function ItemContainer(props) {
                         </svg>
                     </button>
                     {props.meltable ? (
-                        <button className="btn badge btn-warning">
+                        <button
+                            className="btn badge btn-warning"
+                            onClick={props.meltItem}
+                        >
                             <svg
                                 className="bi bi-credit-card"
                                 width="1em"

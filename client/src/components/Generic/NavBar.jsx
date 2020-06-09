@@ -9,7 +9,7 @@ function NavBar(props) {
                 href="#"
                 onClick={props.navToHome}
             >
-                HangarizeSC
+                Hangarize
             </a>
             <button
                 className="navbar-toggler"

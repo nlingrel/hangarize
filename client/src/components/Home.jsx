@@ -5,7 +5,7 @@ function Home(props) {
         <div className="container-fluid  bg-dark ">
             <div className="card bg-dark text-light text-center border-secondary p-0">
                 <div className="card-header">
-                    <h3>Welcome to HangarizeSC</h3>
+                    <h3>Welcome to Hangarize</h3>
                     <div className="card-body bg-secondary text-light">
                         <div className="card-deck">
                             <div className="card bg-dark text-center m-2 p-2">
@@ -14,21 +14,21 @@ function Home(props) {
                                     1. Build Your Actual Hangar
                                     <p>
                                         An accurate representation of your
-                                        actual hangar as it appears on your Star
-                                        Citizen Account, including accurate
-                                        prices that you paid for each item, is
-                                        needed to get the most out of planning
-                                        changes to your fleet
+                                        actual hangar -- as it appears on your
+                                        Star Citizen Account -- will help you
+                                        plan potential changes to your fleet.
                                     </p>
                                 </h6>
                                 <h6>
-                                    2. Use the Hangarizer
+                                    2. Use The Hangarizer
                                     <p>
-                                        Make changes to your hangar. Save these
-                                        changes as a new hangar without
-                                        affecting your actual hangar. You can
-                                        save any number of new hangars with any
-                                        number of differences between them.
+                                        Once you've built your Actual hangar,
+                                        you can then make changes in the
+                                        Hangarizer. Save these changes as a new
+                                        hangar without affecting your Actual
+                                        hangar. You can save any number of new
+                                        hangars with any number of differences
+                                        between them.
                                     </p>
                                 </h6>
                             </div>
@@ -37,7 +37,7 @@ function Home(props) {
                                 <h6>
                                     IndexedDB
                                     <p>
-                                        HangarizeSC saves information in
+                                        Hangarize saves information in
                                         IndexedDB, a database controlled by your
                                         browser. The database and app are
                                         completely client-side. Your information
