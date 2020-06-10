@@ -99,10 +99,12 @@ class App extends Component {
         this.buyBackPack = this.buyBackPack.bind(this)
         this.meltShip = this.meltShip.bind(this)
         this.buyBackShip = this.buyBackShip.bind(this)
+        this.upgradeShip = this.upgradeShip.bind(this)
         this.meltItem = this.meltItem.bind(this)
         this.buyBackItem = this.buyBackItem.bind(this)
         this.meltCCU = this.meltCCU.bind(this)
         this.buyBackCCU = this.buyBackCCU.bind(this)
+        this.changeTotal = this.changeTotal.bind(this)
 
         this.Factory = new Factory()
         this.shipSeed = shipSeed
@@ -204,7 +206,7 @@ class App extends Component {
                 hangar.ccus = allCCUs.filter((c) => !c.buyback)
                 buyback.ccus = allCCUs.filter((c) => c.buyback)
                 hangar.id = this.state.currentHangarId
-                hangar.total = total
+                hangar.calcTotal = total
                 console.log('hanger on refresh', results[4])
 
                 this.setState({
@@ -726,6 +728,12 @@ class App extends Component {
             .catch((err) => console.log('Error buying ship', err))
     }
 
+    upgradeShip(shipId, name, price) {
+        dbUpdateShip(shipId, { name: name, price: price })
+            .then(this.refreshHangar())
+            .catch((err) => console.log('Error upgrading ship', err))
+    }
+
     meltItem(itemId) {
         dbUpdateItem(itemId, { buyback: true })
             .then(this.refreshHangar())
@@ -750,6 +758,17 @@ class App extends Component {
             .catch((err) => console.log('Error buying ccu', err))
     }
 
+    changeTotal(total) {
+        const hangarId = this.state.currentHangar.id
+        console.log('Total value', total, 'HangarId', hangarId)
+
+        dbUpdateHangar(hangarId, { total: total })
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error updating total', err)
+            })
+    }
+
     navToActual(e) {
         e.preventDefault()
         this.setState({ currentView: 'actual' })
@@ -771,8 +790,9 @@ class App extends Component {
         const ccus = this.state.currentHangar.ccus
         const items = this.state.currentHangar.items
         const buyback = this.state.currentBuyback
-        const total = this.state.currentHangar.total
+        const calcTotal = this.state.currentHangar.calcTotal
         const credit = this.state.currentHangar.credit
+        const hangarTotal = this.state.currentHangar.total
 
         return (
             <>
@@ -797,7 +817,7 @@ class App extends Component {
                             ccus={ccus}
                             items={items}
                             buyback={buyback}
-                            total={total}
+                            calcTotal={calcTotal}
                             credit={credit}
                             packsDeleteLock={this.packsDeleteLock}
                             packsCanDelete={this.state.packsCanDelete}
@@ -837,10 +857,13 @@ class App extends Component {
                             buyBackPack={this.buyBackPack}
                             meltShip={this.meltShip}
                             buyBackShip={this.buyBackShip}
+                            upgradeShip={this.upgradeShip}
                             meltItem={this.meltItem}
                             buyBackItem={this.buyBackItem}
                             meltCCU={this.meltCCU}
                             buyBackCCU={this.buyBackCCU}
+                            changeTotal={this.changeTotal}
+                            hangarTotal={hangarTotal}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize />

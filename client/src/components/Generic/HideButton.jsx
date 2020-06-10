@@ -4,7 +4,7 @@ function HideButton(props) {
     const target = props.dataTarget
 
     const classes = props.classes ? props.classes.join(' ') : ''
-    const cl = `btn btn-outline-light bg-secondary btn-sm ml-1 ${classes}`
+    const cl = `btn btn-outline-light bg-secondary btn-sm ${classes}`
     return (
         <button
             data-target={target}

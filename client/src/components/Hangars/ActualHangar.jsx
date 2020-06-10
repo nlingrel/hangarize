@@ -9,8 +9,10 @@ function ActualHangar(props) {
             <HangarControlBar
                 allCanDelete={props.allCanDelete}
                 allDeleteLock={props.allDeleteLock}
-                total={props.total}
+                calcTotal={props.calcTotal}
                 credit={props.credit}
+                changeTotal={props.changeTotal}
+                hangarTotal={props.hangarTotal}
             />
             <HangarContainer
                 packs={props.packs}
@@ -54,6 +56,7 @@ function ActualHangar(props) {
                 buyBackItem={props.buyBackItem}
                 meltCCU={props.meltCCU}
                 buyBackCCU={props.buyBackCCU}
+                upgradeShip={props.upgradeShip}
             />
         </>
     )

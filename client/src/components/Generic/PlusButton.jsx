@@ -6,7 +6,7 @@ function PlusButton(props) {
     return (
         <button
             type={type}
-            className="btn btn-success btn-sm ml-1"
+            className="btn btn-success btn-sm ml-1 font-weight-bold"
             onClick={props.onClick}
             data-toggle="collapse"
             data-target={collapseTarget}

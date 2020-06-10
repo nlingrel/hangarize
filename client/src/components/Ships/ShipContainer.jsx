@@ -5,6 +5,7 @@ import ShipItems from './ShipItems'
 import HideButton from '../Generic/HideButton'
 import ItemNameField from '../Generic/ItemNameField'
 import MinusButton from '../Generic/MinusButton'
+import ShipUgradeField from '../Generic/ShipUpgradeField'
 
 //in: name, manu, role, size, shipId, key
 function ShipContainer(props) {
@@ -95,9 +96,15 @@ function ShipContainer(props) {
                             upgradeShip={() => {
                                 console.log('Upgrade ship onclick')
                             }}
+                            shipId={props.shipId}
                             meltShip={props.meltShip}
                         />
                     </div>
+                    <ShipUgradeField
+                        shipId={props.shipId}
+                        price={props.price}
+                        upgradeShip={props.upgradeShip}
+                    />
                 </div>
 
                 <div

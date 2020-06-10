@@ -18,6 +18,7 @@ function PackContainer(props) {
                 role={ship.role}
                 size={ship.size}
                 shipId={ship.id}
+                price={ship.price}
                 key={i}
                 items={ship.items}
                 inPack={true}
@@ -28,6 +29,7 @@ function PackContainer(props) {
                     props.removeShipFromPack(ship.id, props.packId)
                 }}
                 removeItemFromShip={props.removeItemFromShip}
+                upgradeShip={props.upgradeShip}
             />
         )
     })
@@ -57,48 +59,53 @@ function PackContainer(props) {
     return (
         <div className="accordion mb-1">
             <div className="card bg-dark border-light">
-                <div
-                    className="button-group  border-bottom border-secondary"
-                    role="group"
-                >
-                    <button
-                        className="btn text-left btn-outline-dark text-light"
-                        id={`heading${props.packId}${props.number}`}
-                        type="button"
-                        data-toggle="collapse"
-                        data-target={`#collapsePack${props.packId}${props.number}`}
-                        aria-expanded="false"
-                        aria-controls={`heading${props.packId}${props.number}`}
-                    >
-                        {props.name}
-                    </button>
-                    <div
-                        className="btn"
-                        data-toggle="collapse"
-                        data-target={`#collapsePack${props.packId}${props.number}`}
-                    >
-                        <div className="bg-dark text-light">
-                            <small>
-                                <span className="text-white-50">$&nbsp;</span>
-                                {props.price}
-                            </small>
+                <div className="d-flex justify-content-between border-bottom border-secondary">
+                    <div className="d-flex">
+                        <div className="button-group " role="group">
+                            <button
+                                className="btn text-left btn-outline-dark text-light"
+                                id={`heading${props.packId}${props.number}`}
+                                type="button"
+                                data-toggle="collapse"
+                                data-target={`#collapsePack${props.packId}${props.number}`}
+                                aria-expanded="false"
+                                aria-controls={`heading${props.packId}${props.number}`}
+                            >
+                                {props.name}
+                            </button>
+                            <div
+                                className="btn"
+                                data-toggle="collapse"
+                                data-target={`#collapsePack${props.packId}${props.number}`}
+                            >
+                                <div className="bg-dark text-light">
+                                    <small>
+                                        <span className="text-white-50">
+                                            $&nbsp;
+                                        </span>
+                                        {props.price}
+                                    </small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div
-                        className="collapse btn"
-                        id={`collapsePack${props.packId}${props.number}`}
-                        data-parent={`#collapsePack${props.packId}${props.number}`}
-                    >
-                        <PackToolBar
-                            removePack={props.removePackFromHangar}
-                            shipIds={shipIds}
-                            meltPack={(e) => {
-                                e.preventDefault()
-                                props.meltPack(props.packId)
-                            }}
-                            packId={props.packId}
-                            dataTarget={`#collapsePack${props.packId}${props.number}`}
-                        />
+                    <div className="d-flex">
+                        <div
+                            className="collapse btn"
+                            id={`collapsePack${props.packId}${props.number}`}
+                            data-parent={`#collapsePack${props.packId}${props.number}`}
+                        >
+                            <PackToolBar
+                                removePack={props.removePackFromHangar}
+                                shipIds={shipIds}
+                                meltPack={(e) => {
+                                    e.preventDefault()
+                                    props.meltPack(props.packId)
+                                }}
+                                packId={props.packId}
+                                dataTarget={`#collapsePack${props.packId}${props.number}`}
+                            />
+                        </div>
                     </div>
                 </div>
 

@@ -79,7 +79,7 @@ class ItemNameField extends Component {
                         <div className="input-group-append">
                             <button
                                 type="submit"
-                                className="btn btn-success btn-sm "
+                                className="btn btn-success btn-sm font-weight-bold"
                                 onClick={onClick}
                                 title="Add Item"
                             >

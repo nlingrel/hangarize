@@ -120,7 +120,7 @@ class ShipNameField extends Component {
                             <div className="input-group-append">
                                 <button
                                     type="button"
-                                    className="btn btn-success btn-sm "
+                                    className="btn btn-success btn-sm font-weight-bold"
                                     onClick={this.addShipToPack}
                                     title="Add Ship"
                                 >

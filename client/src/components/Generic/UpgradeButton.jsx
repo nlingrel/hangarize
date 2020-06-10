@@ -1,10 +1,12 @@
 import React from 'react'
 
 function UpgradeButton(props) {
+    const collapseTarget = `#upgradeShip${props.shipId}`
     return (
         <button
             className="btn btn-primary btn-sm ml-1"
-            onClick={props.onClick}
+            data-toggle="collapse"
+            data-target={collapseTarget}
             title="Upgrade"
         >
             <svg

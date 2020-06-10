@@ -3,7 +3,7 @@ import React from 'react'
 function MeltButton(props) {
     return (
         <button
-            className="btn btn-warning btn-sm ml-1"
+            className="btn btn-outline-warning btn-sm ml-1"
             title="Melt"
             onClick={props.melt}
         >

@@ -98,29 +98,29 @@ class Factory {
         return item
     }
 
-    newHangar(
-        name = 'Hangar',
-        packs = [],
-        ships = [],
-        items = [],
-        ccus = [],
-        buyback = {}
-    ) {
-        let hangar = {
-            name: name,
-            packs: packs,
-            ships: ships,
-            items: items,
-            ccus: ccus,
-            buyback: buyback,
-        }
-        return hangar
-    }
+    // newHangar(
+    //     name = 'Hangar',
+    //     packs = [],
+    //     ships = [],
+    //     items = [],
+    //     ccus = [],
+    //     buyback = {}
+    // ) {
+    //     let hangar = {
+    //         name: name,
+    //         packs: packs,
+    //         ships: ships,
+    //         items: items,
+    //         ccus: ccus,
+    //         buyback: buyback,
+    //     }
+    //     return hangar
+    // }
 
-    newBuyback(packs = [], ships = [], items = [], ccus = []) {
-        let buyback = { packs: packs, ships: ships, items: items, ccus: ccus }
-        return buyback
-    }
+    // newBuyback(packs = [], ships = [], items = [], ccus = []) {
+    //     let buyback = { packs: packs, ships: ships, items: items, ccus: ccus }
+    //     return buyback
+    // }
 }
 
 export default Factory

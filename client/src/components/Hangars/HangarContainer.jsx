@@ -21,6 +21,7 @@ function HangarContainer(props) {
                 removeItemfromPack={props.removeItemfromPack}
                 removeItemFromShip={props.removeItemFromShip}
                 meltPack={props.meltPack}
+                upgradeShip={props.upgradeShip}
             />
             <ShipsContainer
                 ships={props.ships}
@@ -35,6 +36,7 @@ function HangarContainer(props) {
                 removeShipFromHangar={props.removeShipFromHangar}
                 removeItemFromShip={props.removeItemFromShip}
                 meltShip={props.meltShip}
+                upgradeShip={props.upgradeShip}
             />
             <CCUsContainer
                 ccus={props.ccus}

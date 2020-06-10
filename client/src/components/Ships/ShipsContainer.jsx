@@ -32,6 +32,7 @@ function ShipsContainer(props) {
                     e.preventDefault()
                     props.meltShip(ship.id)
                 }}
+                upgradeShip={props.upgradeShip}
             />
         )
     })
