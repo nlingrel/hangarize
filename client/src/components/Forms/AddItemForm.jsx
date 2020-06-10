@@ -29,8 +29,9 @@ class AddItemForm extends Component {
     }
     priceChange(e) {
         const value = e.target.value
+        const intVal = parseInt(value)
 
-        if (parseInt(value) >= 0) {
+        if (!Number.isNaN(intVal) || value === '-') {
             this.setState({ priceField: value })
         } else {
             this.setState({ priceField: '' })

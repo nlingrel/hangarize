@@ -3,12 +3,19 @@ class Factory {
         this.name = name || 'factory'
     }
 
-    newPack(name = 'pack', price = 0, hangarId = 1, buyback = false) {
+    newPack(
+        name = 'pack',
+        price = 0,
+        hangarId = 1,
+        buyback = false,
+        trash = false
+    ) {
         let pack = {
             name: name,
             price: price,
             packHangarId: hangarId,
             buyback: buyback,
+            trash: trash,
         }
         return pack
     }
@@ -21,7 +28,8 @@ class Factory {
         size = 'Size',
         hangarId = 1,
         packId = 0,
-        buyback = false
+        buyback = false,
+        trash = false
     ) {
         let ship = {
             name: name,
@@ -32,6 +40,7 @@ class Factory {
             shipHangarId: hangarId,
             shipPackId: packId,
             buyback: buyback,
+            trash: trash,
         }
 
         return ship
@@ -44,7 +53,8 @@ class Factory {
         appliedBase = 0,
         appliedTo = 0,
         hangarId = 0,
-        buyback = false
+        buyback = false,
+        trash = false
 
         // base, to, appliedBase, appliedTo, price, hangarId, buyback
     ) {
@@ -57,6 +67,7 @@ class Factory {
             appliedTo: appliedTo,
             ccuHangarId: hangarId,
             buyback: buyback,
+            trash: trash,
         }
         // 'base' and 'to' will just be ship names
         //appliedBase is the id of the baseship if the ccu is applied
@@ -71,7 +82,8 @@ class Factory {
         hangarId = 1,
         packId = 0,
         shipId = 0,
-        buyback = false
+        buyback = false,
+        trash = false
     ) {
         let item = {
             name: name,
@@ -81,6 +93,7 @@ class Factory {
             itemPackId: packId,
             itemShipId: shipId,
             buyback: buyback,
+            trash: trash,
         }
         return item
     }

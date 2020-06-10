@@ -130,14 +130,19 @@ class App extends Component {
             dbGetAllShips(this.state.currentHangarId),
             dbGetAllItems(this.state.currentHangarId),
             dbGetAllCCUs(this.state.currentHangarId),
+            dbGetHangar(this.state.currentHangarId),
         ])
             .then((results) => {
+                let total = 0
                 let packsTbl = {}
                 for (let pk of results[0]) {
                     let pack = pk
                     pack.ships = []
                     pack.items = []
                     packsTbl[pack.id] = pack
+                    if (!pk.buyback) {
+                        total += pk.price
+                    }
                 }
                 console.log('packsTbl', packsTbl)
                 let shipsTbl = {}
@@ -146,6 +151,9 @@ class App extends Component {
                     ship.items = []
 
                     shipsTbl[ship.id] = ship
+                    if (!s.buyback) {
+                        total += s.price
+                    }
                 }
                 let itemsTbl = {}
                 for (let itm of results[2]) {
@@ -157,8 +165,11 @@ class App extends Component {
                     } else {
                         shipsTbl[item.itemShipId].items.push(item)
                     }
+                    if (!itm.buyback) {
+                        total += itm.price
+                    }
                 }
-                let hangar = {}
+                let hangar = results[4]
                 let buyback = {}
                 let allShips = Object.values(shipsTbl)
                 let PackShips = allShips.filter((s) => s.shipPackId !== 0)
@@ -174,10 +185,27 @@ class App extends Component {
                 let allPacks = Object.values(packsTbl)
                 hangar.packs = allPacks.filter((p) => !p.buyback)
                 buyback.packs = allPacks.filter((p) => p.buyback)
-                let allCCUs = [...results[3]]
+                let allCCUs = [...results[3]].sort((a, b) => {
+                    let aName = a.base.toUpperCase()
+                    let bName = b.base.toUpperCase()
+                    if (aName < bName) {
+                        return -1
+                    }
+                    if (aName > bName) {
+                        return 1
+                    }
+                    return 0
+                })
+                for (let c of allCCUs) {
+                    if (!c.buyback) {
+                        total += c.price
+                    }
+                }
                 hangar.ccus = allCCUs.filter((c) => !c.buyback)
                 buyback.ccus = allCCUs.filter((c) => c.buyback)
                 hangar.id = this.state.currentHangarId
+                hangar.total = total
+                console.log('hanger on refresh', results[4])
 
                 this.setState({
                     currentHangar: hangar,
@@ -311,7 +339,7 @@ class App extends Component {
         if (ship.id > 0) {
             newShip = this.Factory.newShip(
                 ship.name,
-                ship.defaultPrice,
+                0,
                 ship.manufacturer,
                 ship.role,
                 ship.size,
@@ -743,6 +771,8 @@ class App extends Component {
         const ccus = this.state.currentHangar.ccus
         const items = this.state.currentHangar.items
         const buyback = this.state.currentBuyback
+        const total = this.state.currentHangar.total
+        const credit = this.state.currentHangar.credit
 
         return (
             <>
@@ -767,6 +797,8 @@ class App extends Component {
                             ccus={ccus}
                             items={items}
                             buyback={buyback}
+                            total={total}
+                            credit={credit}
                             packsDeleteLock={this.packsDeleteLock}
                             packsCanDelete={this.state.packsCanDelete}
                             shipsDeleteLock={this.shipsDeleteLock}

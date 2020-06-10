@@ -228,7 +228,7 @@ class AddCCUForm extends Component {
             basePrice: 0,
             toPrice: 0,
             defaultPrice: 0,
-            selectedTo: { jid: 0 },
+            selectedTo: { id: 0 },
             showSuggestedBases: true,
             showSuggestedTos: true,
         })

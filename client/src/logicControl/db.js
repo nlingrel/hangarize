@@ -13,7 +13,7 @@ db.version(1).stores({
         '++id, name, price, meltable, itemHangarId, itemPackId, itemShipId, buyback',
     manufacturers: '++id, name, nickName',
     packs: '++id, name, packHangarId, buyback',
-    hangars: '++id, name',
+    hangars: '++id, name, total, credit, tax',
     buybacks: '++id, name',
     ccus: '++id, base, to, appliedBase, appliedTo, price, ccuHangarId, buyback',
 })
@@ -22,6 +22,9 @@ db.on('populate', () => {
     db.hangars.add({
         id: 1,
         name: 'Actual',
+        total: 0,
+        credit: 0,
+        tax: 0,
     })
     db.buybacks.add({
         id: 1,
