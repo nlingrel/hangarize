@@ -170,7 +170,7 @@ class ShipUgradeField extends Component {
                             <input
                                 type="text"
                                 className={`form-control ${filledInPrice} mb-2 col`}
-                                id="inputShipPrice"
+                                // id="inputShipPrice"
                                 placeholder="Price"
                                 onChange={this.handlePriceChange}
                                 value={this.state.priceField}

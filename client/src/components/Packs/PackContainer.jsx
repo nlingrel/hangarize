@@ -105,7 +105,7 @@ function PackContainer(props) {
                                 shipIds={shipIds}
                                 meltPack={(e) => {
                                     e.preventDefault()
-                                    props.meltPack(props.packId)
+                                    props.meltPack(props.packId, shipIds)
                                 }}
                                 packId={props.packId}
                                 dataTarget={`#collapsePack${props.packId}${props.number}`}

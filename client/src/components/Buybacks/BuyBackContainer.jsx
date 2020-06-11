@@ -43,7 +43,7 @@ function BuyBackContainer(props) {
                     role={ship.role}
                     size={ship.size}
                     shipId={ship.id}
-                    key={i}
+                    key={`${ship.name}${ship.id}${i}`}
                     items={ship.items}
                     inPack={true}
                     packId={props.packId}
@@ -73,7 +73,7 @@ function BuyBackContainer(props) {
                     <ItemContainer
                         name={item.name}
                         itemId={item.id}
-                        key={i}
+                        key={`${item.name}${item.id}${i}`}
                         number={i}
                         price={item.price}
                         meltable={item.meltable}
@@ -98,6 +98,7 @@ function BuyBackContainer(props) {
                         to={c.to}
                         price={c.price}
                         id={c.id}
+                        key={`${c.base}${c.id}${i}`}
                         removeCCU={props.removeCCUFromHangar}
                         meltCCU={() => {
                             props.buyBackCCU(c.id)

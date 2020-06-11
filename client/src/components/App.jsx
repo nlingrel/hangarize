@@ -701,9 +701,19 @@ class App extends Component {
             })
     }
 
-    meltPack(packId) {
+    meltPack(packId, shipIds) {
         dbUpdatePack(packId, { buyback: true })
-            .then(this.refreshHangar())
+            .then(() => {
+                if (shipIds.length > 0) {
+                    console.log('Ships exist on melt')
+                    shipIds.map((id) => {
+                        this.meltShip(id)
+                    })
+                } else {
+                    console.log('No ships on melt')
+                    this.refreshHangar()
+                }
+            })
             .catch((err) => {
                 console.log('Error melting pack', err)
             })
