@@ -63,7 +63,7 @@ class ItemNameField extends Component {
             : this.addItemToShip
         return (
             <>
-                <form onSubmit={onClick}>
+                <form onSubmit={onClick} className="m-0">
                     <div className="input-group input-group-sm flex-nowrap">
                         <input
                             type="text"

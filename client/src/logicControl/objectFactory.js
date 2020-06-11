@@ -41,6 +41,8 @@ class Factory {
             shipPackId: packId,
             buyback: buyback,
             trash: trash,
+            toName: '',
+            toPrice: price,
         }
 
         return ship

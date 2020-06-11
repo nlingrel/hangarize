@@ -102,9 +102,9 @@ class ShipNameField extends Component {
         const inputId = `Pack${this.props.packId}inputShipName`
         return (
             <>
-                <div className="form-group">
+                <div className="form-group m-0">
                     {' '}
-                    <form onSubmit={this.addShipToPack}>
+                    <form onSubmit={this.addShipToPack} className="m-0">
                         <div className="input-group input-group-sm flex-nowrap">
                             <input
                                 type="text"

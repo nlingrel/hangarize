@@ -717,7 +717,7 @@ class App extends Component {
 
     meltShip(shipId) {
         console.log('meltship id', shipId)
-        dbUpdateShip(shipId, { buyback: true })
+        dbUpdateShip(shipId, { buyback: true, toName: '', toPrice: 0 })
             .then(this.refreshHangar())
             .catch((err) => console.log('Error melting ship', err))
     }
@@ -728,8 +728,9 @@ class App extends Component {
             .catch((err) => console.log('Error buying ship', err))
     }
 
-    upgradeShip(shipId, name, price) {
-        dbUpdateShip(shipId, { name: name, price: price })
+    upgradeShip(shipId, name, uPrice, tPrice) {
+        const price = uPrice + tPrice
+        dbUpdateShip(shipId, { toName: name, toPrice: price })
             .then(this.refreshHangar())
             .catch((err) => console.log('Error upgrading ship', err))
     }

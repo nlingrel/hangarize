@@ -43,6 +43,7 @@ function ShipContainer(props) {
             </div>
         )
     })
+    const isUpgraded = props.toName.length > 0
     return (
         <div
             className="accordion mb-1"
@@ -53,7 +54,7 @@ function ShipContainer(props) {
         >
             <div className="card bg-dark border-light">
                 <div
-                    className="button-group border-bottom border-secondary"
+                    className="input-group border-bottom border-secondary"
                     role="group"
                 >
                     <button
@@ -65,28 +66,25 @@ function ShipContainer(props) {
                         aria-expanded="false"
                         aria-controls={`heading${props.shipId}${props.number}`}
                     >
-                        {props.name}
+                        {isUpgraded ? props.toName : props.name}
                     </button>
                     <div
-                        className="btn "
+                        className="input-group-append btn boder-none pt-2"
                         data-toggle="collapse"
                         data-target={`#collapseShip${props.shipId}${props.number}`}
                     >
                         {props.showPrice ? (
-                            <div className="bg-dark text-light btn btn-ouline-info">
-                                <small>
-                                    <span className="text-white-50">
-                                        $&nbsp;
-                                    </span>
-                                    {props.price}
-                                </small>
-                            </div>
+                            <small className="text-light">
+                                <span className="text-secondary">$&nbsp;</span>
+                                {isUpgraded ? props.toPrice : props.price}
+                            </small>
                         ) : (
                             ''
                         )}
                     </div>
+
                     <div
-                        className="btn collapse"
+                        className=" input-group-append btn-group collapse border-none"
                         id={`collapseShip${props.shipId}${props.number}`}
                     >
                         <ShipToolBar
@@ -100,12 +98,14 @@ function ShipContainer(props) {
                             meltShip={props.meltShip}
                         />
                     </div>
-                    <ShipUgradeField
-                        shipId={props.shipId}
-                        price={props.price}
-                        upgradeShip={props.upgradeShip}
-                    />
                 </div>
+
+                <ShipUgradeField
+                    shipId={props.shipId}
+                    price={props.price}
+                    toPrice={props.toPrice}
+                    upgradeShip={props.upgradeShip}
+                />
 
                 <div
                     id={`collapseShip${props.shipId}${props.number}`}
@@ -113,10 +113,18 @@ function ShipContainer(props) {
                     aria-labelledby={`collapseShip${props.shipId}${props.number}`}
                     data-parent={`#collapseShip${props.shipId}${props.number}`}
                 >
+                    {isUpgraded ? (
+                        <small className=" card-subtitle m-2 ">
+                            {' '}
+                            Upgraded from {props.name}
+                        </small>
+                    ) : (
+                        ''
+                    )}
                     <div className="card-body bg-dark">
                         <div className="card bg-secondary text-white">
                             <ShipItems>
-                                <div className="card-header bg-transparent border-bottom border-dark">
+                                <div className="card-header bg-transparent border-bottom border-dark mb-1 py-1">
                                     <ItemNameField
                                         placeholder="Items"
                                         className="form-control bg-dark"

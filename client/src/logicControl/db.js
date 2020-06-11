@@ -8,7 +8,7 @@ db.version(1).stores({
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
     ships:
-        '++id, name, manufacturer, role, price, size, shipHangarId, packId, buyback',
+        '++id, name, manufacturer, role, price, size, shipHangarId, packId, buyback, toName, toPrice',
     items:
         '++id, name, price, meltable, itemHangarId, itemPackId, itemShipId, buyback',
     manufacturers: '++id, name, nickName',

@@ -10,6 +10,7 @@ function ShipsContainer(props) {
         return (
             <ShipContainer
                 name={ship.name}
+                toName={ship.toName}
                 manufacturer={ship.manufacturer}
                 role={ship.role}
                 size={ship.size}
@@ -18,6 +19,7 @@ function ShipsContainer(props) {
                 number={i}
                 items={ship.items}
                 price={ship.price}
+                toPrice={ship.toPrice}
                 draggable="true"
                 meltable={true}
                 showPrice={true}

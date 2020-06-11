@@ -11,15 +11,19 @@ import MinusButton from '../Generic/MinusButton'
 //in name, packId, number, ships
 function PackContainer(props) {
     const ships = props.ships.map((ship, i) => {
+        const showToPrice = ship.toName.length > 0
         return (
             <ShipContainer
                 name={ship.name}
+                toName={ship.toName}
                 manufacturer={ship.manufacturer}
                 role={ship.role}
                 size={ship.size}
                 shipId={ship.id}
                 price={ship.price}
+                toPrice={ship.toPrice}
                 key={i}
+                number={i}
                 items={ship.items}
                 inPack={true}
                 packId={props.packId}
@@ -30,6 +34,7 @@ function PackContainer(props) {
                 }}
                 removeItemFromShip={props.removeItemFromShip}
                 upgradeShip={props.upgradeShip}
+                showPrice={showToPrice}
             />
         )
     })
@@ -118,7 +123,7 @@ function PackContainer(props) {
                     <div className="card-body">
                         <div className="card-deck">
                             <div className="card bg-secondary text-white">
-                                <div className="card-header bg-transparent mb-1">
+                                <div className="card-header bg-transparent mb-1 py-1">
                                     <ShipNameField
                                         placeholder="Ships"
                                         className="form-control bg-dark"
@@ -136,7 +141,7 @@ function PackContainer(props) {
                                 </PackShips>
                             </div>
                             <div className="card bg-secondary text-white">
-                                <div className="card-header bg-transparent mb-1 ">
+                                <div className="card-header bg-transparent mb-1 py-1">
                                     <ItemNameField
                                         placeholder="Items"
                                         className="form-control bg-dark"

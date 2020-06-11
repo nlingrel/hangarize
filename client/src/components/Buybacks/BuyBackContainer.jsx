@@ -36,6 +36,9 @@ function BuyBackContainer(props) {
             return (
                 <ShipContainer
                     name={ship.name}
+                    toName={ship.toName}
+                    price={ship.price}
+                    toPrice={ship.toPrice}
                     manufacturer={ship.manufacturer}
                     role={ship.role}
                     size={ship.size}
@@ -56,6 +59,7 @@ function BuyBackContainer(props) {
                         props.buyBackShip(ship.id)
                     }}
                     meltable={true}
+                    showPrice={true}
                 />
             )
         })
