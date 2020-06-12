@@ -4,6 +4,7 @@ import PackContainer from '../Packs/PackContainer'
 import ShipContainer from '../Ships/ShipContainer'
 import ItemContainer from '../Items/ItemContainer'
 import CCUContainer from '../CCUs/CCUContainer'
+import BuyBackMasterForm from '../Forms/BuyBackMasterForm'
 
 function BuyBackContainer(props) {
     const renderPacks = () => {
@@ -121,13 +122,16 @@ function BuyBackContainer(props) {
             name={'BuyBack'}
             toggleDeleteLock={props.buybacksDeleteLock}
             deleteLocked={props.buybacksCanDelete}
-            // form={
-            //     <AddPackForm
-            //         name={'Packs'}
-            //         addNewPackToHangar={props.addNewPackToHangar}
-            //         trayPacks={props.packs}
-            //     />
-            // }
+            form={
+                <BuyBackMasterForm
+                    addNewPackToHangar={props.addNewPackToHangar}
+                    addNewShipToHangar={props.addNewShipToHangar}
+                    shipNameField={props.shipNameField}
+                    resetShipAddForm={props.resetShipAddForm}
+                    addNewItemToHangar={props.addNewItemToHangar}
+                    addNewCCUToHangar={props.addNewCCUToHangar}
+                />
+            }
         />
     )
 }

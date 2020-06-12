@@ -264,7 +264,7 @@ class AddCCUForm extends Component {
                         <div className="form-row mb-3">
                             <div className="card bg-secondary font-weight-bold text-dark col-auto border-dark p-2 ">
                                 <div className="card-title border-bottom border-dark">
-                                    Info
+                                    CCU Info
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -342,12 +342,16 @@ class AddCCUForm extends Component {
                         </button>
                     </form>
                 </div>
-                <div className="card-footer">
-                    <HideButton
-                        dataTarget={collapseTarget}
-                        classes={['btn-block']}
-                    />
-                </div>
+                {this.props.isBuyBackForm ? (
+                    ''
+                ) : (
+                    <div className="card-footer">
+                        <HideButton
+                            dataTarget={collapseTarget}
+                            classes={['btn-block']}
+                        />
+                    </div>
+                )}
             </div>
         )
     }
