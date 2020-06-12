@@ -88,12 +88,19 @@ class App extends Component {
         this.addItemToPack = this.addItemToPack.bind(this)
         this.addItemToShip = this.addItemToShip.bind(this)
         this.removePackFromHangar = this.removePackFromHangar.bind(this)
+        this.removePackFromBuyBuyBack = this.removePackFromBuyBuyBack.bind(this)
         this.removeShipFromPack = this.removeShipFromPack.bind(this)
+        this.bbRemoveShipFromPack = this.bbRemoveShipFromPack.bind(this)
         this.removeItemfromPack = this.removeItemfromPack.bind(this)
+        this.bbRemoveItemfromPack = this.bbRemoveItemfromPack.bind(this)
         this.removeShipFromHangar = this.removeShipFromHangar.bind(this)
+        this.removeShipFromBuyBack = this.removeShipFromBuyBack.bind(this)
         this.removeCCUFromHangar = this.removeCCUFromHangar.bind(this)
+        this.removeCCUFromBuyBack = this.removeCCUFromBuyBack.bind(this)
         this.removeItemFromHangar = this.removeItemFromHangar.bind(this)
+        this.removeItemFromBuyBack = this.removeItemFromBuyBack.bind(this)
         this.removeItemFromShip = this.removeItemFromShip.bind(this)
+        this.bbRemoveItemFromShip = this.bbRemoveItemFromShip.bind(this)
 
         this.meltPack = this.meltPack.bind(this)
         this.buyBackPack = this.buyBackPack.bind(this)
@@ -264,9 +271,9 @@ class App extends Component {
         e.preventDefault()
         e.persist()
 
-        for (var i = 0; i < e.target.length; i++) {
-            console.log(`target number ${i}: ${e.target[i].value}`)
-        }
+        // for (var i = 0; i < e.target.length; i++) {
+        //     console.log(`target number ${i}: ${e.target[i].value}`)
+        // }
 
         let name = e.target[0].value
         let price = parseInt(e.target[1].value) || 0
@@ -282,8 +289,14 @@ class App extends Component {
                 items.push({ name: e.target[i].name })
             }
         }
+        const inBuyBack = e.target[7].value === 'bbPacks'
 
-        let pack = this.Factory.newPack(name, price, this.state.currentHangarId)
+        let pack = this.Factory.newPack(
+            name,
+            price,
+            this.state.currentHangarId,
+            inBuyBack
+        )
 
         dbPutPack(pack)
             .then((id) => {
@@ -432,6 +445,10 @@ class App extends Component {
         e.preventDefault()
         e.persist()
 
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
+        }
+
         let name = e.target[0].value
         let manufacturer = e.target[1].value || 'Unknown Manufacturer'
         let price = parseInt(e.target[2].value) || 0
@@ -452,13 +469,17 @@ class App extends Component {
         if (e.target[7].checked) {
             items.push({ name: e.target[7].name })
         }
+        const inBuyBack = e.target[8].value === 'bbShips'
+
         let ship = this.Factory.newShip(
             name,
             price,
             manufacturer,
             role,
             size,
-            this.state.currentHangarId
+            this.state.currentHangarId,
+            0,
+            inBuyBack
         )
 
         //  (name = 'Item'),
@@ -504,13 +525,13 @@ class App extends Component {
         e.preventDefault()
         e.persist()
 
-        // for (var i = 0; i < e.target.length; i++) {
-        //     console.log(`target number ${i}: ${e.target[i].value}`)
-        // }
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
+        }
         let name = e.target[0].value
         let price = parseInt(e.target[1].value) || 0
         let meltable = e.target[2].checked
-
+        const inBuyBack = e.target[3].value === 'bbItems'
         let item = this.Factory.newItem(
             name,
             price,
@@ -518,7 +539,7 @@ class App extends Component {
             this.state.currentHangarId,
             0,
             0,
-            false
+            inBuyBack
         )
         // name = 'Item',
         // price = 0,
@@ -545,8 +566,17 @@ class App extends Component {
         let base = e.target[0].value
         let to = e.target[1].value
         let price = parseInt(e.target[2].value) || 0
+        const inBuyBack = e.target[3].value === 'bbCCUs'
 
-        let ccu = this.Factory.newCCU(base, to, price, 0, 0, hangarId, false)
+        let ccu = this.Factory.newCCU(
+            base,
+            to,
+            price,
+            0,
+            0,
+            hangarId,
+            inBuyBack
+        )
         console.log('CCU in add new ccu', ccu)
         //   (base = 'base ship'),
         //   (to = 'to ship'),
@@ -603,6 +633,36 @@ class App extends Component {
                 console.log('Error removing pack from hangar', err)
             })
     }
+    removePackFromBuyBuyBack(packId, shipIds) {
+        if (this.state.buybacksCanDelete === false) {
+            return null
+        }
+        let pack = {}
+
+        for (let pk of this.state.currentBuyback.packs) {
+            if (pk.id === packId) {
+                pack = pk
+            }
+        }
+        let ships = [...pack.ships]
+        let items = [...pack.items]
+        for (let shp of ships) {
+            items = [...items, ...shp.items]
+        }
+        let itemIds = items.map((itm) => itm.id)
+        console.log('itemIds==', itemIds, 'shipIds==', shipIds)
+
+        Promise.all([
+            dbDeletePack(packId),
+            dbDeleteItems(itemIds),
+            dbDeleteShips(shipIds),
+        ])
+            .then(this.refreshHangar())
+
+            .catch((err) => {
+                console.log('Error removing pack from hangar', err)
+            })
+    }
 
     removeShipFromPack(shipId, packId) {
         console.log('removeShipFromPack shipId', shipId, 'packId', packId)
@@ -634,6 +694,38 @@ class App extends Component {
                 console.log('Error removing pack from hangar', err)
             })
     }
+
+    bbRemoveShipFromPack(shipId, packId) {
+        console.log('removeShipFromPack shipId', shipId, 'packId', packId)
+        if (!this.state.buybacksCanDelete) {
+            return null
+        }
+        let packs = [...this.state.currentBuyback.packs]
+        let pack = {}
+        for (let p of packs) {
+            if (p.id === packId) {
+                pack = p
+            }
+        }
+
+        let ship = {}
+        let itemIds = []
+        for (let s of pack.ships) {
+            if (s.id === shipId) {
+                ship = s
+            }
+        }
+        for (let i of ship.items) {
+            itemIds.push(i.id)
+        }
+        Promise.all([dbDeleteShip(shipId), dbDeleteItems(itemIds)])
+
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error removing pack from hangar', err)
+            })
+    }
+
     removeItemfromPack(itemId) {
         if (!this.state.packsCanDelete) {
             return null
@@ -644,11 +736,32 @@ class App extends Component {
                 console.log('Error deleting item from pack', err)
             })
     }
+    bbRemoveItemfromPack(itemId) {
+        if (!this.state.buybacksCanDelete) {
+            return null
+        }
+        dbDeleteItem(itemId)
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error deleting item from pack', err)
+            })
+    }
+
     removeItemFromShip(itemId, inPack = false) {
         if (
             (inPack && !this.state.packsCanDelete) ||
             (!inPack && !this.state.shipsCanDelete)
         ) {
+            return null
+        }
+        dbDeleteItem(itemId)
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error adding item to ship', err)
+            })
+    }
+    bbRemoveItemFromShip(itemId, inPack = false) {
+        if (!this.state.buybacksCanDelete) {
             return null
         }
         dbDeleteItem(itemId)
@@ -678,6 +791,28 @@ class App extends Component {
                 console.log('Error removing ship from hangar', err)
             })
     }
+
+    removeShipFromBuyBack(shipId) {
+        if (!this.state.buybacksCanDelete) {
+            return null
+        }
+        let ships = [...this.state.currentBuyback.ships]
+        let ship = {}
+        let itemIds = []
+        for (let s of ships) {
+            if (s.id === shipId) {
+                ship = s
+            }
+        }
+        for (let i of ship.items) {
+            itemIds.push(i.id)
+        }
+        Promise.all([dbDeleteShip(shipId), dbDeleteItems(itemIds)])
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error removing ship from hangar', err)
+            })
+    }
     removeCCUFromHangar(ccuId) {
         if (this.state.ccusCanDelete === false) {
             return null
@@ -689,8 +824,31 @@ class App extends Component {
                 console.log('Error removing ccu from hangar', err)
             })
     }
+
+    removeCCUFromBuyBack(ccuId) {
+        if (this.state.buybacksCanDelete === false) {
+            return null
+        }
+
+        dbDeleteCCU(ccuId)
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error removing ccu from hangar', err)
+            })
+    }
     removeItemFromHangar(itemId) {
         if (this.state.itemsCanDelete === false) {
+            return null
+        }
+
+        dbDeleteItem(itemId)
+            .then(this.refreshHangar())
+            .catch((err) => {
+                console.log('Error removing ccu from hangar', err)
+            })
+    }
+    removeItemFromBuyBack(itemId) {
+        if (this.state.buybacksCanDelete === false) {
             return null
         }
 
@@ -858,12 +1016,21 @@ class App extends Component {
                             addItemToPack={this.addItemToPack}
                             addItemToShip={this.addItemToShip}
                             removePackFromHangar={this.removePackFromHangar}
+                            removePackFromBuyBuyBack={
+                                this.removePackFromBuyBuyBack
+                            }
                             removeShipFromPack={this.removeShipFromPack}
+                            bbRemoveShipFromPack={this.bbRemoveShipFromPack}
                             removeItemfromPack={this.removeItemfromPack}
+                            bbRemoveItemfromPack={this.bbRemoveItemfromPack}
                             removeShipFromHangar={this.removeShipFromHangar}
+                            removeShipFromBuyBack={this.removeShipFromBuyBack}
                             removeCCUFromHangar={this.removeCCUFromHangar}
+                            removeCCUFromBuyBack={this.removeCCUFromBuyBack}
                             removeItemFromHangar={this.removeItemFromHangar}
+                            removeItemFromBuyBack={this.removeItemFromBuyBack}
                             removeItemFromShip={this.removeItemFromShip}
+                            bbRemoveItemFromShip={this.bbRemoveItemFromShip}
                             meltPack={this.meltPack}
                             buyBackPack={this.buyBackPack}
                             meltShip={this.meltShip}

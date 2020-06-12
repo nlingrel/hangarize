@@ -57,6 +57,7 @@ class AddItemForm extends Component {
     render() {
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
+        const buttonName = this.props.name
 
         const filled = 'bg-dark text-white'
         const empty = 'bg-dark'
@@ -124,9 +125,12 @@ class AddItemForm extends Component {
                         <button
                             type="submit"
                             className="btn btn-secondary ml-1"
+                            name={buttonName}
+                            value={buttonName}
                         >
                             Create Item
                         </button>
+
                         <button
                             type="button"
                             className="btn btn-outline-light ml-1"

@@ -238,6 +238,7 @@ class AddCCUForm extends Component {
     render() {
         const collapseId = `${this.props.name}FormCollapse`
         const collapseTarget = `#${this.props.name}FormCollapse`
+        const buttonName = this.props.name
 
         const baseSuggestions = this.renderSuggestedBaseNames()
         const toSuggestions = this.renderSuggestedToNames()
@@ -313,6 +314,8 @@ class AddCCUForm extends Component {
                         <button
                             type="submit"
                             className="btn btn-secondary ml-1"
+                            name={buttonName}
+                            value={buttonName}
                         >
                             Create CCU
                         </button>

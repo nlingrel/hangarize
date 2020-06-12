@@ -11,7 +11,7 @@ function BuyBackContainer(props) {
         const packs = props.buyback.packs.map((pack, i) => {
             return (
                 <PackContainer
-                    key={i}
+                    key={`${pack.name}${pack.id}${i}`}
                     packId={pack.id}
                     name={pack.name}
                     ships={pack.ships}
@@ -50,6 +50,9 @@ function BuyBackContainer(props) {
                     packId={props.packId}
                     addItemToShip={props.addItemToShip}
                     removeShip={(e) => {
+                        if (props.buybacksCanDelete === false) {
+                            return null
+                        }
                         e.preventDefault()
                         props.removeShipFromPack(props.packId, ship.id)
                     }}

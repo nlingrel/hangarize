@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import HideButton from '../Generic/HideButton'
-import shipSeed from '../../logicControl/shipSeed'
 
 class AddPackForm extends Component {
     constructor(props) {
@@ -96,6 +95,7 @@ class AddPackForm extends Component {
     }
     render() {
         const collapseId = `${this.props.name}FormCollapse`
+        const buttonName = this.props.name
 
         const collapseTarget = `#${this.props.name}FormCollapse`
         const filled = 'bg-dark text-white'
@@ -240,7 +240,8 @@ class AddPackForm extends Component {
                         <div className="form-row">
                             <button
                                 type="submit"
-                                name="hangar"
+                                name={buttonName}
+                                value={buttonName}
                                 className="btn btn-secondary ml-1"
                             >
                                 Create Pack

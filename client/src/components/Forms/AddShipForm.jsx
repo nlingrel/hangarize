@@ -288,6 +288,8 @@ class AddShipForm extends Component {
     render() {
         const filled = 'bg-dark text-white'
         const empty = 'bg-dark'
+        const buttonName = this.props.name
+
         const shipSuggestions = this.renderSuggestedShipNames()
         const manuSuggestions = this.renderSuggestedManufacturers()
         const filledInName =
@@ -473,6 +475,8 @@ class AddShipForm extends Component {
                             <button
                                 type="submit"
                                 className="btn btn-secondary ml-1"
+                                name={buttonName}
+                                value={buttonName}
                             >
                                 Create Ship
                             </button>

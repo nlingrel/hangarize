@@ -61,13 +61,20 @@ function HangarContainer(props) {
                 buybacksDeleteLock={props.buybacksDeleteLock}
                 buybacksCanDelete={props.buybacksCanDelete}
                 buyback={props.buyback}
+                addNewPackToHangar={props.addNewPackToHangar}
+                addNewShipToHangar={props.addNewShipToHangar}
+                addNewCCUToHangar={props.addNewCCUToHangar}
+                addNewItemToHangar={props.addNewItemToHangar}
                 addShipToPack={props.addShipToPack}
                 addItemToPack={props.addItemToPack}
                 addItemToShip={props.addItemToShip}
-                removePackFromHangar={props.removePackFromHangar}
-                removeShipFromPack={props.removeShipFromPack}
-                removeItemfromPack={props.removeItemfromPack}
-                removeItemFromShip={props.removeItemFromShip}
+                removePackFromHangar={props.removePackFromBuyBuyBack}
+                removeShipFromPack={props.bbRemoveShipFromPack}
+                removeItemfromPack={props.bbRemoveItemfromPack}
+                removeItemFromShip={props.bbRemoveItemFromShip}
+                removeShipFromHangar={props.removeShipFromBuyBack}
+                removeCCUFromHangar={props.removeCCUFromBuyBack}
+                removeItemFromHangar={props.removeItemFromBuyBack}
                 buyBackPack={props.buyBackPack}
                 buyBackShip={props.buyBackShip}
                 buyBackItem={props.buyBackItem}
@@ -78,3 +85,18 @@ function HangarContainer(props) {
 }
 
 export default HangarContainer
+
+// removePackFromHangar={props.removePackFromHangar}
+//                 removePackFromBuyBuyBack={props.removePackFromBuyBuyBack}
+//                 removeShipFromPack={props.removeShipFromPack}
+//                 bbRemoveShipFromPack={props.bbRemoveShipFromPack}
+//                 removeItemfromPack={props.removeItemfromPack}
+//                 bbRemoveItemfromPack={props.bbRemoveItemfromPack}
+//                 removeShipFromHangar={props.removeShipFromHangar}
+//                 removeShipFromBuyBack={props.removeShipFromBuyBack}
+//                 removeCCUFromHangar={props.removeCCUFromHangar}
+//                 removeCCUFromBuyBack={props.removeCCUFromBuyBack}
+//                 removeItemFromHangar={props.removeItemFromHangar}
+//                 removeItemFromBuyBack={props.removeItemFromBuyBack}
+//                 removeItemFromShip={props.removeItemFromShip}
+//                 bbRemoveItemFromShip={props.bbRemoveItemFromShip}
