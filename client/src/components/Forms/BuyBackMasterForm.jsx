@@ -129,6 +129,7 @@ class BuyBackMasterForm extends Component {
                             name={'bbPacks'}
                             addNewPackToHangar={this.props.addNewPackToHangar}
                             isBuyBackForm={true}
+                            key={'bbAddPackForm'}
                         />
                     </div>
 
@@ -139,6 +140,7 @@ class BuyBackMasterForm extends Component {
                             name={'bbShips'}
                             resetShipAddForm={this.props.resetShipAddForm}
                             isBuyBackForm={true}
+                            key={'bbAddShipForm'}
                         />
                     </div>
                     <div data-parent="#BuyBackFormCollapse">
@@ -146,6 +148,7 @@ class BuyBackMasterForm extends Component {
                             name={'bbItems'}
                             addNewItemToHangar={this.props.addNewItemToHangar}
                             isBuyBackForm={true}
+                            key={'bbAddItemForm'}
                         />
                     </div>
                     <div data-parent="#BuyBackFormCollapse">
@@ -153,6 +156,7 @@ class BuyBackMasterForm extends Component {
                             addNewCCUToHangar={this.props.addNewCCUToHangar}
                             name={'bbCCUs'}
                             isBuyBackForm={true}
+                            key={'bbAddCCUform'}
                         />
                     </div>
                 </div>

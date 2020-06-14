@@ -1,5 +1,6 @@
 import React from 'react'
 import CategoryToolBar from './CategoryToolBar'
+import BuyBackFilterBar from '../Buybacks/BuyBackFilterBar'
 
 //send onclicks, name, and items, and addForm
 
@@ -20,6 +21,15 @@ function CategoryContainer(props) {
                 </div>
             </div>
             <div>{props.form} </div>
+            {props.buybackFilter ? (
+                <BuyBackFilterBar
+                    setBuyBackFilter={props.setBuyBackFilter}
+                    filter={props.buybackFilter}
+                />
+            ) : (
+                ''
+            )}
+
             <div className="card-body bg-secondary">
                 <div className="card-deck">{props.items}</div>
             </div>

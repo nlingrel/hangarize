@@ -58,6 +58,7 @@ class App extends Component {
                 ccus: [],
                 items: [],
             },
+            buybackFilter: 'all',
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
@@ -69,6 +70,7 @@ class App extends Component {
             buybacksCanDelete: false,
         }
         this.refreshHangar = this.refreshHangar.bind(this)
+        this.setBuyBackFilter = this.setBuyBackFilter.bind(this)
 
         this.packsDeleteLock = this.packsDeleteLock.bind(this)
         this.shipsDeleteLock = this.shipsDeleteLock.bind(this)
@@ -121,6 +123,15 @@ class App extends Component {
         }
 
         this.db = db
+    }
+    setBuyBackFilter(e) {
+        e.preventDefault()
+        e.persist()
+        console.log('setBuyBackFilter', e.target.value)
+
+        const filter = e.target.value || 'all'
+
+        this.setState({ buybackFilter: filter })
     }
 
     componentDidMount() {
@@ -195,12 +206,10 @@ class App extends Component {
                 hangar.packs = allPacks.filter((p) => !p.buyback)
                 buyback.packs = allPacks.filter((p) => p.buyback)
                 let allCCUs = [...results[3]].sort((a, b) => {
-                    let aName = a.base.toUpperCase()
-                    let bName = b.base.toUpperCase()
-                    if (aName < bName) {
+                    if (a.base < b.base) {
                         return -1
                     }
-                    if (aName > bName) {
+                    if (a.base > b.base) {
                         return 1
                     }
                     return 0
@@ -988,6 +997,8 @@ class App extends Component {
                             buyback={buyback}
                             calcTotal={calcTotal}
                             credit={credit}
+                            setBuyBackFilter={this.setBuyBackFilter}
+                            buybackFilter={this.state.buybackFilter}
                             packsDeleteLock={this.packsDeleteLock}
                             packsCanDelete={this.state.packsCanDelete}
                             shipsDeleteLock={this.shipsDeleteLock}

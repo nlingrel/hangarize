@@ -63,7 +63,7 @@ function PackContainer(props) {
     })
     return (
         <div className="accordion mb-1">
-            <div className="card bg-dark border-light">
+            <div className="card bg-dark border-light mx-1 mb-1">
                 <div className="d-flex justify-content-between border-bottom border-secondary">
                     <div className="d-flex">
                         <div className="button-group " role="group">

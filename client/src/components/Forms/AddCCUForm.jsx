@@ -88,7 +88,7 @@ class AddCCUForm extends Component {
                             onClick={() => {
                                 this.selectSuggestedBase(item)
                             }}
-                            key={i}
+                            key={`suggBase${item.name}${i}`}
                         >
                             {item.name}
                         </option>
@@ -165,7 +165,7 @@ class AddCCUForm extends Component {
                             onClick={() => {
                                 this.selectSuggestedTo(item)
                             }}
-                            key={i}
+                            key={`suggTo${item.name}${i}`}
                         >
                             {item.name}
                         </option>

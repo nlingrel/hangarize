@@ -6,7 +6,7 @@ import AddCCUForm from '../Forms/AddCCUForm'
 function CCUsContainer(props) {
     const containers = props.ccus.map((c, i) => {
         return (
-            <div key={i}>
+            <div key={`ccuCont${c.base}${c.id}${i}`}>
                 <CCUContainer
                     base={c.base}
                     to={c.to}

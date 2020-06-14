@@ -28,7 +28,7 @@ function ShipContainer(props) {
         return (
             <div
                 className="d-flex justify-content-between align-items-center bg-dark text-light pl-2 mb-1 mx-2"
-                key={i}
+                key={`shipItem${item.name}${item.id}`}
             >
                 <span className="text-truncate">{item.name}</span>
                 <span className="badge">
@@ -52,7 +52,7 @@ function ShipContainer(props) {
             onDragStart={dragStart}
             onDragOver={dragOver}
         >
-            <div className="card bg-dark border-light">
+            <div className="card bg-dark border-light mx-1 mb-1">
                 <div
                     className="input-group border-bottom border-secondary"
                     role="group"

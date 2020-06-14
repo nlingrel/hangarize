@@ -58,6 +58,8 @@ function HangarContainer(props) {
             />
             <BuyBackContainer
                 buybackID={props.buybackID}
+                setBuyBackFilter={props.setBuyBackFilter}
+                buybackFilter={props.buybackFilter}
                 buybacksDeleteLock={props.buybacksDeleteLock}
                 buybacksCanDelete={props.buybacksCanDelete}
                 buyback={props.buyback}

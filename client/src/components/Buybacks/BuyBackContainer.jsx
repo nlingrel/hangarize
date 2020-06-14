@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import CategoryContainer from '../Generic/CategoryContainer'
 import PackContainer from '../Packs/PackContainer'
 import ShipContainer from '../Ships/ShipContainer'
 import ItemContainer from '../Items/ItemContainer'
 import CCUContainer from '../CCUs/CCUContainer'
 import BuyBackMasterForm from '../Forms/BuyBackMasterForm'
+import BuyBackFilterBar from './BuyBackFilterBar'
 
 function BuyBackContainer(props) {
     const renderPacks = () => {
         const packs = props.buyback.packs.map((pack, i) => {
             return (
                 <PackContainer
-                    key={`${pack.name}${pack.id}${i}`}
+                    key={`bbpack${pack.name}${pack.id}`}
                     packId={pack.id}
                     name={pack.name}
                     ships={pack.ships}
@@ -44,7 +45,7 @@ function BuyBackContainer(props) {
                     role={ship.role}
                     size={ship.size}
                     shipId={ship.id}
-                    key={`${ship.name}${ship.id}${i}`}
+                    key={`bbship${ship.name}${ship.id}`}
                     items={ship.items}
                     inPack={true}
                     packId={props.packId}
@@ -54,7 +55,7 @@ function BuyBackContainer(props) {
                             return null
                         }
                         e.preventDefault()
-                        props.removeShipFromPack(props.packId, ship.id)
+                        props.removeShipFromHangar(props.packId, ship.id)
                     }}
                     removeItemFromShip={props.removeItemFromShip}
                     meltShip={(e) => {
@@ -73,11 +74,10 @@ function BuyBackContainer(props) {
     const renderItems = () => {
         const items = props.buyback.items.map((item, i) => {
             return (
-                <div key={i}>
+                <div key={`item${item.name}${item.id}`}>
                     <ItemContainer
                         name={item.name}
                         itemId={item.id}
-                        key={`${item.name}${item.id}${i}`}
                         number={i}
                         price={item.price}
                         meltable={item.meltable}
@@ -96,13 +96,12 @@ function BuyBackContainer(props) {
     const renderCCUs = () => {
         const ccus = props.buyback.ccus.map((c, i) => {
             return (
-                <div key={i}>
+                <div key={`bbccu${c.base}${c.id}`}>
                     <CCUContainer
                         base={c.base}
                         to={c.to}
                         price={c.price}
                         id={c.id}
-                        key={`${c.base}${c.id}${i}`}
                         removeCCU={props.removeCCUFromHangar}
                         meltCCU={() => {
                             props.buyBackCCU(c.id)
@@ -113,15 +112,26 @@ function BuyBackContainer(props) {
         })
         return ccus
     }
-
     const packs = renderPacks()
     const bbItems = renderItems()
     const ships = renderShips()
-    const ccus = renderCCUs()
-    const items = [...packs, ...ships, ...bbItems, ...ccus]
+    const bbCCUs = renderCCUs()
+    const filter = props.buybackFilter
+    const viewItems =
+        filter === 'packs'
+            ? packs
+            : filter === 'ships'
+            ? ships
+            : filter === 'items'
+            ? bbItems
+            : filter === 'ccus'
+            ? bbCCUs
+            : [...packs, ...ships, ...bbCCUs, ...bbItems]
     return (
         <CategoryContainer
-            items={items}
+            items={viewItems}
+            setBuyBackFilter={props.setBuyBackFilter}
+            buybackFilter={props.buybackFilter}
             name={'BuyBack'}
             toggleDeleteLock={props.buybacksDeleteLock}
             deleteLocked={props.buybacksCanDelete}

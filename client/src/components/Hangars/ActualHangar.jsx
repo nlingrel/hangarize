@@ -20,6 +20,8 @@ function ActualHangar(props) {
                 ccus={props.ccus}
                 items={props.items}
                 buyback={props.buyback}
+                setBuyBackFilter={props.setBuyBackFilter}
+                buybackFilter={props.buybackFilter}
                 addNewShipToHangar={props.addNewShipToHangar}
                 suggestShipNames={props.suggestShipNames}
                 renderSuggestedShipNames={props.renderSuggestedShipNames}

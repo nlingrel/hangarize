@@ -7,7 +7,7 @@ function ItemContainer(props) {
     const target = `#collapseItem${props.itemId}`
     const collapseId = `collapseItem${props.itemId}`
     return (
-        <div className="card bg-dark border-light text-light mb-1">
+        <div className="card bg-dark border-light text-light mx-1 mb-1">
             <div
                 className="btn-group "
                 role="group"
