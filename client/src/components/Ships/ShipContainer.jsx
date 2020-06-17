@@ -94,6 +94,7 @@ function ShipContainer(props) {
                             upgradeShip={() => {
                                 console.log('Upgrade ship onclick')
                             }}
+                            canUpgrade={props.canUpgrade}
                             shipId={props.shipId}
                             meltShip={props.meltShip}
                         />

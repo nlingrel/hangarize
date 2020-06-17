@@ -48,6 +48,7 @@ function BuyBackFilterBar(props) {
                     className={`btn btn-dark`}
                     onClick={props.setBuyBackFilter}
                     type="button"
+                    title="No Filter"
                 >
                     {filterButton}
                 </button>
@@ -57,6 +58,7 @@ function BuyBackFilterBar(props) {
                     className={`btn ${packsClass}`}
                     onClick={props.setBuyBackFilter}
                     type="button"
+                    title="Packs Filter"
                 >
                     Packs
                 </button>
@@ -66,6 +68,7 @@ function BuyBackFilterBar(props) {
                     className={`btn ${shipsClass}`}
                     onClick={props.setBuyBackFilter}
                     type="button"
+                    title="Ships Filter"
                 >
                     Ships
                 </button>
@@ -75,6 +78,7 @@ function BuyBackFilterBar(props) {
                     className={`btn ${ccusClass}`}
                     onClick={props.setBuyBackFilter}
                     type="button"
+                    title="CCUs Filter"
                 >
                     CCUs
                 </button>
@@ -84,6 +88,7 @@ function BuyBackFilterBar(props) {
                     className={`btn ${itemsClass}`}
                     onClick={props.setBuyBackFilter}
                     type="button"
+                    title="Items Filter"
                 >
                     Items
                 </button>

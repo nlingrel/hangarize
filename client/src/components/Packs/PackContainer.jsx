@@ -32,6 +32,7 @@ function PackContainer(props) {
                     e.preventDefault()
                     props.removeShipFromPack(ship.id, props.packId)
                 }}
+                canUpgrade={props.canUpgrade}
                 removeItemFromShip={props.removeItemFromShip}
                 upgradeShip={props.upgradeShip}
                 showPrice={showToPrice}

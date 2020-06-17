@@ -76,50 +76,56 @@ class BuyBackMasterForm extends Component {
         return (
             <div className="collapse" id="BuyBackFormCollapse">
                 <div className="card">
-                    <div className="btn-group" role="group">
-                        <button
-                            className={`btn btn-dark `}
-                            data-toggle="collapse"
-                            data-target="#bbPacksFormCollapse"
-                            onClick={this.togglePack.bind(this)}
-                        >
-                            <span className={`${packActive} font-weight-bold`}>
-                                Pack&nbsp;
-                                {packBtn}
-                            </span>
-                        </button>
+                    <div className="bg-dark">
+                        <div className="btn-group" role="group">
+                            <button
+                                className={`btn btn-dark `}
+                                data-toggle="collapse"
+                                data-target="#bbPacksFormCollapse"
+                                onClick={this.togglePack.bind(this)}
+                            >
+                                <span
+                                    className={`${packActive} font-weight-bold`}
+                                >
+                                    Pack&nbsp;
+                                    {packBtn}
+                                </span>
+                            </button>
 
-                        <button
-                            className={`btn btn-dark`}
-                            data-toggle="collapse"
-                            data-target="#bbShipsFormCollapse"
-                            onClick={this.toggleShip.bind(this)}
-                        >
-                            <span className={`${shipActive} font-weight-bold`}>
-                                Ship&nbsp;
-                                {shipBtn}
-                            </span>
-                        </button>
+                            <button
+                                className={`btn btn-dark`}
+                                data-toggle="collapse"
+                                data-target="#bbShipsFormCollapse"
+                                onClick={this.toggleShip.bind(this)}
+                            >
+                                <span
+                                    className={`${shipActive} font-weight-bold`}
+                                >
+                                    Ship&nbsp;
+                                    {shipBtn}
+                                </span>
+                            </button>
 
-                        <button
-                            className={`btn btn-dark ${itemActive}`}
-                            data-toggle="collapse"
-                            data-target="#bbItemsFormCollapse"
-                            onClick={this.toggleItem.bind(this)}
-                        >
-                            Item&nbsp;
-                            {itemBtn}
-                        </button>
+                            <button
+                                className={`btn btn-dark ${itemActive}`}
+                                data-toggle="collapse"
+                                data-target="#bbItemsFormCollapse"
+                                onClick={this.toggleItem.bind(this)}
+                            >
+                                Item&nbsp;
+                                {itemBtn}
+                            </button>
 
-                        <button
-                            className={`btn btn-dark ${ccuActive}`}
-                            data-toggle="collapse"
-                            data-target="#bbCCUsFormCollapse"
-                            onClick={this.toggleCCU.bind(this)}
-                        >
-                            CCU&nbsp;
-                            {ccuBtn}
-                        </button>
+                            <button
+                                className={`btn btn-dark ${ccuActive}`}
+                                data-toggle="collapse"
+                                data-target="#bbCCUsFormCollapse"
+                                onClick={this.toggleCCU.bind(this)}
+                            >
+                                CCU&nbsp;
+                                {ccuBtn}
+                            </button>
+                        </div>
                     </div>
                 </div>
 

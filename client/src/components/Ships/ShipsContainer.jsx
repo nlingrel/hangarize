@@ -23,6 +23,7 @@ function ShipsContainer(props) {
                 draggable="true"
                 meltable={true}
                 showPrice={true}
+                canUpgrade={true}
                 addItemToShip={props.addItemToShip}
                 inPack={false}
                 removeShip={(e) => {

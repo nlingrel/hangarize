@@ -18,6 +18,7 @@ function BuyBackContainer(props) {
                     ships={pack.ships}
                     items={pack.items}
                     price={pack.price}
+                    canUpgrade={false}
                     number={i}
                     addShipToPack={props.addShipToPack}
                     addItemToPack={props.addItemToPack}
@@ -46,6 +47,7 @@ function BuyBackContainer(props) {
                     size={ship.size}
                     shipId={ship.id}
                     key={`bbship${ship.name}${ship.id}`}
+                    canUpgrade={false}
                     items={ship.items}
                     inPack={true}
                     packId={props.packId}

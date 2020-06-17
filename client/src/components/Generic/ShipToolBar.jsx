@@ -8,7 +8,12 @@ function ShipToolBar(props) {
     return (
         <>
             <div className="btn">
-                <UpgradeButton shipId={props.shipId} />
+                {props.canUpgrade ? (
+                    <UpgradeButton shipId={props.shipId} />
+                ) : (
+                    ''
+                )}
+
                 {props.meltable ? <MeltButton melt={props.meltShip} /> : ''}
                 <MinusButton onClick={props.removeShip} />
             </div>

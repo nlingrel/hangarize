@@ -48,6 +48,12 @@ const seedShips = () => {
 const dbGetHangar = (key) => {
     return db.hangars.get(key)
 }
+const dbGetHangars = (keys) => {
+    return db.hangars.bulkGet(keys)
+}
+const dbGetAllHangars = () => {
+    return db.hangars.toCollection().toArray()
+}
 const dbGetBuyback = (key) => {
     return db.buybacks.get(key)
 }
@@ -167,6 +173,8 @@ export {
     seedManus,
     seedShips,
     dbGetHangar,
+    dbGetHangars,
+    dbGetAllHangars,
     dbGetBuyback,
     dbGetPack,
     dbGetPacks,
