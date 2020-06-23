@@ -1,5 +1,4 @@
 import React from 'react'
-// import PacksConstainer from '../Packs/PacksContainer'
 import HangarContainer from './HangarContainer'
 import HangarControlBar from './HangarControlBar'
 
@@ -13,6 +12,7 @@ function ActualHangar(props) {
                 credit={props.credit}
                 changeTotal={props.changeTotal}
                 hangarTotal={props.hangarTotal}
+                hangarName={props.hangarName}
             />
             <HangarContainer
                 packs={props.packs}

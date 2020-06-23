@@ -87,18 +87,3 @@ function HangarContainer(props) {
 }
 
 export default HangarContainer
-
-// removePackFromHangar={props.removePackFromHangar}
-//                 removePackFromBuyBuyBack={props.removePackFromBuyBuyBack}
-//                 removeShipFromPack={props.removeShipFromPack}
-//                 bbRemoveShipFromPack={props.bbRemoveShipFromPack}
-//                 removeItemfromPack={props.removeItemfromPack}
-//                 bbRemoveItemfromPack={props.bbRemoveItemfromPack}
-//                 removeShipFromHangar={props.removeShipFromHangar}
-//                 removeShipFromBuyBack={props.removeShipFromBuyBack}
-//                 removeCCUFromHangar={props.removeCCUFromHangar}
-//                 removeCCUFromBuyBack={props.removeCCUFromBuyBack}
-//                 removeItemFromHangar={props.removeItemFromHangar}
-//                 removeItemFromBuyBack={props.removeItemFromBuyBack}
-//                 removeItemFromShip={props.removeItemFromShip}
-//                 bbRemoveItemFromShip={props.bbRemoveItemFromShip}

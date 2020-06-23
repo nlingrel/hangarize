@@ -8,7 +8,7 @@ db.version(1).stores({
     defaultItems: 'id, name, price',
     defaultManufacturers: 'id, name, nickName',
     ships:
-        '++id, name, manufacturer, role, price, size, shipHangarId, packId, buyback, toName, toPrice',
+        '++id, name, manufacturer, role, price, size, shipHangarId, shipPackId, buyback, toName, toPrice',
     items:
         '++id, name, price, meltable, itemHangarId, itemPackId, itemShipId, buyback',
     manufacturers: '++id, name, nickName',
@@ -97,12 +97,20 @@ const dbGetCCUs = (keys) => {
 }
 
 // Put
-
+const dbPutHangar = (hangar) => {
+    return db.hangars.put(hangar)
+}
 const dbPutPack = (pack) => {
     return db.packs.put(pack)
 }
+const dbPutPacks = (packs) => {
+    return db.packs.bulkPut(packs)
+}
 const dbPutShip = (ship, key) => {
     return db.ships.put(ship)
+}
+const dbPutShips = (ships) => {
+    return db.ships.bulkPut(ships)
 }
 
 const dbPutItem = (item) => {
@@ -115,9 +123,8 @@ const dbPutItems = (items) => {
 const dbPutCCU = (ccu) => {
     return db.ccus.put(ccu)
 }
-
-const dbPutHangar = (hangar, key) => {
-    return db.hangars.put(hangar, key)
+const dbPutCCUs = (ccus) => {
+    return db.ccus.bulkPut(ccus)
 }
 
 const dbPutActualHangar = (hangar) => {
@@ -187,10 +194,13 @@ export {
     dbGetAllCCUs,
     dbGetCCUs,
     dbPutPack,
+    dbPutPacks,
     dbPutShip,
+    dbPutShips,
     dbPutItem,
     dbPutItems,
     dbPutCCU,
+    dbPutCCUs,
     dbPutHangar,
     dbPutActualHangar,
     dbUpdateHangar,

@@ -133,6 +133,14 @@ class HangarControlBar extends Component {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="d-flex">
+                                <div className="card-body bg-dark text-light border-none">
+                                    <span className="h4 text-light">
+                                        {this.props.hangarName}
+                                    </span>
+                                </div>
+                            </div>
                             <div className="d-flex">
                                 <div className="btn-group" role="group">
                                     <div className="card-body">

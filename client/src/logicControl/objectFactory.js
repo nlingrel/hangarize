@@ -2,7 +2,16 @@ class Factory {
     constructor(name) {
         this.name = name || 'factory'
     }
-
+    newHangar(name) {
+        let hngr = {
+            name: name,
+            calcTotal: 0,
+            credit: 0,
+            tax: 0,
+            total: 0,
+        }
+        return hngr
+    }
     newPack(
         name = 'pack',
         price = 0,
@@ -29,20 +38,22 @@ class Factory {
         hangarId = 1,
         packId = 0,
         buyback = false,
-        trash = false
+        trash = false,
+        toName = '',
+        toPrice = 0
     ) {
         let ship = {
             name: name,
             price: price,
-            role: role,
             manufacturer: manufacturer,
+            role: role,
             size: size,
             shipHangarId: hangarId,
             shipPackId: packId,
             buyback: buyback,
             trash: trash,
-            toName: '',
-            toPrice: price,
+            toName: toName,
+            toPrice: toPrice,
         }
 
         return ship
@@ -99,25 +110,6 @@ class Factory {
         }
         return item
     }
-
-    // newHangar(
-    //     name = 'Hangar',
-    //     packs = [],
-    //     ships = [],
-    //     items = [],
-    //     ccus = [],
-    //     buyback = {}
-    // ) {
-    //     let hangar = {
-    //         name: name,
-    //         packs: packs,
-    //         ships: ships,
-    //         items: items,
-    //         ccus: ccus,
-    //         buyback: buyback,
-    //     }
-    //     return hangar
-    // }
 
     // newBuyback(packs = [], ships = [], items = [], ccus = []) {
     //     let buyback = { packs: packs, ships: ships, items: items, ccus: ccus }
