@@ -49,7 +49,7 @@ class Hangarize extends Component {
             <div>
                 <HangarizeControlBar
                     hangars={this.state.hangars}
-                    addNewHangar={this.props.addNewHangar}
+                    addNewHangarFromActual={this.props.addNewHangarFromActual}
                     selectHangar={this.selectHangar}
                 />
                 <HangarControlBar

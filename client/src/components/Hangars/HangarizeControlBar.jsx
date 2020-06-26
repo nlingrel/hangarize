@@ -21,7 +21,7 @@ function HangarizeControlBar(props) {
                         <div className="col-sm-auto">
                             <form
                                 className="bg-dark text-light"
-                                onSubmit={props.addNewHangar}
+                                onSubmit={props.addNewHangarFromActual}
                             >
                                 <div className="input-group">
                                     <input

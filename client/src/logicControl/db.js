@@ -159,6 +159,9 @@ const dbUpdateBuyback = (key, obj) => {
 const dbDeletePack = (key) => {
     return db.packs.delete(key)
 }
+const dbDeletePacks = (keys) => {
+    return db.packs.delete(keys)
+}
 const dbDeleteShip = (key) => {
     return db.ships.delete(key)
 }

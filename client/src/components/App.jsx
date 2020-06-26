@@ -89,7 +89,7 @@ class App extends Component {
         this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
         this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
         this.addNewCCUToHangar = this.addNewCCUToHangar.bind(this)
-        this.addNewHangar = this.addNewHangar.bind(this)
+        this.addNewHangarFromActual = this.addNewHangarFromActual.bind(this)
 
         this.addShipToPack = this.addShipToPack.bind(this)
         this.addItemToPack = this.addItemToPack.bind(this)
@@ -149,8 +149,9 @@ class App extends Component {
         this.refreshHangar()
     }
 
-    refreshHangar() {
+    refreshHangar(callback) {
         const hID = this.state.currentHangarId
+
         Promise.all([
             dbGetAllPacks(hID),
             dbGetAllShips(hID),
@@ -230,11 +231,20 @@ class App extends Component {
                 hangar.id = this.state.currentHangarId
                 hangar.calcTotal = total
                 console.log('hanger on refresh', results[4])
-
-                this.setState({
-                    currentHangar: hangar,
-                    currentBuyback: buyback,
-                })
+                if (callback !== undefined) {
+                    this.setState(
+                        {
+                            currentHangar: hangar,
+                            currentBuyback: buyback,
+                        },
+                        callback([hangar, buyback])
+                    )
+                } else {
+                    this.setState({
+                        currentHangar: hangar,
+                        currentBuyback: buyback,
+                    })
+                }
             })
             .catch((err) => {
                 console.log('Error getting refreshed data', err)
@@ -286,108 +296,148 @@ class App extends Component {
             this.refreshHangar()
         })
     }
-    addNewHangar(e) {
+    addNewHangarFromActual(e) {
         e.preventDefault()
         const name = e.target[0].value
         console.log('Create new hangar name ', name)
         let hangar = this.Factory.newHangar(name)
-        let packs = []
-        let ships = []
-        let items = []
-        let ccus = []
-
-        dbPutHangar(hangar)
-            .then((id) => {
-                Promise.all([
-                    dbGetAllPacks(1),
-                    dbGetAllShips(1),
-                    dbGetAllItems(1),
-                    dbGetAllCCUs(1),
-                ]).then((results) => {
-                    //packs 0, ships 1, items 2, ccus 3, hangar 4
-
-                    packs = results[0]
-                    ships = results[1]
-                    items = results[2]
-                    ccus = results[3]
-
-                    packs = packs.map((pk) => {
-                        let newPack = this.Factory.newPack(
-                            pk.name,
-                            pk.price,
-                            id,
-                            pk.buyback,
-                            pk.trash
-                        )
-                        return newPack
-                    })
-
-                    ships = ships.map((shp) => {
-                        let newShip = this.Factory.newShip(
-                            shp.name,
-                            shp.price,
-                            shp.manufacturer,
-                            shp.role,
-                            shp.size,
-                            id,
-                            shp.shipPackId,
-                            shp.buyback,
-                            shp.trash,
-                            shp.toName,
-                            shp.toPrice
-                        )
-                        return newShip
-                    })
-
-                    items.map((i) => {
-                        let newItem = this.Factory.newItem(
-                            i.name,
-                            i.price,
-                            i.meltable,
-                            id,
-                            i.itemPackId,
-                            i.itemShipId,
-                            i.buyback,
-                            i.trash
+        let actualHangar = {}
+        let actualBuyback = {}
+        let newHangarId
+        let oldHangarId = this.state.currentHangarId
+        this.setState({ currentHangarId: 1 }, () => {
+            this.refreshHangar((actuals) => {
+                actualHangar = actuals[0]
+                actualBuyback = actuals[1]
+                console.log('Actuals from refreshhangar', actuals)
+                dbPutHangar(hangar)
+                    .then((id) => {
+                        newHangarId = id
+                        return copyActual(
+                            actualHangar,
+                            actualBuyback,
+                            newHangarId
                         )
                     })
-
-                    ccus = ccus.map((c) => {
-                        let newCCU = this.Factory.newCCU(
-                            c.base,
-                            c.to,
-                            c.price,
-                            c.appliedBase,
-                            c.appliedTo,
-                            id,
-                            c.buyback,
-                            c.trash
+                    .then(() => {
+                        this.setState(
+                            { currentHangarId: oldHangarId },
+                            this.refreshHangar()
                         )
-                        return newCCU
                     })
-                    copyActual(id, packs, ships, items, ccus)
-                })
+                    .catch((err) => {
+                        console.log('Error in putHangar then...', err)
+                    })
             })
-            .catch((err) => {
-                console.log('Error creating new hangar', err)
-            })
-        const copyActual = (hangarId, packs, ships, items, ccus) => {
-            Promise.all([
-                dbPutPacks(packs),
-                dbPutShips(ships),
-                dbPutItems(items),
-                dbPutCCUs(ccus),
-            ])
-                .then((results) => {
-                    this.setState({ currentHangarId: hangarId }, () => {
-                        this.refreshHangar()
-                    })
-                })
-                .catch((err) => {
-                    console.log('Error copying actual database', err)
-                })
+        })
+
+        const copyActual = (hngr, buybk, hangarId) => {
+            let ships = [...hngr.ships, ...buybk.ships]
+            let packs = [...hngr.packs, ...buybk.packs]
+            let items = [...hngr.items, ...buybk.items]
+            let ccus = [...hngr.ccus, ...buybk.ccus]
+            let allPromises = []
+
+            for (let p of packs) {
+                allPromises.push(copyPack(p, hangarId))
+            }
+            for (let s of ships) {
+                allPromises.push(copyShip(s, hangarId))
+            }
+
+            for (let i of items) {
+                allPromises.push(copyItem(i, hangarId))
+            }
+            for (let c of ccus) {
+                allPromises.push(copyCCU(c, hangarId))
+            }
+
+            return Promise.all(allPromises)
         }
+
+        const copyPack = (pack, hangarId) => {
+            let newPack = this.Factory.newPack(
+                pack.name,
+                pack.price,
+                hangarId,
+                pack.buyback,
+                pack.trash
+            )
+            dbPutPack(newPack).then((pkId) => {
+                let ships = pack.ships.map((s) => {
+                    s.shipPackId = pkId
+                    for (let i of s.items) {
+                        i.itemPackId = pkId
+                    }
+                    return copyShip(s, hangarId)
+                })
+
+                let items = pack.items.map((i) => {
+                    i.itemPackId = pkId
+                    return copyItem(i, hangarId)
+                })
+                return [...ships, ...items]
+            })
+        }
+
+        const copyShip = (ship, hangarId) => {
+            //items
+            let newShip = this.Factory.newShip(
+                ship.name,
+                ship.price,
+                ship.manufacturer,
+                ship.role,
+                ship.size,
+                hangarId,
+                ship.shipPackId,
+                ship.buyback,
+                ship.trash,
+                ship.toName,
+                ship.toPrice
+            )
+            dbPutShip(newShip).then((id) => {
+                let items = ship.items.map((i) => {
+                    i.itemShipId = id
+                    return copyItem(i, hangarId)
+                })
+                return items
+            })
+        }
+
+        const copyItem = (item, hangarId) => {
+            let newItem = this.Factory.newItem(
+                item.name,
+                item.price,
+                item.meltable,
+                hangarId,
+                item.itemPackId,
+                item.itemShipId,
+                item.buyback,
+                item.trash
+            )
+            return dbPutItem(newItem)
+        }
+
+        const copyCCU = (ccu, hangarId) => {
+            let newCCU = this.Factory.newCCU(
+                ccu.base,
+                ccu.to,
+                ccu.price,
+                ccu.appliedBase,
+                ccu.appliedTo,
+                hangarId,
+                ccu.buyback,
+                ccu.trash
+            )
+            return dbPutCCU(newCCU)
+        }
+
         e.target.reset()
+    }
+
+    removeHangar(e) {
+        e.preventDefault()
+        const value = parseInt(e.target.value)
     }
 
     addNewPackToHangar(e) {
@@ -1235,7 +1285,7 @@ class App extends Component {
                             buyBackCCU={this.buyBackCCU}
                             changeTotal={this.changeTotal}
                             hangarTotal={hangarTotal}
-                            addNewHangar={this.addNewHangar}
+                            addNewHangarFromActual={this.addNewHangarFromActual}
                             selectHangarizeHangar={this.selectHangarizeHangar}
                             hangarName={hangarName}
                         />
