@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LockButton from '../Generic/LockButton'
+import MinusButton from '../Generic/MinusButton'
 
 class HangarControlBar extends Component {
     constructor(props) {
@@ -144,6 +145,16 @@ class HangarControlBar extends Component {
                             <div className="d-flex">
                                 <div className="btn-group" role="group">
                                     <div className="card-body">
+                                        {this.props.hangarId !== 1 ? (
+                                            <MinusButton
+                                                hangarId={this.props.hangarId}
+                                                onClick={
+                                                    this.props.removeHangar
+                                                }
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
                                         <LockButton
                                             deleteLocked={
                                                 this.props.allCanDelete

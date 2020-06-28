@@ -90,6 +90,7 @@ class App extends Component {
         this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
         this.addNewCCUToHangar = this.addNewCCUToHangar.bind(this)
         this.addNewHangarFromActual = this.addNewHangarFromActual.bind(this)
+        this.removeHangar = this.removeHangar.bind(this)
 
         this.addShipToPack = this.addShipToPack.bind(this)
         this.addItemToPack = this.addItemToPack.bind(this)
@@ -438,6 +439,9 @@ class App extends Component {
     removeHangar(e) {
         e.preventDefault()
         const value = parseInt(e.target.value)
+        if (value === 1) {
+            return null
+        }
     }
 
     addNewPackToHangar(e) {
@@ -1288,6 +1292,8 @@ class App extends Component {
                             addNewHangarFromActual={this.addNewHangarFromActual}
                             selectHangarizeHangar={this.selectHangarizeHangar}
                             hangarName={hangarName}
+                            removeHangar={this.removeHangar}
+                            hagarId={this.state.currentHangarId}
                         />
                     ) : (
                         ''
