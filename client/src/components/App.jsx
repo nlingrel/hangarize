@@ -9,6 +9,7 @@ import manuSeed from '../logicControl/manuSeed'
 import { db } from '../logicControl/db'
 import {
     dbGetHangar,
+    dbGetAllHangars,
     dbGetPack,
     dbGetPacks,
     dbGetAllPacks,
@@ -75,6 +76,7 @@ class App extends Component {
         }
         this.refreshHangar = this.refreshHangar.bind(this)
         this.refreshHangarize = this.refreshHangarize.bind(this)
+        this.selectHangar = this.selectHangar.bind(this)
         this.selectHangarizeHangar = this.selectHangarizeHangar.bind(this)
         this.setBuyBackFilter = this.setBuyBackFilter.bind(this)
 
@@ -150,6 +152,7 @@ class App extends Component {
         seedShips()
 
         this.refreshHangar()
+        this.refreshHangarize()
     }
 
     refreshHangar(callback) {
@@ -161,6 +164,7 @@ class App extends Component {
             dbGetAllItems(hID),
             dbGetAllCCUs(hID),
             dbGetHangar(hID),
+            dbGetAllHangars(),
         ])
             .then((results) => {
                 let total = 0
@@ -229,6 +233,7 @@ class App extends Component {
                         total += c.price
                     }
                 }
+                let hangars = results[5]
                 hangar.ccus = allCCUs.filter((c) => !c.buyback)
                 buyback.ccus = allCCUs.filter((c) => c.buyback)
                 hangar.id = this.state.currentHangarId
@@ -239,6 +244,7 @@ class App extends Component {
                         {
                             currentHangar: hangar,
                             currentBuyback: buyback,
+                            hangars: hangars,
                         },
                         callback([hangar, buyback])
                     )
@@ -246,6 +252,7 @@ class App extends Component {
                     this.setState({
                         currentHangar: hangar,
                         currentBuyback: buyback,
+                        hangars: hangars,
                     })
                 }
             })
@@ -269,8 +276,13 @@ class App extends Component {
         e.preventDefault()
         const value = parseInt(e.target.value) || 1
 
-        this.props.selectHangarizeHangar(value)
+        this.selectHangarizeHangar(value)
         this.refreshHangarize()
+    }
+    selectHangarizeHangar(hangarId) {
+        this.setState({ currentHangarId: hangarId }, () => {
+            this.refreshHangar()
+        })
     }
 
     allDeleteLock(e) {
@@ -313,11 +325,7 @@ class App extends Component {
         let locked = !this.state.buybacksCanDelete
         this.setState({ buybacksCanDelete: locked })
     }
-    selectHangarizeHangar(hangarId) {
-        this.setState({ currentHangarId: hangarId }, () => {
-            this.refreshHangar()
-        })
-    }
+
     addNewHangarFromActual(e) {
         e.preventDefault()
         const name = e.target[0].value
@@ -1315,6 +1323,9 @@ class App extends Component {
                             hangarName={hangarName}
                             removeHangar={this.removeHangar}
                             hangarId={this.state.currentHangarId}
+                            refreshHangarize={this.refreshHangarize}
+                            selectHangar={this.selectHangar}
+                            hangars={this.state.hangars}
                         />
                     ) : (
                         ''

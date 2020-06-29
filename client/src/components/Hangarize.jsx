@@ -1,128 +1,111 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { dbGetAllHangars } from '../logicControl/db'
 import HangarizeControlBar from '../components/Hangars/HangarizeControlBar'
 import HangarControlBar from './Hangars/HangarControlBar'
 import HangarContainer from './Hangars/HangarContainer'
 
-class Hangarize extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            currentHangar: {},
-            currentBuyback: {},
-            hangars: [],
-        }
-        this.refreshHangarize = this.refreshHangarize.bind(this)
-        this.selectHangar = this.selectHangar.bind(this)
-    }
+function Hangarize(props) {
+    // componentDidMount() {
+    //     dbGetAllHangars()
+    //         .then((hangars) => {
+    //             this.setState({ hangars: hangars })
+    //         })
+    //         .catch((err) => {
+    //             console.log('Error getting all hangars', err)
+    //         })
+    // }
+    // refreshHangarize() {
+    //     dbGetAllHangars()
+    //         .then((hangars) => {
+    //             this.setState({ hangars: hangars })
+    //             console.log('hangarize hangars refreshed')
+    //         })
+    //         .catch((err) => {
+    //             console.log('Error getting all hangars', err)
+    //         })
+    // }
 
-    componentDidMount() {
-        dbGetAllHangars()
-            .then((hangars) => {
-                this.setState({ hangars: hangars })
-            })
-            .catch((err) => {
-                console.log('Error getting all hangars', err)
-            })
-    }
-    refreshHangarize() {
-        dbGetAllHangars()
-            .then((hangars) => {
-                this.setState({ hangars: hangars })
-                console.log('hangarize hangars refreshed')
-            })
-            .catch((err) => {
-                console.log('Error getting all hangars', err)
-            })
-    }
+    // selectHangar(e) {
+    //     e.preventDefault()
+    //     const value = parseInt(e.target.value) || 1
 
-    selectHangar(e) {
-        e.preventDefault()
-        const value = parseInt(e.target.value) || 1
+    //     props.selectHangarizeHangar(value)
+    //     this.refreshHangarize()
+    // }
 
-        this.props.selectHangarizeHangar(value)
-        this.refreshHangarize()
-    }
-
-    render() {
-        return (
-            <div>
-                <HangarizeControlBar
-                    hangars={this.state.hangars}
-                    addNewHangarFromActual={this.props.addNewHangarFromActual}
-                    selectHangar={this.selectHangar}
-                />
-                <HangarControlBar
-                    allCanDelete={this.props.allCanDelete}
-                    allDeleteLock={this.props.allDeleteLock}
-                    calcTotal={this.props.calcTotal}
-                    credit={this.props.credit}
-                    changeTotal={this.props.changeTotal}
-                    hangarTotal={this.props.hangarTotal}
-                    hangarName={this.props.hangarName}
-                    removeHangar={this.props.removeHangar}
-                    hangarId={this.props.hangarId}
-                />
-                <HangarContainer
-                    packs={this.props.packs}
-                    ships={this.props.ships}
-                    ccus={this.props.ccus}
-                    items={this.props.items}
-                    buyback={this.props.buyback}
-                    setBuyBackFilter={this.props.setBuyBackFilter}
-                    buybackFilter={this.props.buybackFilter}
-                    addNewShipToHangar={this.props.addNewShipToHangar}
-                    suggestShipNames={this.props.suggestShipNames}
-                    renderSuggestedShipNames={
-                        this.props.renderSuggestedShipNames
-                    }
-                    shipNameField={this.props.shipNameField}
-                    addNewPackToHangar={this.props.addNewPackToHangar}
-                    addNewItemToHangar={this.props.addNewItemToHangar}
-                    addNewCCUToHangar={this.props.addNewCCUToHangar}
-                    resetShipAddForm={this.props.resetShipAddForm}
-                    addShipToPack={this.props.addShipToPack}
-                    addItemToPack={this.props.addItemToPack}
-                    addItemToShip={this.props.addItemToShip}
-                    removePackFromHangar={this.props.removePackFromHangar}
-                    removePackFromBuyBuyBack={
-                        this.props.removePackFromBuyBuyBack
-                    }
-                    removeShipFromPack={this.props.removeShipFromPack}
-                    bbRemoveShipFromPack={this.props.bbRemoveShipFromPack}
-                    removeItemfromPack={this.props.removeItemfromPack}
-                    bbRemoveItemfromPack={this.props.bbRemoveItemfromPack}
-                    removeShipFromHangar={this.props.removeShipFromHangar}
-                    removeShipFromBuyBack={this.props.removeShipFromBuyBack}
-                    removeCCUFromHangar={this.props.removeCCUFromHangar}
-                    removeCCUFromBuyBack={this.props.removeCCUFromBuyBack}
-                    removeItemFromHangar={this.props.removeItemFromHangar}
-                    removeItemFromBuyBack={this.props.removeItemFromBuyBack}
-                    removeItemFromShip={this.props.removeItemFromShip}
-                    bbRemoveItemFromShip={this.props.bbRemoveItemFromShip}
-                    packsDeleteLock={this.props.packsDeleteLock}
-                    packsCanDelete={this.props.packsCanDelete}
-                    shipsDeleteLock={this.props.shipsDeleteLock}
-                    shipsCanDelete={this.props.shipsCanDelete}
-                    itemsDeleteLock={this.props.itemsDeleteLock}
-                    itemsCanDelete={this.props.itemsCanDelete}
-                    ccusDeleteLock={this.props.ccusDeleteLock}
-                    ccusCanDelete={this.props.ccusCanDelete}
-                    buybacksDeleteLock={this.props.buybacksDeleteLock}
-                    buybacksCanDelete={this.props.buybacksCanDelete}
-                    meltPack={this.props.meltPack}
-                    buyBackPack={this.props.buyBackPack}
-                    meltShip={this.props.meltShip}
-                    buyBackShip={this.props.buyBackShip}
-                    meltItem={this.props.meltItem}
-                    buyBackItem={this.props.buyBackItem}
-                    meltCCU={this.props.meltCCU}
-                    buyBackCCU={this.props.buyBackCCU}
-                    upgradeShip={this.props.upgradeShip}
-                />
-            </div>
-        )
-    }
+    return (
+        <div>
+            <HangarizeControlBar
+                hangars={props.hangars}
+                addNewHangarFromActual={props.addNewHangarFromActual}
+                selectHangar={props.selectHangar}
+            />
+            <HangarControlBar
+                allCanDelete={props.allCanDelete}
+                allDeleteLock={props.allDeleteLock}
+                calcTotal={props.calcTotal}
+                credit={props.credit}
+                changeTotal={props.changeTotal}
+                hangarTotal={props.hangarTotal}
+                hangarName={props.hangarName}
+                removeHangar={props.removeHangar}
+                hangarId={props.hangarId}
+            />
+            <HangarContainer
+                packs={props.packs}
+                ships={props.ships}
+                ccus={props.ccus}
+                items={props.items}
+                buyback={props.buyback}
+                setBuyBackFilter={props.setBuyBackFilter}
+                buybackFilter={props.buybackFilter}
+                addNewShipToHangar={props.addNewShipToHangar}
+                suggestShipNames={props.suggestShipNames}
+                renderSuggestedShipNames={props.renderSuggestedShipNames}
+                shipNameField={props.shipNameField}
+                addNewPackToHangar={props.addNewPackToHangar}
+                addNewItemToHangar={props.addNewItemToHangar}
+                addNewCCUToHangar={props.addNewCCUToHangar}
+                resetShipAddForm={props.resetShipAddForm}
+                addShipToPack={props.addShipToPack}
+                addItemToPack={props.addItemToPack}
+                addItemToShip={props.addItemToShip}
+                removePackFromHangar={props.removePackFromHangar}
+                removePackFromBuyBuyBack={props.removePackFromBuyBuyBack}
+                removeShipFromPack={props.removeShipFromPack}
+                bbRemoveShipFromPack={props.bbRemoveShipFromPack}
+                removeItemfromPack={props.removeItemfromPack}
+                bbRemoveItemfromPack={props.bbRemoveItemfromPack}
+                removeShipFromHangar={props.removeShipFromHangar}
+                removeShipFromBuyBack={props.removeShipFromBuyBack}
+                removeCCUFromHangar={props.removeCCUFromHangar}
+                removeCCUFromBuyBack={props.removeCCUFromBuyBack}
+                removeItemFromHangar={props.removeItemFromHangar}
+                removeItemFromBuyBack={props.removeItemFromBuyBack}
+                removeItemFromShip={props.removeItemFromShip}
+                bbRemoveItemFromShip={props.bbRemoveItemFromShip}
+                packsDeleteLock={props.packsDeleteLock}
+                packsCanDelete={props.packsCanDelete}
+                shipsDeleteLock={props.shipsDeleteLock}
+                shipsCanDelete={props.shipsCanDelete}
+                itemsDeleteLock={props.itemsDeleteLock}
+                itemsCanDelete={props.itemsCanDelete}
+                ccusDeleteLock={props.ccusDeleteLock}
+                ccusCanDelete={props.ccusCanDelete}
+                buybacksDeleteLock={props.buybacksDeleteLock}
+                buybacksCanDelete={props.buybacksCanDelete}
+                meltPack={props.meltPack}
+                buyBackPack={props.buyBackPack}
+                meltShip={props.meltShip}
+                buyBackShip={props.buyBackShip}
+                meltItem={props.meltItem}
+                buyBackItem={props.buyBackItem}
+                meltCCU={props.meltCCU}
+                buyBackCCU={props.buyBackCCU}
+                upgradeShip={props.upgradeShip}
+            />
+        </div>
+    )
 }
 
 export default Hangarize
