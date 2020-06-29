@@ -13,7 +13,7 @@ function ActualHangar(props) {
                 changeTotal={props.changeTotal}
                 hangarTotal={props.hangarTotal}
                 hangarName={props.hangarName}
-                hangarId={this.props.hangarId}
+                hangarId={props.hangarId}
             />
             <HangarContainer
                 packs={props.packs}

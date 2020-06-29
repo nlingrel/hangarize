@@ -145,7 +145,8 @@ class HangarControlBar extends Component {
                             <div className="d-flex">
                                 <div className="btn-group" role="group">
                                     <div className="card-body">
-                                        {this.props.hangarId !== 1 ? (
+                                        {this.props.hangarId > 1 &&
+                                        this.props.allCanDelete ? (
                                             <MinusButton
                                                 hangarId={this.props.hangarId}
                                                 onClick={

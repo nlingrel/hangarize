@@ -61,7 +61,7 @@ class Hangarize extends Component {
                     hangarTotal={this.props.hangarTotal}
                     hangarName={this.props.hangarName}
                     removeHangar={this.props.removeHangar}
-                    hagarId={this.props.hangarId}
+                    hangarId={this.props.hangarId}
                 />
                 <HangarContainer
                     packs={this.props.packs}

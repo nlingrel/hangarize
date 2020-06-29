@@ -53,22 +53,48 @@ function Home(props) {
                                 </h6>
                             </div>
                         </div>
+                        <div className="card bg-dark text-center m-2 p-2">
+                            <h6>Disclaimer</h6>
+                            <p>
+                                This app is a work in progress. Do Not Ever use
+                                the app to store private information like your
+                                Star Citizen account credentials. While the data
+                                stored by the app is client-side only, it is
+                                persistent and NOT encrypted and therefore easy
+                                to access by anyone with access to your device.
+                                It is not necessary to enter monetary amounts
+                                for the app to function. Monetary amounts are
+                                only used for user convenience in calculating
+                                the impact of potential fleet changes, eg.
+                                whether you can buy something with available
+                                credit or whether you would have to choose
+                                something to melt.
+                            </p>
+                            <p>
+                                This is a fan-built un-official app. It is not
+                                affilliated with Star Citzen the game or Cloud
+                                Imperium Games or Roberts Space Industries or
+                                any Game Studio, Publisher, or other enitity to
+                                which affiliation could possibly be construed
+                                other than the author of this app.
+                            </p>
+                        </div>
                     </div>
-                    <div className="card-footer text-center bg-dark text-light">
-                        <h6>Disclaimer</h6>
-                        <p>
-                            This app is a work in progress. Do Not Ever use the
-                            app to store private information like your Star
-                            Citizen account credentials. While the data stored
-                            by the app is client-side only, it is persistent and
-                            NOT encrypted and therefore easy to access by anyone
-                            with access to your device. It is not necessary to
-                            enter monetary amounts for the app to function.
-                            Monetary amounts are only used for calculating the
-                            impact of potential fleet changes, eg. whether you
-                            can buy something with available credit or whether
-                            you would have to choose something to melt.
-                        </p>
+                </div>
+                <div className="card-footer">
+                    <div className="d-flex justify-content-center">
+                        <a
+                            href="http://www.robertsspaceindustries.com"
+                            className="btn-link"
+                        >
+                            Star Citizen
+                        </a>
+                        <a
+                            href="http://www.robertsspaceindustries.com/enlist?referral=STAR-LYNT-9ZGT"
+                            className="ml-4 btn-link-secondary"
+                        >
+                            Referral Link
+                        </a>
                     </div>
                 </div>
             </div>

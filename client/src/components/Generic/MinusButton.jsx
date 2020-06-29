@@ -1,7 +1,7 @@
 import React from 'react'
 
 function MinusButton(props) {
-    const value = props.removeHangar ? props.hagarId : ''
+    const value = `${props.hagarId}`
     return (
         <button
             className="btn btn-outline-danger btn-sm ml-1"

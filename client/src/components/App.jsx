@@ -6,7 +6,7 @@ import Hangarize from './Hangarize'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
-import { db, dbGetBuyback } from '../logicControl/db'
+import { db } from '../logicControl/db'
 import {
     dbGetHangar,
     dbGetPack,
@@ -71,8 +71,10 @@ class App extends Component {
             itemsCanDelete: false,
             ccusCanDelete: false,
             buybacksCanDelete: false,
+            hangars: [],
         }
         this.refreshHangar = this.refreshHangar.bind(this)
+        this.refreshHangarize = this.refreshHangarize.bind(this)
         this.selectHangarizeHangar = this.selectHangarizeHangar.bind(this)
         this.setBuyBackFilter = this.setBuyBackFilter.bind(this)
 
@@ -250,6 +252,25 @@ class App extends Component {
             .catch((err) => {
                 console.log('Error getting refreshed data', err)
             })
+    }
+
+    refreshHangarize() {
+        dbGetAllHangars()
+            .then((hangars) => {
+                this.setState({ hangars: hangars })
+                console.log('hangarize hangars refreshed')
+            })
+            .catch((err) => {
+                console.log('Error getting all hangars', err)
+            })
+    }
+
+    selectHangar(e) {
+        e.preventDefault()
+        const value = parseInt(e.target.value) || 1
+
+        this.props.selectHangarizeHangar(value)
+        this.refreshHangarize()
     }
 
     allDeleteLock(e) {
@@ -1293,7 +1314,7 @@ class App extends Component {
                             selectHangarizeHangar={this.selectHangarizeHangar}
                             hangarName={hangarName}
                             removeHangar={this.removeHangar}
-                            hagarId={this.state.currentHangarId}
+                            hangarId={this.state.currentHangarId}
                         />
                     ) : (
                         ''
