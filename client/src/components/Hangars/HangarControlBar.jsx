@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import LockButton from '../Generic/LockButton'
 import MinusButton from '../Generic/MinusButton'
+import HangarDeleteConfirm from './HangarDeleteConfirm'
 
 class HangarControlBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
             showInput: false,
+            showDeleteConfirm: false,
             totalField: '',
         }
         this.toggleInput = this.toggleInput.bind(this)
+        this.toggleConfirm = this.toggleConfirm.bind(this)
+    }
+    toggleConfirm() {
+        const toggle = !this.state.showDeleteConfirm
+        this.setState({ showDeleteConfirm: toggle })
     }
     handleChange(e) {
         const value = e.target.value
@@ -147,12 +154,21 @@ class HangarControlBar extends Component {
                                     <div className="card-body">
                                         {this.props.hangarId > 1 &&
                                         this.props.allCanDelete ? (
-                                            <MinusButton
-                                                hangarId={this.props.hangarId}
-                                                onClick={
-                                                    this.props.removeHangar
-                                                }
-                                            />
+                                            this.state.showDeleteConfirm ? (
+                                                <HangarDeleteConfirm
+                                                    hangarId={
+                                                        this.props.hangarId
+                                                    }
+                                                    confirm={
+                                                        this.props.removeHangar
+                                                    }
+                                                    cancel={this.toggleConfirm}
+                                                />
+                                            ) : (
+                                                <MinusButton
+                                                    onClick={this.toggleConfirm}
+                                                />
+                                            )
                                         ) : (
                                             ''
                                         )}

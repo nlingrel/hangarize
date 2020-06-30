@@ -5,34 +5,6 @@ import HangarControlBar from './Hangars/HangarControlBar'
 import HangarContainer from './Hangars/HangarContainer'
 
 function Hangarize(props) {
-    // componentDidMount() {
-    //     dbGetAllHangars()
-    //         .then((hangars) => {
-    //             this.setState({ hangars: hangars })
-    //         })
-    //         .catch((err) => {
-    //             console.log('Error getting all hangars', err)
-    //         })
-    // }
-    // refreshHangarize() {
-    //     dbGetAllHangars()
-    //         .then((hangars) => {
-    //             this.setState({ hangars: hangars })
-    //             console.log('hangarize hangars refreshed')
-    //         })
-    //         .catch((err) => {
-    //             console.log('Error getting all hangars', err)
-    //         })
-    // }
-
-    // selectHangar(e) {
-    //     e.preventDefault()
-    //     const value = parseInt(e.target.value) || 1
-
-    //     props.selectHangarizeHangar(value)
-    //     this.refreshHangarize()
-    // }
-
     return (
         <div>
             <HangarizeControlBar

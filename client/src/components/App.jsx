@@ -37,12 +37,15 @@ import {
     dbUpdateItem,
     dbUpdateCCU,
     dbUpdateBuyback,
+    dbDeleteHangar,
     dbDeletePack,
+    dbDeletePacks,
     dbDeleteShip,
     dbDeleteShips,
     dbDeleteItem,
     dbDeleteItems,
     dbDeleteCCU,
+    dbDeleteCCUs,
 } from '../logicControl/db'
 
 class App extends Component {
@@ -467,10 +470,106 @@ class App extends Component {
 
     removeHangar(e) {
         e.preventDefault()
-        const value = parseInt(e.target.value)
-        if (value === 1) {
+        const hId = parseInt(e.target.value)
+        console.log('Remove hangar clicked. remove hangar id ', hId)
+        if (hId === 1) {
             return null
         }
+        let hngr = this.state.currentHangar
+        let buybk = this.state.currentBuyback
+        let ships = [...hngr.ships, ...buybk.ships]
+        let packs = [...hngr.packs, ...buybk.packs]
+        let items = [...hngr.items, ...buybk.items]
+        let ccus = [...hngr.ccus, ...buybk.ccus]
+
+        let pIds =
+            packs.length > 0
+                ? packs.map((p) => {
+                      if (p.packHangarId === hId) {
+                          return p.id
+                      }
+                  })
+                : []
+
+        let sIds =
+            ships.length > 0
+                ? ships.map((s) => {
+                      if (s.shipHangarId === hId) {
+                          return s.id
+                      }
+                  })
+                : []
+
+        let iIds =
+            items.length > 0
+                ? items.map((i) => {
+                      if (i.itemHangarId === hId) {
+                          return i.id
+                      }
+                  })
+                : []
+
+        let cIds =
+            ccus.length > 0
+                ? ccus.map((c) => {
+                      if (c.ccuHangarId === hId) {
+                          return c.id
+                      }
+                  })
+                : []
+        const packCheck = () => {
+            if (pIds.length > 0) {
+                return dbDeletePacks(pIds)
+            }
+            return null
+        }
+
+        const shipCheck = () => {
+            if (sIds.length > 0) {
+                return dbDeleteShips(sIds)
+            }
+            return null
+        }
+
+        const itemCheck = () => {
+            if (iIds.length > 0) {
+                return dbDeleteItems(iIds)
+            }
+            return null
+        }
+        const ccuCheck = () => {
+            if (cIds.length > 0) {
+                return dbDeleteCCUs(cIds)
+            }
+            return null
+        }
+
+        let promises = [
+            packCheck(),
+            shipCheck(),
+            itemCheck(),
+            ccuCheck(),
+            dbDeleteHangar(hId),
+        ]
+
+        Promise.all(promises)
+            .then(() => {
+                this.setState(
+                    {
+                        currentHangarId: 1,
+                        packsCanDelete: false,
+                        shipsCanDelete: false,
+                        itemsCanDelete: false,
+                        ccusCanDelete: false,
+                        allCanDelete: false,
+                        buybacksCanDelete: false,
+                    },
+                    () => {
+                        this.refreshHangar()
+                    }
+                )
+            })
+            .catch((err) => console.log('Error deleting hangar', err))
     }
 
     addNewPackToHangar(e) {

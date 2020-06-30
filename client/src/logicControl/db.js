@@ -156,11 +156,17 @@ const dbUpdateBuyback = (key, obj) => {
 }
 
 //Delete
+const dbDeleteHangar = (key) => {
+    return db.hangars.delete(key)
+}
 const dbDeletePack = (key) => {
     return db.packs.delete(key)
 }
 const dbDeletePacks = (keys) => {
-    return db.packs.delete(keys)
+    return db.packs.bulkDelete(keys)
+}
+const dbDeleteAllPacks = (hangarId) => {
+    return db.packs.where({ packHangarId: hangarId })
 }
 const dbDeleteShip = (key) => {
     return db.ships.delete(key)
@@ -168,14 +174,26 @@ const dbDeleteShip = (key) => {
 const dbDeleteShips = (keys) => {
     return db.ships.bulkDelete(keys)
 }
+const dbDeleteAllShips = (hangarId) => {
+    return db.ships.where({ shipHangarId: hangarId }).delete()
+}
 const dbDeleteItem = (key) => {
     return db.items.delete(key)
 }
 const dbDeleteItems = (keys) => {
     return db.items.bulkDelete(keys)
 }
+const dbDeleteAllItems = (hangarId) => {
+    return db.items.where({ itemHangarId: hangarId })
+}
 const dbDeleteCCU = (key) => {
     return db.ccus.delete(key)
+}
+const dbDeleteCCUs = (keys) => {
+    return db.ccus.bulkDelete(keys)
+}
+const dbDeleteAllCCUs = (hangarId) => {
+    return db.ccus.where({ ccuHangarId: hangarId }).delete()
 }
 
 export {
@@ -212,10 +230,13 @@ export {
     dbUpdateItem,
     dbUpdateCCU,
     dbUpdateBuyback,
+    dbDeleteHangar,
     dbDeletePack,
+    dbDeletePacks,
     dbDeleteShip,
     dbDeleteShips,
     dbDeleteItem,
     dbDeleteItems,
     dbDeleteCCU,
+    dbDeleteCCUs,
 }
