@@ -1201,8 +1201,8 @@ class App extends Component {
             .catch((err) => console.log('Error buying ship', err))
     }
 
-    upgradeShip(shipId, name, uPrice, tPrice) {
-        const price = uPrice + tPrice
+    upgradeShip(shipId, name, newPrice, basePrice) {
+        const price = newPrice + basePrice
         dbUpdateShip(shipId, { toName: name, toPrice: price })
             .then(this.refreshHangar())
             .catch((err) => console.log('Error upgrading ship', err))

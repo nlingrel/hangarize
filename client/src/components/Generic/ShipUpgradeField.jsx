@@ -130,10 +130,11 @@ class ShipUgradeField extends Component {
         }
         const shipId = this.props.shipId
         const tPrice = this.props.toPrice
+        const basePrice = this.props.price
         const priceInt = parseInt(this.state.priceField)
-        const uPrice = Number.isNaN(priceInt) ? 0 : priceInt
+        const newPrice = Number.isNaN(priceInt) ? 0 + tPrice : priceInt + tPrice
 
-        this.props.upgradeShip(shipId, shipName, uPrice, tPrice)
+        this.props.upgradeShip(shipId, shipName, newPrice, basePrice)
         this.resetUpgradeForm()
         document.getElementById(this.formId).reset()
     }
