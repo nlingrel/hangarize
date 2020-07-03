@@ -76,6 +76,7 @@ class App extends Component {
             ccusCanDelete: false,
             buybacksCanDelete: false,
             hangars: [],
+            hangarizePage: 1,
         }
         this.refreshHangar = this.refreshHangar.bind(this)
         this.refreshHangarize = this.refreshHangarize.bind(this)
@@ -289,73 +290,60 @@ class App extends Component {
         this.refreshHangarize()
     }
     selectHangarizeHangar(hangarId) {
-        this.setState({ currentHangarId: hangarId }, () => {
-            this.refreshHangar()
-        })
+        this.setState(
+            {
+                currentHangarId: hangarId,
+                packsCanDelete: false,
+                shipsCanDelete: false,
+                itemsCanDelete: false,
+                ccusCanDelete: false,
+                allCanDelete: false,
+                buybacksCanDelete: false,
+            },
+            () => {
+                this.refreshHangar()
+            }
+        )
     }
 
     stepHangarPage(e) {
         e.preventDefault()
         const direction = e.target.value
-        const currentId = this.state.currentHangarId
         const hangars = this.state.hangars
-        const start = hangars[0].id
-        const stop = hangars[hangars.length - 1].id
-        let newId = 1
-
-        if (direction === 'forward') {
-            if (stop === currentId) {
-                return null
-            }
-            for (let i = 0; i < hangars.length; i++) {
-                if (currentId === hangars[i].id) {
-                    newId = hangars[i + 1].id
-                    break
-                }
-            }
-
-            this.setState({ currentHangarId: newId }, () => {
-                this.refreshHangar()
-            })
-        } else if (direction === 'backward') {
-            if (start === currentId) {
-                return null
-            }
-            for (let i = 0; i < hangars.length; i++) {
-                if (currentId === hangars[i].id) {
-                    newId = hangars[i - 1].id
-                    break
-                }
-            }
-
-            this.setState({ currentHangarId: newId }, () => {
-                this.refreshHangar()
-            })
+        const lastPage = Math.ceil(hangars.length / 5)
+        const firstPage = 1
+        if (lastPage === firstPage) {
+            return null
         }
+        const page = this.state.hangarizePage
+        let newPage = direction === 'forward' ? page + 1 : page - 1
+        if (newPage > lastPage || newPage < firstPage) {
+            return null
+        }
+        console.log(
+            'hangar page step ',
+            direction,
+            lastPage,
+            firstPage,
+            page,
+            newPage
+        )
+
+        this.setState({ hangarizePage: newPage })
     }
     jumpHangarPage(e) {
         e.preventDefault()
         const direction = e.target.value
         const hangars = this.state.hangars
-        const stop = hangars[hangars.length - 1].id
-        const start = hangars[0].id
-        const currentId = this.state.currentHangarId
-        if (
-            (currentId === stop && direction === 'forward') ||
-            (currentId === start && direction === 'backward')
-        ) {
+        const lastPage = Math.ceil(hangars.length / 5)
+        const firstPage = 1
+        if (lastPage === firstPage) {
             return null
         }
+        const page = this.state.hangarizePage
+        let newPage = direction === 'forward' ? lastPage : firstPage
 
-        if (direction === 'forward') {
-            this.setState({ currentHangarId: stop }, () => {
-                this.refreshHangar()
-            })
-        } else if (direction === 'backward') {
-            this.setState({ currentHangarId: start }, () => {
-                this.refreshHangar()
-            })
-        }
+        this.setState({ hangarizePage: newPage })
     }
 
     allDeleteLock(e) {
@@ -402,6 +390,9 @@ class App extends Component {
     addNewHangarFromActual(e) {
         e.preventDefault()
         const name = e.target[0].value
+        if (name.length === 0) {
+            return null
+        }
         console.log('Create new hangar name ', name)
         let hangar = this.Factory.newHangar(name)
         let actualHangar = {}
@@ -1507,6 +1498,7 @@ class App extends Component {
                             hangars={this.state.hangars}
                             stepHangarPage={this.stepHangarPage}
                             jumpHangarPage={this.jumpHangarPage}
+                            hangarizePage={this.state.hangarizePage}
                         />
                     ) : (
                         ''
