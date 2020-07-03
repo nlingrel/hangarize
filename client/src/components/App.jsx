@@ -81,6 +81,8 @@ class App extends Component {
         this.refreshHangarize = this.refreshHangarize.bind(this)
         this.selectHangar = this.selectHangar.bind(this)
         this.selectHangarizeHangar = this.selectHangarizeHangar.bind(this)
+        this.stepHangarPage = this.stepHangarPage.bind(this)
+        this.jumpHangarPage = this.jumpHangarPage.bind(this)
         this.setBuyBackFilter = this.setBuyBackFilter.bind(this)
 
         this.packsDeleteLock = this.packsDeleteLock.bind(this)
@@ -237,6 +239,8 @@ class App extends Component {
                     }
                 }
                 let hangars = results[5]
+                //get rid of actual hangar
+                hangars.shift()
                 hangar.ccus = allCCUs.filter((c) => !c.buyback)
                 buyback.ccus = allCCUs.filter((c) => c.buyback)
                 hangar.id = this.state.currentHangarId
@@ -267,7 +271,9 @@ class App extends Component {
     refreshHangarize() {
         dbGetAllHangars()
             .then((hangars) => {
-                this.setState({ hangars: hangars })
+                let hngrs = hangars
+                hngrs.shift()
+                this.setState({ hangars: hngrs })
                 console.log('hangarize hangars refreshed')
             })
             .catch((err) => {
@@ -286,6 +292,70 @@ class App extends Component {
         this.setState({ currentHangarId: hangarId }, () => {
             this.refreshHangar()
         })
+    }
+
+    stepHangarPage(e) {
+        e.preventDefault()
+        const direction = e.target.value
+        const currentId = this.state.currentHangarId
+        const hangars = this.state.hangars
+        const start = hangars[0].id
+        const stop = hangars[hangars.length - 1].id
+        let newId = 1
+
+        if (direction === 'forward') {
+            if (stop === currentId) {
+                return null
+            }
+            for (let i = 0; i < hangars.length; i++) {
+                if (currentId === hangars[i].id) {
+                    newId = hangars[i + 1].id
+                    break
+                }
+            }
+
+            this.setState({ currentHangarId: newId }, () => {
+                this.refreshHangar()
+            })
+        } else if (direction === 'backward') {
+            if (start === currentId) {
+                return null
+            }
+            for (let i = 0; i < hangars.length; i++) {
+                if (currentId === hangars[i].id) {
+                    newId = hangars[i - 1].id
+                    break
+                }
+            }
+
+            this.setState({ currentHangarId: newId }, () => {
+                this.refreshHangar()
+            })
+        }
+    }
+    jumpHangarPage(e) {
+        e.preventDefault()
+        const direction = e.target.value
+        const hangars = this.state.hangars
+        const stop = hangars[hangars.length - 1].id
+        const start = hangars[0].id
+        const currentId = this.state.currentHangarId
+        if (
+            (currentId === stop && direction === 'forward') ||
+            (currentId === start && direction === 'backward')
+        ) {
+            return null
+        }
+
+        if (direction === 'forward') {
+            this.setState({ currentHangarId: stop }, () => {
+                this.refreshHangar()
+            })
+        } else if (direction === 'backward') {
+            this.setState({ currentHangarId: start }, () => {
+                this.refreshHangar()
+            })
+        }
     }
 
     allDeleteLock(e) {
@@ -337,7 +407,7 @@ class App extends Component {
         let actualHangar = {}
         let actualBuyback = {}
         let newHangarId
-        let oldHangarId = this.state.currentHangarId
+        const oldHangarId = this.state.currentHangarId
         this.setState({ currentHangarId: 1 }, () => {
             this.refreshHangar((actuals) => {
                 actualHangar = actuals[0]
@@ -353,10 +423,9 @@ class App extends Component {
                         )
                     })
                     .then(() => {
-                        this.setState(
-                            { currentHangarId: oldHangarId },
+                        this.setState({ currentHangarId: newHangarId }, () => {
                             this.refreshHangar()
-                        )
+                        })
                     })
                     .catch((err) => {
                         console.log('Error in putHangar then...', err)
@@ -1267,7 +1336,7 @@ class App extends Component {
         const calcTotal = this.state.currentHangar.calcTotal
         const credit = this.state.currentHangar.credit
         const hangarTotal = this.state.currentHangar.total
-        const hangarName = this.state.currentHangar.name || 'Hangar'
+        const hangarName = this.state.currentHangar.name || ''
 
         return (
             <>
@@ -1354,11 +1423,20 @@ class App extends Component {
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize
-                            packs={packs}
-                            ships={ships}
-                            ccus={ccus}
-                            items={items}
-                            buyback={buyback}
+                            packs={hangarName === 'Actual' ? [] : packs}
+                            ships={hangarName === 'Actual' ? [] : ships}
+                            ccus={hangarName === 'Actual' ? [] : ccus}
+                            items={hangarName === 'Actual' ? [] : items}
+                            buyback={
+                                hangarName === 'Actual'
+                                    ? {
+                                          packs: [],
+                                          ships: [],
+                                          items: [],
+                                          ccus: [],
+                                      }
+                                    : buyback
+                            }
                             calcTotal={calcTotal}
                             credit={credit}
                             setBuyBackFilter={this.setBuyBackFilter}
@@ -1419,12 +1497,16 @@ class App extends Component {
                             hangarTotal={hangarTotal}
                             addNewHangarFromActual={this.addNewHangarFromActual}
                             selectHangarizeHangar={this.selectHangarizeHangar}
-                            hangarName={hangarName}
+                            hangarName={
+                                hangarName === 'Actual' ? '' : hangarName
+                            }
                             removeHangar={this.removeHangar}
                             hangarId={this.state.currentHangarId}
                             refreshHangarize={this.refreshHangarize}
                             selectHangar={this.selectHangar}
                             hangars={this.state.hangars}
+                            stepHangarPage={this.stepHangarPage}
+                            jumpHangarPage={this.jumpHangarPage}
                         />
                     ) : (
                         ''

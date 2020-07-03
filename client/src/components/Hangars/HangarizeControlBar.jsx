@@ -2,9 +2,11 @@ import React from 'react'
 
 function HangarizeControlBar(props) {
     const buttons = props.hangars.map((hngr, i) => {
+        const active =
+            hngr.id === props.hangarId ? 'btn-secondary' : 'btn-outline-light'
         return (
             <button
-                className="btn btn-outline-light"
+                className={`btn ${active}`}
                 value={hngr.id}
                 key={`hngrBtn${hngr.id}${i}`}
                 onClick={props.selectHangar}
@@ -43,19 +45,35 @@ function HangarizeControlBar(props) {
                         <div className="col-sm-auto">
                             <div className="input-group">
                                 <div className="input-group-prepend">
-                                    <button className="btn btn-outline-light">
+                                    <button
+                                        className="btn btn-outline-light"
+                                        value="backward"
+                                        onClick={props.jumpHangarPage}
+                                    >
                                         {'<<'}
                                     </button>
-                                    <button className="btn btn-outline-light">
+                                    <button
+                                        className="btn btn-outline-light"
+                                        value="backward"
+                                        onClick={props.stepHangarPage}
+                                    >
                                         {'<'}
                                     </button>
                                 </div>
                                 <div className="btn-group">{buttons}</div>
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-light">
+                                    <button
+                                        className="btn btn-outline-light"
+                                        value="forward"
+                                        onClick={props.stepHangarPage}
+                                    >
                                         {'>'}
                                     </button>
-                                    <button className="btn btn-outline-light">
+                                    <button
+                                        className="btn btn-outline-light"
+                                        value="forward"
+                                        onClick={props.jumpHangarPage}
+                                    >
                                         {'>>'}
                                     </button>
                                 </div>

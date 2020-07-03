@@ -11,6 +11,9 @@ function Hangarize(props) {
                 hangars={props.hangars}
                 addNewHangarFromActual={props.addNewHangarFromActual}
                 selectHangar={props.selectHangar}
+                hangarId={props.hangarId}
+                stepHangarPage={props.stepHangarPage}
+                jumpHangarPage={props.jumpHangarPage}
             />
             <HangarControlBar
                 allCanDelete={props.allCanDelete}
