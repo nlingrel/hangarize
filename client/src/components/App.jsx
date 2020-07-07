@@ -1324,7 +1324,9 @@ class App extends Component {
 
     navToActual(e) {
         e.preventDefault()
-        this.setState({ currentView: 'actual', currentHangarId: 1 })
+        this.setState({ currentView: 'actual', currentHangarId: 1 }, () => {
+            this.refreshHangar()
+        })
     }
 
     navToHangarize(e) {
