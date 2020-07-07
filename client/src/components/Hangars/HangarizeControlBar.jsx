@@ -55,6 +55,9 @@ function HangarizeControlBar(props) {
                         <div className="col-sm-auto">
                             <div className="input-group">
                                 <div className="input-group-prepend">
+                                    <button className="btn btn-outline-light">
+                                        Filter
+                                    </button>
                                     <button
                                         className={`btn ${canPageBackward}`}
                                         value="backward"

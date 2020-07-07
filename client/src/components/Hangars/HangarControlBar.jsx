@@ -155,15 +155,20 @@ class HangarControlBar extends Component {
                                         {this.props.hangarId > 1 &&
                                         this.props.allCanDelete ? (
                                             this.state.showDeleteConfirm ? (
-                                                <HangarDeleteConfirm
-                                                    hangarId={
-                                                        this.props.hangarId
-                                                    }
-                                                    confirm={
-                                                        this.props.removeHangar
-                                                    }
-                                                    cancel={this.toggleConfirm}
-                                                />
+                                                <>
+                                                    <HangarDeleteConfirm
+                                                        hangarId={
+                                                            this.props.hangarId
+                                                        }
+                                                        confirm={
+                                                            this.props
+                                                                .removeHangar
+                                                        }
+                                                        cancel={
+                                                            this.toggleConfirm
+                                                        }
+                                                    />
+                                                </>
                                             ) : (
                                                 <MinusButton
                                                     onClick={this.toggleConfirm}
@@ -176,9 +181,15 @@ class HangarControlBar extends Component {
                                             deleteLocked={
                                                 this.props.allCanDelete
                                             }
-                                            toggleDeleteLock={
-                                                this.props.allDeleteLock
-                                            }
+                                            toggleDeleteLock={(e) => {
+                                                if (
+                                                    this.state.showDeleteConfirm
+                                                ) {
+                                                    this.toggleConfirm()
+                                                }
+
+                                                this.props.allDeleteLock(e)
+                                            }}
                                         />
                                     </div>
                                 </div>
