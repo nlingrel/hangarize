@@ -58,6 +58,7 @@ class App extends Component {
                 ccus: [],
                 items: [],
                 id: 1,
+                total: '',
             },
             currentBuyback: {
                 packs: [],
@@ -1371,6 +1372,7 @@ class App extends Component {
                             items={items}
                             buyback={buyback}
                             calcTotal={calcTotal}
+                            hangarTotal={this.state.currentHangar.total}
                             credit={credit}
                             setBuyBackFilter={this.setBuyBackFilter}
                             buybackFilter={this.state.buybackFilter}

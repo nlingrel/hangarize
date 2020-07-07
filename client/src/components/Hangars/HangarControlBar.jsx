@@ -6,10 +6,12 @@ import HangarDeleteConfirm from './HangarDeleteConfirm'
 class HangarControlBar extends Component {
     constructor(props) {
         super(props)
+        this.totalExists =
+            this.props.hangarTotal > 0 ? this.props.hangarTotal : ''
         this.state = {
             showInput: false,
             showDeleteConfirm: false,
-            totalField: '',
+            totalField: this.totalExists,
         }
         this.toggleInput = this.toggleInput.bind(this)
         this.toggleConfirm = this.toggleConfirm.bind(this)
@@ -61,7 +63,7 @@ class HangarControlBar extends Component {
                             placeholder={`$${this.props.calcTotal}`}
                             value={this.state.totalField}
                             onChange={this.handleChange.bind(this)}
-                            onFocus={this.toggleInput.bind(this)}
+                            // onFocus={this.toggleInput.bind(this)}
                         />
                     </div>
                 </div>
