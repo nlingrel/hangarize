@@ -271,7 +271,11 @@ class AddCCUForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${baseFilled} mb-1`}
-                                        id="inputBaseName"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputBaseName'
+                                                : 'inputBaseName'
+                                        }
                                         autoComplete="off"
                                         placeholder="Base"
                                         onChange={this.suggestBaseNames}
@@ -286,7 +290,11 @@ class AddCCUForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${toFilled} mb-1`}
-                                        id="inputToName"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputToName'
+                                                : 'inputToName'
+                                        }
                                         autoComplete="off"
                                         placeholder="To"
                                         onChange={this.suggestToNames}
@@ -301,7 +309,11 @@ class AddCCUForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${priceFilled} mb-1`}
-                                        id="inputCCUPrice"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputCCUPrice'
+                                                : 'inputCCUPrice'
+                                        }
                                         placeholder={pricePlaceholder}
                                         onChange={this.priceChange}
                                         value={this.state.priceField}

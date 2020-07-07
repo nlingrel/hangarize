@@ -131,7 +131,11 @@ class AddPackForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${nameFilled} mb-1`}
-                                        id="inputPackName"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputPackName'
+                                                : 'inputPackName'
+                                        }
                                         autoComplete="off"
                                         onChange={this.nameChange}
                                         placeholder="Name"
@@ -141,7 +145,11 @@ class AddPackForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${priceFilled} mb-1`}
-                                        id="inputPackPrice"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputPackPrice'
+                                                : 'inputPackPrice'
+                                        }
                                         placeholder="Price"
                                         value={this.state.priceField}
                                         onChange={this.priceChange}
@@ -157,7 +165,11 @@ class AddPackForm extends Component {
 
                                 <select
                                     className={`form-control ${filledInHangar} mb-1`}
-                                    id="hangarExtraSelectPack"
+                                    id={
+                                        this.props.isBuyBackForm
+                                            ? 'bbhangarExtraSelectPack'
+                                            : 'hangarExtraSelectPack'
+                                    }
                                     onChange={this.hangarChange}
                                 >
                                     <option className="bg-dark text-secondary">
@@ -180,7 +192,11 @@ class AddPackForm extends Component {
                                 <input
                                     type="text"
                                     className={`form-control ${uecFilled} mb-1`}
-                                    id="inputUEC"
+                                    id={
+                                        this.props.isBuyBackForm
+                                            ? 'bbinputUEC'
+                                            : 'inputUEC'
+                                    }
                                     placeholder="UEC"
                                     value={this.state.uecField}
                                     onChange={this.uecChange}
@@ -191,7 +207,11 @@ class AddPackForm extends Component {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        id="LTIcheckPack"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbLTIcheckPack'
+                                                : 'LTIcheckPack'
+                                        }
                                         name="LTI"
                                         onClick={this.ltiChange}
                                         onBlur={this.ltiChange}
@@ -207,7 +227,11 @@ class AddPackForm extends Component {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        id="SCGameCheck"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbSCGameCheck'
+                                                : 'SCGameCheck'
+                                        }
                                         name="SCGame"
                                         onClick={this.scGameChange}
                                         onBlur={this.scGameChange}
@@ -223,7 +247,11 @@ class AddPackForm extends Component {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        id="Sq42GameCheck"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbSq42GameCheck'
+                                                : 'Sq42GameCheck'
+                                        }
                                         name="Sq42"
                                         onClick={this.sq42GameChange}
                                         onBlur={this.sq42GameChange}

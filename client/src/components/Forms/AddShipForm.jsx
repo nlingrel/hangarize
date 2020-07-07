@@ -338,7 +338,11 @@ class AddShipForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${filledInName} mb-1`}
-                                        id="inputShipName"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputShipName'
+                                                : 'inputShipName'
+                                        }
                                         onChange={this.suggestShipNames}
                                         value={this.state.shipNameField}
                                         autoComplete="off"
@@ -353,7 +357,11 @@ class AddShipForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${filledInManu} mb-1`}
-                                        id="inputShipManufacturer"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputShipManufacturer'
+                                                : 'inputShipManufacturer'
+                                        }
                                         placeholder="Manufacturer"
                                         autoComplete="off"
                                         onChange={this.suggestManufacturers}
@@ -368,7 +376,11 @@ class AddShipForm extends Component {
                                         <input
                                             type="text"
                                             className={`form-control ${filledInPrice} mb-1 col`}
-                                            id="inputShipPrice"
+                                            id={
+                                                this.props.isBuyBackForm
+                                                    ? 'bbinputShipPrice'
+                                                    : 'inputShipPrice'
+                                            }
                                             placeholder={pricePlaceholder}
                                             onChange={this.handlePriceChange}
                                             value={this.state.priceField}
@@ -377,7 +389,11 @@ class AddShipForm extends Component {
 
                                         <select
                                             className={`form-control ${filledInSize} mb-1 col`}
-                                            id="hangarInfoSelectSize"
+                                            id={
+                                                this.props.isBuyBackForm
+                                                    ? 'bbhangarInfoSelectSize'
+                                                    : 'hangarInfoSelectSize'
+                                            }
                                             onChange={this.sizeChange}
                                             value={this.state.sizeValue}
                                         >
@@ -403,7 +419,11 @@ class AddShipForm extends Component {
                                     </div>
                                     <select
                                         className={`form-control ${filledInRole} mb-1 `}
-                                        id="hangarInfoSelectRole"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbhangarInfoSelectRole'
+                                                : 'hangarInfoSelectRole'
+                                        }
                                         onChange={this.roleChange}
                                         value={this.state.roleValue}
                                     >
@@ -422,7 +442,11 @@ class AddShipForm extends Component {
 
                                 <select
                                     className={`form-control ${filledInHangar} mb-1`}
-                                    id="hangarExtraSelectShip"
+                                    id={
+                                        this.props.isBuyBackForm
+                                            ? 'bbhangarExtraSelectShip'
+                                            : 'hangarExtraSelectShip'
+                                    }
                                     onChange={this.hangarChange}
                                 >
                                     <option className="bg-dark text-secondary">
@@ -445,7 +469,11 @@ class AddShipForm extends Component {
                                 <input
                                     type="text"
                                     className={`form-control ${filledInSkin} mb-1`}
-                                    id="inputShipSkin"
+                                    id={
+                                        this.props.isBuyBackForm
+                                            ? 'bbinputShipSkin'
+                                            : 'inputShipSkin'
+                                    }
                                     placeholder="Skin"
                                     onChange={this.handleSkinChange}
                                     value={this.state.skinField}
@@ -456,7 +484,11 @@ class AddShipForm extends Component {
                                     <input
                                         className="form-check mr-2"
                                         type="checkbox"
-                                        id="LTIcheckShip"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbLTIcheckShip'
+                                                : 'LTIcheckShip'
+                                        }
                                         name="LTI"
                                         onClick={this.ltiChange}
                                         onBlur={this.ltiChange}

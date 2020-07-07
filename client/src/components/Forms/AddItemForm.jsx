@@ -84,7 +84,11 @@ class AddItemForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${nameFilled} mb-1`}
-                                        id="inputItemName"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputItemName'
+                                                : 'inputItemName'
+                                        }
                                         autoComplete="off"
                                         placeholder="Name"
                                         onChange={this.nameChange}
@@ -95,7 +99,11 @@ class AddItemForm extends Component {
                                     <input
                                         type="text"
                                         className={`form-control ${priceFilled} mb-1`}
-                                        id="inputItemPrice"
+                                        id={
+                                            this.props.isBuyBackForm
+                                                ? 'bbinputItemPrice'
+                                                : 'inputItemPrice'
+                                        }
                                         placeholder="Price"
                                         onChange={this.priceChange}
                                         value={this.state.priceField}
@@ -106,7 +114,11 @@ class AddItemForm extends Component {
                                         <input
                                             className="form-check-input"
                                             type="checkbox"
-                                            id="meltCheckItem"
+                                            id={
+                                                this.props.isBuyBackForm
+                                                    ? 'bbmeltCheckItem'
+                                                    : 'meltCheckItem'
+                                            }
                                             name="Meltable"
                                             onClick={this.meltableChange}
                                             onBlur={this.meltableChange}
