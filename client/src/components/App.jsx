@@ -66,6 +66,8 @@ class App extends Component {
                 items: [],
             },
             buybackFilter: 'all',
+            hangarizeFilter: 'abc',
+            hangarizeSort: 'up',
             currentView: 'home',
             views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
             currentHangarId: 1,
@@ -85,6 +87,8 @@ class App extends Component {
         this.stepHangarPage = this.stepHangarPage.bind(this)
         this.jumpHangarPage = this.jumpHangarPage.bind(this)
         this.setBuyBackFilter = this.setBuyBackFilter.bind(this)
+        this.setHangarizeFilter = this.setHangarizeFilter.bind(this)
+        this.toggleHangarizeSort = this.toggleHangarizeSort.bind(this)
 
         this.packsDeleteLock = this.packsDeleteLock.bind(this)
         this.shipsDeleteLock = this.shipsDeleteLock.bind(this)
@@ -149,7 +153,17 @@ class App extends Component {
 
         this.setState({ buybackFilter: filter })
     }
-
+    setHangarizeFilter(e) {
+        e.preventDefault()
+        console.log('setHangarizeFilter', e.target.value)
+        e.persist()
+        const filter = e.target.value || 'abc'
+        this.setState({ hangarizeFilter: filter })
+    }
+    toggleHangarizeSort() {
+        const sorter = this.state.hangarizeSort === 'up' ? 'down' : 'up'
+        this.setState({ hangarizeSort: sorter })
+    }
     componentDidMount() {
         // this.db.open().catch((err) => {
         //     console.log('Error opening database')
@@ -531,7 +545,11 @@ class App extends Component {
     removeHangar(e) {
         e.preventDefault()
         const hId = parseInt(e.target.value)
-        console.log('Remove hangar clicked. remove hangar id ', hId)
+        console.log(
+            'Remove hangar clicked. remove hangar id ',
+            e.target.value,
+            hId
+        )
         if (hId === 1) {
             return null
         }
@@ -1499,6 +1517,10 @@ class App extends Component {
                             stepHangarPage={this.stepHangarPage}
                             jumpHangarPage={this.jumpHangarPage}
                             hangarizePage={this.state.hangarizePage}
+                            hangarizeFilter={this.state.hangarizeFilter}
+                            setHangarizeFilter={this.setHangarizeFilter}
+                            toggleHangarizeSort={this.toggleHangarizeSort}
+                            hangarizeSort={this.state.hangarizeSort}
                         />
                     ) : (
                         ''

@@ -15,6 +15,10 @@ function Hangarize(props) {
                 stepHangarPage={props.stepHangarPage}
                 jumpHangarPage={props.jumpHangarPage}
                 hangarizePage={props.hangarizePage}
+                setHangarizeFilter={props.setHangarizeFilter}
+                hangarizeFilter={props.hangarizeFilter}
+                toggleHangarizeSort={props.toggleHangarizeSort}
+                hangarizeSort={props.hangarizeSort}
             />
             <HangarControlBar
                 allCanDelete={props.allCanDelete}
