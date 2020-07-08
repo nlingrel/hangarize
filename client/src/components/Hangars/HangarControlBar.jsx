@@ -54,8 +54,9 @@ class HangarControlBar extends Component {
         const creditFilled = this.props.hangarTotal ? creditColor : creditGrey
         const totalInput = (
             <>
-                <div className="form-group col p-0">
+                <div className="form-group">
                     <div className="input-group input-group-sm">
+                        <div className="input-group-prepend mr-2">Total</div>
                         <input
                             type="text"
                             className="form-control bg-dark text-light"
@@ -73,19 +74,7 @@ class HangarControlBar extends Component {
                         className="btn btn-sm btn-success"
                         onClick={this.changeTotal.bind(this)}
                     >
-                        <svg
-                            className="bi bi-check2"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
-                            />
-                        </svg>
+                        OK
                     </button>
                     <button
                         type="button"
@@ -100,7 +89,10 @@ class HangarControlBar extends Component {
         const totalView = this.state.showInput ? (
             totalInput
         ) : (
-            <span onClick={this.toggleInput}>${this.props.calcTotal}</span>
+            <>
+                <div className="bg-secondary">Total</div>
+                <div onClick={this.toggleInput}> ${this.props.calcTotal}</div>
+            </>
         )
         return (
             <>
@@ -108,36 +100,25 @@ class HangarControlBar extends Component {
                     <div className="card bg-dark border-secondary">
                         <div className="d-flex justify-content-between">
                             <div className="d-flex">
-                                <div
-                                    className="btn-toolbar bg-dark"
-                                    role="toolbar"
-                                    aria-label="Toolbar with button groups"
-                                >
-                                    {' '}
-                                    <div className="card-body">
-                                        <div className="card-group">
-                                            <div className="card border-none bg-dark p-1 ">
-                                                <div className=" card-header bg-secondary text-light p-1 ">
-                                                    Total
-                                                </div>
+                                <div className="btn-group">
+                                    <div className="card border-none bg-dark p-1 ">
+                                        <div
+                                            className={` ${totalFilled} bg-dark text-center text-nowrap m-1`}
+                                        >
+                                            {totalView}
+                                        </div>
+                                    </div>
 
-                                                <div
-                                                    className={`card-footer ${totalFilled} bg-dark text-center p-1 `}
-                                                >
-                                                    {totalView}
-                                                </div>
-                                            </div>
-
-                                            <div className="card border-none bg-dark p-1">
-                                                <div className="card-header bg-secondary text-light text-center p-1 text-nowrap">
+                                    <div className="card border-none bg-dark p-1">
+                                        <div
+                                            className={` ${creditFilled} bg-dark text-center text-nowrap m-1`}
+                                        >
+                                            <>
+                                                <div className="bg-secondary">
                                                     Credit
                                                 </div>
-                                                <div
-                                                    className={`card-footer ${creditFilled} bg-dark text-center p-1`}
-                                                >
-                                                    ${credit}
-                                                </div>
-                                            </div>
+                                                <div>${credit}</div>
+                                            </>
                                         </div>
                                     </div>
                                 </div>
