@@ -66,6 +66,7 @@ class App extends Component {
                 ccus: [],
                 items: [],
             },
+            refreshDone: true,
             buybackFilter: 'all',
             hangarizeFilter: 'abc',
             hangarizeSort: 'up',
@@ -171,9 +172,10 @@ class App extends Component {
         // })
         seedManus()
         seedShips()
-
-        this.refreshHangar()
-        this.refreshHangarize()
+        this.setState({ refreshDone: false }, () => {
+            this.refreshHangar()
+            this.refreshHangarize()
+        })
     }
 
     refreshHangar(callback) {
@@ -289,7 +291,7 @@ class App extends Component {
             .then((hangars) => {
                 let hngrs = hangars
                 hngrs.shift()
-                this.setState({ hangars: hngrs })
+                this.setState({ hangars: hngrs, refreshDone: true })
                 console.log('hangarize hangars refreshed')
             })
             .catch((err) => {
@@ -300,9 +302,10 @@ class App extends Component {
     selectHangar(e) {
         e.preventDefault()
         const value = parseInt(e.target.value) || 1
-
-        this.selectHangarizeHangar(value)
-        this.refreshHangarize()
+        this.setState({ refreshDone: false }, () => {
+            this.selectHangarizeHangar(value)
+            this.refreshHangarize()
+        })
     }
     selectHangarizeHangar(hangarId) {
         this.setState(
@@ -404,12 +407,17 @@ class App extends Component {
 
     addNewHangarFromActual(e) {
         e.preventDefault()
+        // name: name,
+        //     calcTotal: 0,
+        //     credit: 0,
+        //     tax: 0,
+        //     total: 0,
         const name = e.target[0].value
         if (name.length === 0) {
             return null
         }
         console.log('Create new hangar name ', name)
-        let hangar = this.Factory.newHangar(name)
+        let hangar = {}
         let actualHangar = {}
         let actualBuyback = {}
         let newHangarId
@@ -418,6 +426,9 @@ class App extends Component {
             this.refreshHangar((actuals) => {
                 actualHangar = actuals[0]
                 actualBuyback = actuals[1]
+                let total = actualHangar.total || 0
+                let credit = actualHangar.credit || 0
+                hangar = this.Factory.newHangar(name, 0, credit, 0, total)
                 console.log('Actuals from refreshhangar', actuals)
                 dbPutHangar(hangar)
                     .then((id) => {
@@ -1348,7 +1359,9 @@ class App extends Component {
         const calcTotal = this.state.currentHangar.calcTotal
         const credit = this.state.currentHangar.credit
         const hangarTotal = this.state.currentHangar.total
-        const hangarName = this.state.currentHangar.name || ''
+        const hangarName = this.state.refreshDone
+            ? this.state.currentHangar.name
+            : ''
 
         return (
             <>
@@ -1433,6 +1446,7 @@ class App extends Component {
                             changeTotal={this.changeTotal}
                             hangarTotal={hangarTotal}
                             hangarName={hangarName}
+                            refreshDone={this.state.refreshDone}
                         />
                     ) : this.state.currentView === 'hangarize' ? (
                         <Hangarize
@@ -1450,8 +1464,8 @@ class App extends Component {
                                       }
                                     : buyback
                             }
-                            calcTotal={calcTotal}
-                            credit={credit}
+                            calcTotal={hangarName === 'Actual' ? '' : calcTotal}
+                            credit={hangarName === 'Actual' ? '' : credit}
                             setBuyBackFilter={this.setBuyBackFilter}
                             buybackFilter={this.state.buybackFilter}
                             packsDeleteLock={this.packsDeleteLock}
@@ -1507,7 +1521,9 @@ class App extends Component {
                             meltCCU={this.meltCCU}
                             buyBackCCU={this.buyBackCCU}
                             changeTotal={this.changeTotal}
-                            hangarTotal={hangarTotal}
+                            hangarTotal={
+                                hangarName === 'Actual' ? '' : hangarTotal
+                            }
                             addNewHangarFromActual={this.addNewHangarFromActual}
                             selectHangarizeHangar={this.selectHangarizeHangar}
                             hangarName={
@@ -1525,6 +1541,7 @@ class App extends Component {
                             setHangarizeFilter={this.setHangarizeFilter}
                             toggleHangarizeSort={this.toggleHangarizeSort}
                             hangarizeSort={this.state.hangarizeSort}
+                            refreshDone={this.state.refreshDone}
                         />
                     ) : (
                         ''

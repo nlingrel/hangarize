@@ -14,8 +14,18 @@ function ShipToolBar(props) {
                     ''
                 )}
 
-                {props.meltable ? <MeltButton melt={props.meltShip} /> : ''}
-                <MinusButton onClick={props.removeShip} />
+                {props.meltable ? (
+                    <MeltButton
+                        melt={props.meltShip}
+                        dataTarget={props.dataTarget}
+                    />
+                ) : (
+                    ''
+                )}
+                <MinusButton
+                    onClick={props.removeShip}
+                    dataTarget={props.dataTarget}
+                />
             </div>
         </>
     )

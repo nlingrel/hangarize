@@ -1,11 +1,14 @@
 import React from 'react'
 
 function MinusButton(props) {
+    const collapseTarget = props.dataTarget ? props.dataTarget : ''
     return (
         <button
             className="btn btn-outline-danger btn-sm ml-1"
             onClick={props.onClick}
             title="Delete"
+            data-toggle="collapse"
+            data-target={collapseTarget}
         >
             <svg
                 className="bi bi-trash"

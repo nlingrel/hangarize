@@ -40,18 +40,17 @@ class HangarControlBar extends Component {
         this.setState({ showInput: false, totalField: '' })
     }
     render() {
+        const credit = this.props.hangarTotal - this.props.calcTotal
         const totalFilled = this.props.hangarTotal
             ? 'text-light'
             : 'text-secondary'
         const creditColor =
-            this.props.credit > 0
-                ? 'text-succes'
-                : this.props.credit < 0
+            credit > 0
+                ? 'text-success'
+                : credit < 0
                 ? 'text-danger'
                 : 'text-light'
-        const creditGrey = this.props.hangarTotal
-            ? 'text-light'
-            : 'text-secondary'
+        const creditGrey = this.props.hangarTotal ? '' : 'text-secondary'
         const creditFilled = this.props.hangarTotal ? creditColor : creditGrey
         const totalInput = (
             <>
@@ -136,7 +135,7 @@ class HangarControlBar extends Component {
                                                 <div
                                                     className={`card-footer ${creditFilled} bg-dark text-center p-1`}
                                                 >
-                                                    ${this.props.credit}
+                                                    ${credit}
                                                 </div>
                                             </div>
                                         </div>

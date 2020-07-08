@@ -30,6 +30,7 @@ function Hangarize(props) {
                 hangarName={props.hangarName}
                 removeHangar={props.removeHangar}
                 hangarId={props.hangarId}
+                refreshDone={props.refreshDone}
             />
             <HangarContainer
                 packs={props.packs}

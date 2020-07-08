@@ -1,11 +1,14 @@
 import React from 'react'
 
 function MeltButton(props) {
+    const collapseTarget = props.dataTarget ? props.dataTarget : ''
     return (
         <button
             className="btn btn-outline-warning btn-sm ml-1"
             title="Melt"
             onClick={props.melt}
+            data-toggle="collapse"
+            data-target={collapseTarget}
         >
             <svg
                 className="bi bi-credit-card"

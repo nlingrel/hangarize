@@ -14,6 +14,7 @@ function ActualHangar(props) {
                 hangarTotal={props.hangarTotal}
                 hangarName={props.hangarName}
                 hangarId={props.hangarId}
+                refreshDone={props.refreshDone}
             />
             <HangarContainer
                 packs={props.packs}

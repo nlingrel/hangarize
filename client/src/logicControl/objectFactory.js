@@ -2,13 +2,13 @@ class Factory {
     constructor(name) {
         this.name = name || 'factory'
     }
-    newHangar(name) {
+    newHangar(name, calcTotal, credit, tax, total) {
         let hngr = {
             name: name,
-            calcTotal: 0,
-            credit: 0,
-            tax: 0,
-            total: 0,
+            calcTotal: calcTotal,
+            credit: credit,
+            tax: tax,
+            total: total,
         }
         return hngr
     }

@@ -131,6 +131,7 @@ function HangarizeControlBar(props) {
                                         <button
                                             className="btn btn-outline-light"
                                             onClick={props.toggleHangarizeSort}
+                                            title="Ascending/Descending"
                                         >
                                             {sortButton}
                                         </button>
@@ -139,6 +140,7 @@ function HangarizeControlBar(props) {
                                             value="abc"
                                             type="button"
                                             onClick={props.setHangarizeFilter}
+                                            title="Sort Alphabetically"
                                         >
                                             {abcButton}
                                         </button>
@@ -146,6 +148,7 @@ function HangarizeControlBar(props) {
                                             className={`${createdClass}`}
                                             value="created"
                                             onClick={props.setHangarizeFilter}
+                                            title="Sort Historically"
                                         >
                                             {button123}
                                         </button>
@@ -154,6 +157,7 @@ function HangarizeControlBar(props) {
                                         className={`btn ${canPageBackward}`}
                                         value="backward"
                                         onClick={props.jumpHangarPage}
+                                        title="First Page"
                                     >
                                         {'<<'}
                                     </button>
@@ -161,6 +165,7 @@ function HangarizeControlBar(props) {
                                         className={`btn ${canPageBackward}`}
                                         value="backward"
                                         onClick={props.stepHangarPage}
+                                        title="Previous Page"
                                     >
                                         {'<'}
                                     </button>
@@ -171,6 +176,7 @@ function HangarizeControlBar(props) {
                                         className={`btn ${canPageForward}`}
                                         value="forward"
                                         onClick={props.stepHangarPage}
+                                        title="Next Page"
                                     >
                                         {'>'}
                                     </button>
@@ -178,6 +184,7 @@ function HangarizeControlBar(props) {
                                         className={`btn ${canPageForward}`}
                                         value="forward"
                                         onClick={props.jumpHangarPage}
+                                        title="Lasts Page"
                                     >
                                         {'>>'}
                                     </button>

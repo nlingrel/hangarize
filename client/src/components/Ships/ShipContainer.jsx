@@ -48,9 +48,9 @@ function ShipContainer(props) {
         <div
             className="accordion mb-1"
             id={props.shipId}
-            draggable={props.draggable}
-            onDragStart={dragStart}
-            onDragOver={dragOver}
+            // draggable={props.draggable}
+            // onDragStart={dragStart}
+            // onDragOver={dragOver}
         >
             <div className="card bg-dark border-light mx-1 mb-1">
                 <div
@@ -97,6 +97,7 @@ function ShipContainer(props) {
                             canUpgrade={props.canUpgrade}
                             shipId={props.shipId}
                             meltShip={props.meltShip}
+                            dataTarget={`#collapseShip${props.shipId}${props.number}`}
                         />
                     </div>
                 </div>
