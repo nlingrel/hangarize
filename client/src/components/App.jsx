@@ -468,7 +468,6 @@ class App extends Component {
         }
 
         const copyPack = (pack, hangarId) => {
-            console.log(`Pack ${pack.name} copied.  Ships = ${pack.ships}`)
             let newPack = this.Factory.newPack(
                 pack.name,
                 pack.price,

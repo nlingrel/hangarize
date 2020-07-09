@@ -10,8 +10,10 @@ import MinusButton from '../Generic/MinusButton'
 
 //in name, packId, number, ships
 function PackContainer(props) {
+    let priceAdded = 0
     const ships = props.ships.map((ship, i) => {
         const showToPrice = ship.toName.length > 0
+        priceAdded += ship.toPrice
         return (
             <ShipContainer
                 name={ship.name}
@@ -62,6 +64,10 @@ function PackContainer(props) {
     const shipIds = props.ships.map((ship) => {
         return ship.id
     })
+
+    const priceDisplay = priceAdded > 0 ? props.price + priceAdded : props.price
+    const priceColor = priceAdded > 0 ? 'text-info' : 'text-light'
+
     return (
         <div className="accordion mb-1">
             <div className="card bg-dark border-light mx-1 mb-1">
@@ -85,11 +91,11 @@ function PackContainer(props) {
                                 data-target={`#collapsePack${props.packId}${props.number}`}
                             >
                                 <div className="bg-dark text-light">
-                                    <small>
+                                    <small className={`${priceColor}`}>
                                         <span className="text-white-50">
                                             $&nbsp;
                                         </span>
-                                        {props.price}
+                                        {priceDisplay}
                                     </small>
                                 </div>
                             </div>

@@ -44,6 +44,7 @@ function ShipContainer(props) {
         )
     })
     const isUpgraded = props.toName.length > 0
+    const priceColor = isUpgraded && !props.inPack ? 'text-info' : 'text-light'
     return (
         <div
             className="accordion mb-1"
@@ -74,7 +75,7 @@ function ShipContainer(props) {
                         data-target={`#collapseShip${props.shipId}${props.number}`}
                     >
                         {props.showPrice ? (
-                            <small className="text-light">
+                            <small className={`${priceColor}`}>
                                 <span className="text-secondary">$&nbsp;</span>
                                 {isUpgraded ? props.toPrice : props.price}
                             </small>
