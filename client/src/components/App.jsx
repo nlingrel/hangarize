@@ -1406,6 +1406,7 @@ class App extends Component {
                         <Home
                             navToActual={this.navToActual}
                             navToHangarize={this.navToHangarize}
+                            navToDocs={this.navToDocs}
                         />
                     ) : this.state.currentView === 'docs' ? (
                         <Docs />
