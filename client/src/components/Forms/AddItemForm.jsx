@@ -128,7 +128,11 @@ class AddItemForm extends Component {
                                         />
                                         <label
                                             className={`form-check-label font-weight-bold ${checkedMelt}`}
-                                            htmlFor="meltCheckItem"
+                                            htmlFor={
+                                                this.props.isBuyBackForm
+                                                    ? 'bbmeltCheckItem'
+                                                    : 'meltCheckItem'
+                                            }
                                         >
                                             Melt-able
                                         </label>

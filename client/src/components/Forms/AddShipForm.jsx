@@ -495,7 +495,11 @@ class AddShipForm extends Component {
                                     />
                                     <label
                                         className={`form-check-label font-weight-bold ${checkedLTI}`}
-                                        htmlFor="LTIcheck"
+                                        htmlFor={
+                                            this.props.isBuyBackForm
+                                                ? 'bbLTIcheckShip'
+                                                : 'LTIcheckShip'
+                                        }
                                     >
                                         LTI
                                     </label>

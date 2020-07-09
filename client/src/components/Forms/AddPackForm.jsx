@@ -221,7 +221,11 @@ class AddPackForm extends Component {
                                     />
                                     <label
                                         className={`form-check-label font-weight-bold ${checkedLTI}`}
-                                        htmlFor="LTIcheck"
+                                        htmlFor={
+                                            this.props.isBuyBackForm
+                                                ? 'bbLTIcheckPack'
+                                                : 'LTIcheckPack'
+                                        }
                                     >
                                         LTI
                                     </label>
@@ -241,7 +245,11 @@ class AddPackForm extends Component {
                                     />
                                     <label
                                         className={`form-check-label font-weight-bold ${checkedSCG}`}
-                                        htmlFor="SCGameCheck"
+                                        htmlFor={
+                                            this.props.isBuyBackForm
+                                                ? 'bbSCGameCheck'
+                                                : 'SCGameCheck'
+                                        }
                                     >
                                         SC Game
                                     </label>
@@ -261,7 +269,11 @@ class AddPackForm extends Component {
                                     />
                                     <label
                                         className={`form-check-label font-weight-bold ${checkedS42}`}
-                                        htmlFor="Sq42GameCheck"
+                                        htmlFor={
+                                            this.props.isBuyBackForm
+                                                ? 'bbSq42GameCheck'
+                                                : 'Sq42GameCheck'
+                                        }
                                     >
                                         Sq42 Game
                                     </label>
