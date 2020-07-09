@@ -44,7 +44,10 @@ function ShipContainer(props) {
         )
     })
     const isUpgraded = props.toName.length > 0
-    const priceColor = isUpgraded && !props.inPack ? 'text-info' : 'text-light'
+    const priceColor =
+        isUpgraded && !props.inPack
+            ? 'text-info font-weight-bold'
+            : 'text-light '
     return (
         <div
             className="accordion mb-1"

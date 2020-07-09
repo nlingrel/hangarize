@@ -66,7 +66,8 @@ function PackContainer(props) {
     })
 
     const priceDisplay = priceAdded > 0 ? props.price + priceAdded : props.price
-    const priceColor = priceAdded > 0 ? 'text-info' : 'text-light'
+    const priceColor =
+        priceAdded > 0 ? 'text-info font-weight-bold' : 'text-light '
 
     return (
         <div className="accordion mb-1">

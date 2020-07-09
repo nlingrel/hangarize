@@ -17,6 +17,12 @@ function Home(props) {
                                         actual hangar -- as it appears on your
                                         Star Citizen Account -- will help you
                                         plan potential changes to your fleet.
+                                        <button
+                                            className="btn btn-link font-weight-bold"
+                                            onClick={props.navToActual}
+                                        >
+                                            Take me There
+                                        </button>
                                     </p>
                                 </h6>
                                 <h6>
@@ -29,6 +35,12 @@ function Home(props) {
                                         hangar. You can save any number of new
                                         hangars with any number of differences
                                         between them.
+                                        <button
+                                            className="btn btn-link font-weight-bold"
+                                            onClick={props.navToHangarize}
+                                        >
+                                            Take me There
+                                        </button>
                                     </p>
                                 </h6>
                             </div>
@@ -37,18 +49,24 @@ function Home(props) {
                                 <h6>
                                     IndexedDB
                                     <p>
-                                        Hangarize saves information in
-                                        IndexedDB, a database controlled by your
-                                        browser. The database and app are
-                                        completely client-side. Your information
-                                        remains on your device and is not
-                                        transmitted to an external server via
-                                        the app. However, this means that your
-                                        hangars are not synced across devices so
-                                        you will have to build hangars on each
-                                        device you want to use. Syncing and data
-                                        back-up are planned optional features
-                                        but are not yet implemented.
+                                        Hangarize saves information in{' '}
+                                        <a
+                                            href="https://en.wikipedia.org/wiki/Indexed_Database_API"
+                                            className="btn-link font-weight-bold"
+                                        >
+                                            IndexedDB
+                                        </a>
+                                        , a database controlled by your browser.
+                                        The database and app are completely
+                                        client-side. Your information remains on
+                                        your device and is not transmitted to an
+                                        external server via the app. However,
+                                        this means that your hangars are not
+                                        synced across devices so you will have
+                                        to build hangars on each device you want
+                                        to use. Syncing and data back-up are
+                                        planned optional features but are not
+                                        yet implemented.
                                     </p>
                                 </h6>
                             </div>
@@ -83,18 +101,33 @@ function Home(props) {
                 </div>
                 <div className="card-footer">
                     <div className="d-flex justify-content-center">
-                        <a
-                            href="http://www.robertsspaceindustries.com"
-                            className="btn-link"
-                        >
-                            Star Citizen
-                        </a>
-                        <a
-                            href="http://www.robertsspaceindustries.com/enlist?referral=STAR-LYNT-9ZGT"
-                            className="ml-4 btn-link-secondary"
-                        >
-                            Referral Link
-                        </a>
+                        <div>
+                            <div>
+                                <p>
+                                    Checkout the{' '}
+                                    <a
+                                        href="http://www.robertsspaceindustries.com"
+                                        className="btn-link font-weight-bold"
+                                    >
+                                        Star Citizen
+                                    </a>{' '}
+                                    game at the official site
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    Create an accout using this{' '}
+                                    <a
+                                        href="http://www.robertsspaceindustries.com/enlist?referral=STAR-LYNT-9ZGT"
+                                        className="btn-link font-weight-bold"
+                                    >
+                                        Referral Link
+                                    </a>
+                                    . Signing up with this link will give both
+                                    you and the app's author in-game rewards
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

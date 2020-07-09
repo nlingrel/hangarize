@@ -91,7 +91,13 @@ class HangarControlBar extends Component {
         ) : (
             <>
                 <div className="bg-secondary text-light">Total</div>
-                <div onClick={this.toggleInput}> ${this.props.calcTotal}</div>
+                <div onClick={this.toggleInput}>
+                    {' '}
+                    $
+                    {this.props.hangarTotal
+                        ? this.props.hangarTotal
+                        : this.props.calcTotal}
+                </div>
             </>
         )
         return (
