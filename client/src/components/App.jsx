@@ -209,7 +209,8 @@ class App extends Component {
 
                     shipsTbl[ship.id] = ship
                     if (!s.buyback) {
-                        total += s.price
+                        let price = s.toPrice > 0 ? s.toPrice : s.price
+                        total += price
                     }
                 }
                 let itemsTbl = {}
@@ -229,9 +230,9 @@ class App extends Component {
                 let hangar = results[4]
                 let buyback = {}
                 let allShips = Object.values(shipsTbl)
-                let PackShips = allShips.filter((s) => s.shipPackId !== 0)
+                let packShips = allShips.filter((s) => s.shipPackId !== 0)
                 let nonPackShips = allShips.filter((s) => s.shipPackId === 0)
-                for (let ps of PackShips) {
+                for (let ps of packShips) {
                     packsTbl[ps.shipPackId].ships.push(ps)
                 }
                 hangar.ships = nonPackShips.filter((s) => !s.buyback)
@@ -407,11 +408,7 @@ class App extends Component {
 
     addNewHangarFromActual(e) {
         e.preventDefault()
-        // name: name,
-        //     calcTotal: 0,
-        //     credit: 0,
-        //     tax: 0,
-        //     total: 0,
+
         const name = e.target[0].value
         if (name.length === 0) {
             return null
@@ -433,17 +430,9 @@ class App extends Component {
                 dbPutHangar(hangar)
                     .then((id) => {
                         newHangarId = id
-                        return copyActual(
-                            actualHangar,
-                            actualBuyback,
-                            newHangarId
-                        )
+                        copyActual(actualHangar, actualBuyback, newHangarId)
                     })
-                    .then(() => {
-                        this.setState({ currentHangarId: newHangarId }, () => {
-                            this.refreshHangar()
-                        })
-                    })
+
                     .catch((err) => {
                         console.log('Error in putHangar then...', err)
                     })
@@ -471,10 +460,15 @@ class App extends Component {
                 allPromises.push(copyCCU(c, hangarId))
             }
 
-            return Promise.all(allPromises)
+            return Promise.all(allPromises).then(() => {
+                this.setState({ currentHangarId: newHangarId }, () => {
+                    this.refreshHangar()
+                })
+            })
         }
 
         const copyPack = (pack, hangarId) => {
+            console.log(`Pack ${pack.name} copied.  Ships = ${pack.ships}`)
             let newPack = this.Factory.newPack(
                 pack.name,
                 pack.price,
@@ -482,7 +476,7 @@ class App extends Component {
                 pack.buyback,
                 pack.trash
             )
-            dbPutPack(newPack).then((pkId) => {
+            return dbPutPack(newPack).then((pkId) => {
                 let ships = pack.ships.map((s) => {
                     s.shipPackId = pkId
                     for (let i of s.items) {
