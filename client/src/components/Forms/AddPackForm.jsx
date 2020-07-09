@@ -76,6 +76,9 @@ class AddPackForm extends Component {
     }
     addNewPackToHangar(e) {
         e.preventDefault()
+        if (this.state.hangarSelected) {
+            console.log('hangar is selected')
+        }
         this.props.addNewPackToHangar(e)
         this.resetShipAddForm()
         document.getElementById(this.formId).reset()

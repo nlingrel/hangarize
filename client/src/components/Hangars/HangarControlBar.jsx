@@ -90,7 +90,7 @@ class HangarControlBar extends Component {
             totalInput
         ) : (
             <>
-                <div className="bg-secondary text-light">Total</div>
+                <div className="bg-dark text-light">Total</div>
                 <div onClick={this.toggleInput}>
                     {' '}
                     $
@@ -120,7 +120,7 @@ class HangarControlBar extends Component {
                                             className={` ${creditFilled} bg-dark text-center text-nowrap m-1`}
                                         >
                                             <>
-                                                <div className="bg-secondary text-light">
+                                                <div className="bg-dark text-light">
                                                     Credit
                                                 </div>
                                                 <div>${credit}</div>

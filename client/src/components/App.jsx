@@ -669,7 +669,12 @@ class App extends Component {
         // for (var i = 0; i < e.target.length; i++) {
         //     console.log(`target number ${i}: ${e.target[i].value}`)
         // }
-
+        if (
+            this.state.currentView === 'hangarize' &&
+            this.state.currentHangarId === 1
+        ) {
+            return null
+        }
         let name = e.target[0].value
         let price = parseInt(e.target[1].value) || 0
         let items = []
@@ -839,6 +844,12 @@ class App extends Component {
     addNewShipToHangar(e) {
         e.preventDefault()
         e.persist()
+        if (
+            this.state.currentView === 'hangarize' &&
+            this.state.currentHangarId === 1
+        ) {
+            return null
+        }
 
         for (var i = 0; i < e.target.length; i++) {
             console.log(`target number ${i}: ${e.target[i].value}`)
@@ -919,6 +930,12 @@ class App extends Component {
     addNewItemToHangar(e) {
         e.preventDefault()
         e.persist()
+        if (
+            this.state.currentView === 'hangarize' &&
+            this.state.currentHangarId === 1
+        ) {
+            return null
+        }
 
         for (var i = 0; i < e.target.length; i++) {
             console.log(`target number ${i}: ${e.target[i].value}`)
@@ -955,6 +972,12 @@ class App extends Component {
     addNewCCUToHangar(e) {
         for (var i = 0; i < e.target.length; i++) {
             console.log(`target number ${i}: ${e.target[i].value}`)
+        }
+        if (
+            this.state.currentView === 'hangarize' &&
+            this.state.currentHangarId === 1
+        ) {
+            return null
         }
         const hangarId = this.state.currentHangarId
         console.log('hangarId in add new ccu', hangarId)
