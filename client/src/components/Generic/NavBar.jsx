@@ -26,7 +26,7 @@ function NavBar(props) {
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <a
-                            className="nav-link"
+                            className="nav-link text-light"
                             href="#"
                             onClick={props.navToActual}
                         >
@@ -36,7 +36,7 @@ function NavBar(props) {
                     </li>
                     <li className="nav-item">
                         <a
-                            className="nav-link"
+                            className="nav-link text-light"
                             href="#"
                             onClick={props.navToHangarize}
                         >
@@ -45,7 +45,7 @@ function NavBar(props) {
                     </li>
                     <li className="nav-item">
                         <a
-                            className="nav-link"
+                            className="nav-link text-light"
                             href="#"
                             onClick={props.navToDocs}
                         >

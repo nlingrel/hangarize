@@ -17,12 +17,14 @@ function Home(props) {
                                         actual hangar -- as it appears on your
                                         Star Citizen Account -- will help you
                                         plan potential changes to your fleet.
-                                        <button
-                                            className="btn btn-link font-weight-bold"
+                                        {'  '}
+                                        <a
+                                            className=" btn-link font-weight-bold text-nowrap"
                                             onClick={props.navToActual}
+                                            href="#"
                                         >
                                             Take me There
-                                        </button>
+                                        </a>
                                     </p>
                                 </h6>
                                 <h6>
@@ -34,13 +36,14 @@ function Home(props) {
                                         hangar without affecting your Actual
                                         hangar. You can save any number of new
                                         hangars with any number of differences
-                                        between them.
-                                        <button
-                                            className="btn btn-link font-weight-bold"
+                                        between them.{'  '}
+                                        <a
+                                            className=" btn-link font-weight-bold text-nowrap"
                                             onClick={props.navToHangarize}
+                                            href="#"
                                         >
                                             Take me There
-                                        </button>
+                                        </a>
                                     </p>
                                     3. Refer to the Docs
                                     <p>
@@ -52,13 +55,14 @@ function Home(props) {
                                         experience for users after
                                         familiarization. Intuitive cues are used
                                         when possible, but may not be effective
-                                        in every instance.
-                                        <button
-                                            className="btn btn-link font-weight-bold"
+                                        in every instance.{'  '}
+                                        <a
+                                            className="btn-link font-weight-bold text-nowrap"
                                             onClick={props.navToDocs}
+                                            href="#"
                                         >
                                             Take me There
-                                        </button>
+                                        </a>
                                     </p>
                                 </h6>
                             </div>
