@@ -69,7 +69,7 @@ class App extends Component {
             },
             refreshDone: true,
             buybackFilter: 'all',
-            hangarizeFilter: 'abc',
+            hangarizeFilter: 'created',
             hangarizeSort: 'up',
             currentView: 'home',
             views: {
@@ -166,7 +166,7 @@ class App extends Component {
         e.preventDefault()
         console.log('setHangarizeFilter', e.target.value)
         e.persist()
-        const filter = e.target.value || 'abc'
+        const filter = e.target.value || 'created'
         this.setState({ hangarizeFilter: filter })
     }
     toggleHangarizeSort() {
@@ -970,14 +970,14 @@ class App extends Component {
     }
 
     addNewCCUToHangar(e) {
-        for (var i = 0; i < e.target.length; i++) {
-            console.log(`target number ${i}: ${e.target[i].value}`)
-        }
         if (
             this.state.currentView === 'hangarize' &&
             this.state.currentHangarId === 1
         ) {
             return null
+        }
+        for (var i = 0; i < e.target.length; i++) {
+            console.log(`target number ${i}: ${e.target[i].value}`)
         }
         const hangarId = this.state.currentHangarId
         console.log('hangarId in add new ccu', hangarId)

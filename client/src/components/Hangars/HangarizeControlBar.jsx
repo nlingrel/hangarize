@@ -136,6 +136,14 @@ function HangarizeControlBar(props) {
                                             {sortButton}
                                         </button>
                                         <button
+                                            className={`${createdClass}`}
+                                            value="created"
+                                            onClick={props.setHangarizeFilter}
+                                            title="Sort Historically"
+                                        >
+                                            {button123}
+                                        </button>
+                                        <button
                                             className={`${abcClass}`}
                                             value="abc"
                                             type="button"
@@ -143,14 +151,6 @@ function HangarizeControlBar(props) {
                                             title="Sort Alphabetically"
                                         >
                                             {abcButton}
-                                        </button>
-                                        <button
-                                            className={`${createdClass}`}
-                                            value="created"
-                                            onClick={props.setHangarizeFilter}
-                                            title="Sort Historically"
-                                        >
-                                            {button123}
                                         </button>
                                     </div>
                                     <button

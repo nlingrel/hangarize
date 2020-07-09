@@ -68,6 +68,7 @@ function ActualHangar(props) {
                 meltCCU={props.meltCCU}
                 buyBackCCU={props.buyBackCCU}
                 upgradeShip={props.upgradeShip}
+                hangarId={props.hangarId}
             />
         </>
     )
