@@ -134,7 +134,7 @@ function Docs(props) {
                         <div className="card-body">
                             <ul className="list-group bg-dark text-light">
                                 <li className="list-group-item bg-dark text-light p-1">
-                                    In the Main hangar sections (not Buyback)
+                                    In the Main hangar categories (not Buyback)
                                     Click on the thing you want to melt
                                 </li>
                                 <li className="list-group-item bg-dark text-light p-1">
@@ -145,6 +145,16 @@ function Docs(props) {
                                     upgraded ships is melted, the upgrade is
                                     removed. (This is how it works on your
                                     official account also)
+                                </li>
+                                <li className="list-group-item bg-dark text-light p-1">
+                                    Melting within the Actual Hangar should be
+                                    done with caution. If you have input a total
+                                    for your Actual Hangar, and then melt
+                                    something, your credit will reflect the
+                                    melt. If you did not intend to melt the item
+                                    you should re-input the correct total. You
+                                    can always empty the input feild to see the
+                                    suggested total in grey text.
                                 </li>
                             </ul>
                         </div>
@@ -222,26 +232,34 @@ function Docs(props) {
                         <div className="card-body">
                             <ul className="list-group bg-dark text-light">
                                 <li className="list-group-item bg-dark text-light p-1">
-                                    1. In the corresponding hangar section,
-                                    click the Red Lock Button to unlock the
-                                    delete function. To delete ships that reside
-                                    within Packs, use the Packs section Lock
-                                    Button, not the Ships section Lock Button.
+                                    In the corresponding hangar section, click
+                                    the Red Lock Button to unlock the delete
+                                    function. To delete ships that reside within
+                                    Packs, use the Packs section Lock Button,
+                                    not the Ships section Lock Button.
                                 </li>
                                 <li className="list-group-item bg-dark text-light p-1">
-                                    2. Click to expand the thing you want to
+                                    Click to expand the thing you want to
                                     delete.
                                 </li>
                                 <li className="list-group-item bg-dark text-light p-1">
-                                    3. Click the trash can button on the thing
-                                    you want to delete.
+                                    Click the trash can button on the thing you
+                                    want to delete.
                                 </li>
                                 <li className="list-group-item bg-dark text-light p-1">
-                                    4. Remember to Click the Red Lock Button
-                                    again when you are done deleting to lock the
+                                    Remember to Click the Red Lock Button again
+                                    when you are done deleting to lock the
                                     delete function again. This prevents
                                     accidental deletion, because deletion is
                                     irreversible.
+                                </li>
+                                <li className="list-group-item bg-dark text-light p-1">
+                                    When working in the Hangarizer (not in your
+                                    Actual Hangar), deleting should ONLY be done
+                                    to fix errors as it will affect your credit
+                                    calculation. If you delete something from a
+                                    Hangarizer hangar you should always adjust
+                                    that hangar's total to reflect the change.
                                 </li>
                             </ul>
                         </div>
