@@ -7,7 +7,7 @@ class AddItemForm extends Component {
         this.state = {
             nameField: '',
             priceField: '',
-            meltableSelected: false,
+            meltableSelected: true,
         }
         this.nameChange = this.nameChange.bind(this)
         this.priceChange = this.priceChange.bind(this)
@@ -122,6 +122,9 @@ class AddItemForm extends Component {
                                             name="Meltable"
                                             onClick={this.meltableChange}
                                             onBlur={this.meltableChange}
+                                            checked={
+                                                !!this.state.meltableSelected
+                                            }
                                         />
                                         <label
                                             className={`form-check-label font-weight-bold ${checkedMelt}`}
