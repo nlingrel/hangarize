@@ -118,7 +118,7 @@ function HangarizeControlBar(props) {
                                             className="btn-success"
                                             type="submit"
                                         >
-                                            +
+                                            OK
                                         </button>
                                     </div>
                                 </div>

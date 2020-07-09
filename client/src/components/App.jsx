@@ -3,6 +3,7 @@ import ActualHangar from './Hangars/ActualHangar'
 import NavBar from './Generic/NavBar'
 import Home from './Home'
 import Hangarize from './Hangarize'
+import Docs from './Docs'
 import Factory from '../logicControl/objectFactory'
 import shipSeed from '../logicControl/shipSeed'
 import manuSeed from '../logicControl/manuSeed'
@@ -71,7 +72,12 @@ class App extends Component {
             hangarizeFilter: 'abc',
             hangarizeSort: 'up',
             currentView: 'home',
-            views: { home: 'home', actual: 'actual', hangarize: 'hangarize' },
+            views: {
+                home: 'home',
+                actual: 'actual',
+                hangarize: 'hangarize',
+                docs: 'docs',
+            },
             currentHangarId: 1,
             allCanDelete: false,
             packsCanDelete: false,
@@ -101,6 +107,7 @@ class App extends Component {
         this.navToActual = this.navToActual.bind(this)
         this.navToHangarize = this.navToHangarize.bind(this)
         this.navToHome = this.navToHome.bind(this)
+        this.navToDocs = this.navToDocs.bind(this)
         this.addNewPackToHangar = this.addNewPackToHangar.bind(this)
         this.addNewShipToHangar = this.addNewShipToHangar.bind(this)
         this.addNewItemToHangar = this.addNewItemToHangar.bind(this)
@@ -1342,6 +1349,10 @@ class App extends Component {
         e.preventDefault()
         this.setState({ currentView: 'home' })
     }
+    navToDocs(e) {
+        e.preventDefault()
+        this.setState({ currentView: 'docs' })
+    }
 
     render() {
         const packs = this.state.currentHangar.packs
@@ -1364,6 +1375,7 @@ class App extends Component {
                         navToHome={this.navToHome}
                         navToActual={this.navToActual}
                         navToHangarize={this.navToHangarize}
+                        navToDocs={this.navToDocs}
                     />{' '}
                 </div>
                 <div>
@@ -1372,6 +1384,8 @@ class App extends Component {
                             navToActual={this.navToActual}
                             navToHangarize={this.navToHangarize}
                         />
+                    ) : this.state.currentView === 'docs' ? (
+                        <Docs />
                     ) : this.state.currentView === 'actual' ? (
                         <ActualHangar
                             packs={packs}

@@ -43,6 +43,15 @@ function NavBar(props) {
                             Hangarizer
                         </a>
                     </li>
+                    <li className="nav-item">
+                        <a
+                            className="nav-link"
+                            href="#"
+                            onClick={props.navToDocs}
+                        >
+                            Docs
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

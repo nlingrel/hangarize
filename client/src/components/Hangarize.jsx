@@ -1,5 +1,4 @@
 import React from 'react'
-import { dbGetAllHangars } from '../logicControl/db'
 import HangarizeControlBar from '../components/Hangars/HangarizeControlBar'
 import HangarControlBar from './Hangars/HangarControlBar'
 import HangarContainer from './Hangars/HangarContainer'

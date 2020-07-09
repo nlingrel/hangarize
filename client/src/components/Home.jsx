@@ -42,6 +42,24 @@ function Home(props) {
                                             Take me There
                                         </button>
                                     </p>
+                                    3. Refer to the Docs
+                                    <p>
+                                        If you are not sure how to do something,
+                                        the answer may be in Documentation. A
+                                        purposeful design choice of this app is
+                                        to minimize extraneous information
+                                        presentation to provide the best
+                                        experience for users after
+                                        familiarization. Intuitive cues are used
+                                        when possible, but may not be effective
+                                        in every instance.
+                                        <button
+                                            className="btn btn-link font-weight-bold"
+                                            onClick={props.navToDocs}
+                                        >
+                                            Take me There
+                                        </button>
+                                    </p>
                                 </h6>
                             </div>
                             <div className="card bg-dark text-center m-2 p-2">
@@ -74,19 +92,19 @@ function Home(props) {
                         <div className="card bg-dark text-center m-2 p-2">
                             <h6>Disclaimer</h6>
                             <p>
-                                This app is a work in progress. Do Not Ever use
-                                the app to store private information like your
-                                Star Citizen account credentials. While the data
-                                stored by the app is client-side only, it is
-                                persistent and NOT encrypted and therefore easy
-                                to access by anyone with access to your device.
-                                It is not necessary to enter monetary amounts
-                                for the app to function. Monetary amounts are
-                                only used for user convenience in calculating
-                                the impact of potential fleet changes, eg.
-                                whether you can buy something with available
-                                credit or whether you would have to choose
-                                something to melt.
+                                This app is not yet perfect, there may be bugs.
+                                Do Not Ever use the app to store private
+                                information like your Star Citizen account
+                                credentials. While the data stored by the app is
+                                client-side only, it is persistent and NOT
+                                encrypted and therefore easy to access by anyone
+                                with access to your device. It is not necessary
+                                to enter monetary amounts for the app to
+                                function. Monetary amounts are used solely for
+                                user convenience in calculating the impact of
+                                potential fleet changes, eg. whether you can buy
+                                something with available credit or whether you
+                                would have to choose something to melt.
                             </p>
                             <p>
                                 This is a fan-built un-official app. It is not
@@ -95,6 +113,9 @@ function Home(props) {
                                 any Game Studio, Publisher, or other enitity to
                                 which affiliation could possibly be construed
                                 other than the author of this app.
+                            </p>
+                            <p>
+                                Internet Explorer is not supported. It's 2020.{' '}
                             </p>
                         </div>
                     </div>
