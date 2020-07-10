@@ -153,7 +153,7 @@ function Docs(props) {
                                     something, your credit will reflect the
                                     melt. If you did not intend to melt the item
                                     you should re-input the correct total. You
-                                    can always empty the input feild to see the
+                                    can always empty the input field to see the
                                     suggested total in grey text.
                                 </li>
                             </ul>
@@ -277,13 +277,36 @@ function Docs(props) {
                     </div>
                     <div className="card bg-dark text-light text-left border-secondary p-0 m-1">
                         <div className="card-header">
-                            Hangarizer Hangar List :
+                            Hangarizer Hangar List
                         </div>
 
                         <div className="card-body">
                             {
                                 'The Hangar list displays a "page" of 5 hangars at a time.  The < and > buttons move betweeen pages one at a time.  The << and >> buttons jump to the first or last page.  The List can be sorted Alphabetically by hangar name (the Az Button) or Historically by the date/time the hangar was created (the # Button).  You can choose ascending or descending sort order with the up/down arrow button at the left of the hangar list menu bar.'
                             }
+                        </div>
+                    </div>
+                    <div className="card bg-dark text-light text-left border-secondary p-0 m-1">
+                        <div className="card-header">
+                            The Nuclear Option / Deleting the Database
+                        </div>
+
+                        <div className="card-body">
+                            If you need a hard reset to clear all of the data
+                            you've entered (including your Actual hangar and all
+                            Hangarizer hangars) You can delete the database
+                            within IndexedDB. To do so, you need to access the
+                            developer controls of your Browser (right-click and
+                            choose "Inspect" for chrome, or hit the F12 key ).
+                            Within the developer controls you need to navigate
+                            to "Application". Within Application you need to
+                            find and expand "IndexedDB". You should see a
+                            hangarize database within InexedDB, select the
+                            database. With the database selected, you should be
+                            able to see a button for deleting the database.
+                            Click delete. The database will be instantiated next
+                            time you load the Hangarize page, but it will be a
+                            fresh new database.
                         </div>
                     </div>
                 </div>
