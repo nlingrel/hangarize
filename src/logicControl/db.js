@@ -34,7 +34,7 @@ db.on('populate', () => {
 // Seed
 const seedManus = () => {
     db.defaultManufacturers.bulkPut(manuSeed).catch((err) => {
-        console.log('error seeding manufacturers')
+        console.log('error seeding manufacturers', err)
     })
 }
 

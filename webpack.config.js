@@ -1,7 +1,10 @@
 const path = require('path')
+const webpack = require('webpack')
 
-const DIST_DIR = path.join(__dirname, 'client/public')
-const SRC_DIR = path.join(__dirname, 'client/src')
+const DIST_DIR = path.join(__dirname, './public')
+const SRC_DIR = path.join(__dirname, './src')
+
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -9,7 +12,7 @@ module.exports = {
     entry: [`${SRC_DIR}/index.jsx`],
     output: {
         filename: 'bundle.js',
-        path: DIST_DIR,
+        path: path.resolve('./build'),
     },
     module: {
         rules: [
@@ -51,4 +54,14 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx'],
     },
+    plugins: [
+        // new webpack.optimize.UglifyJsPlugin(),
+        // New plugin
+        new HtmlWebpackPlugin({
+            // injects bundle.js to our new index.html
+            inject: true,
+            // copys the content of the existing index.html to the new /build index.html
+            template: `${DIST_DIR}/index.html`,
+        }),
+    ],
 }
