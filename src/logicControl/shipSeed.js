@@ -1250,6 +1250,15 @@ const shipSeed = [
         role: 'Space and Ground Racing',
         size: 'Snub',
     },
+    {
+        id: 140,
+        name: 'ROC',
+        manufacturer: 'Greycat Industrial',
+        defaultPrice: 55,
+        userPrice: 55,
+        role: 'Mining',
+        size: 'Small',
+    },
 ]
 
 export default shipSeed
